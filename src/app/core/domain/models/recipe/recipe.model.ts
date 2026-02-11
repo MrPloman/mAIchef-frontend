@@ -15,7 +15,6 @@ export class Recipe {
     public readonly steps: RecipeStep[],
     public readonly createdAt: Date,
     public readonly userId?: string, // opcional
-    public readonly sourcePrompt?: string,
   ) {}
 
   static create(params: {
@@ -29,7 +28,6 @@ export class Recipe {
     ingredients: Ingredient[];
     steps: RecipeStep[];
     userId?: string; // opcional
-    sourcePrompt?: string;
   }): Recipe {
     // validaciones...
     return new Recipe(
@@ -44,7 +42,6 @@ export class Recipe {
       params.steps,
       new Date(),
       params.userId,
-      params.sourcePrompt,
     );
   }
 }
