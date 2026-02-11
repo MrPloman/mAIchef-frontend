@@ -1,4 +1,4 @@
-import { Difficulty } from '../value-objects/difficulty.vo';
+import { Difficulty } from '../../value-objects/difficulty.vo';
 
 export class RequestedRecipe {
   private constructor(

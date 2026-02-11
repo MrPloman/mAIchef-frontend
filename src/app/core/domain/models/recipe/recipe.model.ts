@@ -1,5 +1,5 @@
-import { Difficulty } from '../value-objects/difficulty.vo';
-import { Ingredient } from '../value-objects/ingredient.vo';
+import { Difficulty } from '../../value-objects/difficulty.vo';
+import { Ingredient } from '../../value-objects/ingredient.vo';
 import { RecipeStep } from './recipe-step.model';
 
 export class Recipe {

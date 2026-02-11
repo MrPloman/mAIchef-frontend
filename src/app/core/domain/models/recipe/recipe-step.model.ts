@@ -1,6 +1,6 @@
-import { Duration } from '../value-objects/duration.vo';
-import { StepInstruction } from '../value-objects/step-instruction.vo';
-import { StepOrder } from '../value-objects/step-order.vo';
+import { Duration } from '../../value-objects/duration.vo';
+import { StepInstruction } from '../../value-objects/step-instruction.vo';
+import { StepOrder } from '../../value-objects/step-order.vo';
 
 export class RecipeStep {
   constructor(
