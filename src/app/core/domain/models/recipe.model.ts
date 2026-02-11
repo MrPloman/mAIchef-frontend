@@ -4,7 +4,7 @@ import { RecipeStep } from './recipe-step.model';
 
 export class Recipe {
   private constructor(
-    public readonly id: string,
+    public readonly _id: string,
     public readonly version: number,
     public readonly title: string,
     public readonly description: string,
@@ -19,7 +19,7 @@ export class Recipe {
   ) {}
 
   static create(params: {
-    id: string;
+    _id: string;
     version: number;
     title: string;
     description: string;
@@ -33,7 +33,7 @@ export class Recipe {
   }): Recipe {
     // validaciones...
     return new Recipe(
-      params.id,
+      params._id,
       params.version,
       params.title,
       params.description,

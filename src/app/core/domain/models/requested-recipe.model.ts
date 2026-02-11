@@ -2,7 +2,7 @@ import { Difficulty } from '../value-objects/difficulty.vo';
 
 export class RequestedRecipe {
   private constructor(
-    public readonly id: string,
+    public readonly _id: string,
     public readonly title: string,
     public readonly shortDescription: string,
     public readonly difficulty: Difficulty,
@@ -14,7 +14,7 @@ export class RequestedRecipe {
   ) {}
 
   static create(params: {
-    id: string;
+    _id: string;
     title: string;
     shortDescription: string;
     difficulty: Difficulty;
@@ -28,7 +28,7 @@ export class RequestedRecipe {
       throw new Error('Must have ingredient summary');
 
     return new RequestedRecipe(
-      params.id,
+      params._id,
       params.title,
       params.shortDescription,
       params.difficulty,
