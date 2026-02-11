@@ -4,7 +4,7 @@
 
 mAIchef is an intelligent recipe handbook where users can request, customize, and save recipes. The application leverages AI to provide personalized cooking experiences with comprehensive recipe management features.
 
-### ✨ Main Features
+## ✨ Main Features
 
 - **🔍 Recipe Requester**: Submit queries through an input field to receive 4-5 AI-generated recipe suggestions, each with a brief summary.
 - **✏️ Recipe Modification**: Access any recipe and request the system to modify specific aspects or reimagine certain elements.
@@ -21,15 +21,15 @@ mAIchef is an intelligent recipe handbook where users can request, customize, an
 
 ---
 
-## 📋 Use Cases
+### 📋 Use Cases
 
-### `RequestRecipes`: Recipe Request via Prompt
+#### `RequestRecipes`: Recipe Request via Prompt
 
 **Actor**: `User`
 
 **Description**: Enables recipe discovery through user-generated prompts and filter selectors. Returns 4 suggested recipes displayed in a list format.
 
-#### Inputs
+##### Inputs
 
 - **prompt**: `string` - User-defined text input describing desired recipe characteristics.
 - **options**: `object` (optional)
@@ -39,7 +39,7 @@ mAIchef is an intelligent recipe handbook where users can request, customize, an
   - `restrictions`: `RestrictionsType[]` - Dietary restrictions
   - `duration`: `number` - Maximum preparation time
 
-#### Output
+##### Output
 
 List of 4 recipes (`requestedRecipe`) containing:
 
@@ -52,7 +52,7 @@ List of 4 recipes (`requestedRecipe`) containing:
 - `ingredientsSummary`: `Ingredient[]` - Array of ingredients
 - `createdAt`: `Date` - Recipe creation timestamp in the UI
 
-#### Business Rules
+##### Business Rules
 
 - ❌ Empty prompts cannot be submitted
 - ✅ Prompts can be submitted without selecting any options (options are optional)
@@ -60,38 +60,38 @@ List of 4 recipes (`requestedRecipe`) containing:
 - ✅ Meaningful prompts will return a list of 4 `requestedRecipe` items
 - ⚠️ Listed recipes are **temporary** and not persisted unless explicitly saved by the user (see `SaveUserRecipe`)
 
-#### Error Handling
+##### Error Handling
 
 - ❌ Nonsensical prompts without valid options will return an error message and an empty `requestedRecipe` array
 - ❌ API failures will display an error message to the user
 
 ---
 
-### `SaveUserRecipe`: Save Recipe to Personal Collection
+#### `SaveUserRecipe`: Save Recipe to Personal Collection
 
 **Description**: Select and save one of the requested recipes to your personal recipe list.
 
 ---
 
-### `RemoveUserRecipe`: Remove Recipe from Personal Collection
+#### `RemoveUserRecipe`: Remove Recipe from Personal Collection
 
 **Description**: Delete a saved recipe from your personal recipe list.
 
 ---
 
-### `ListUserRecipes`: Display Personal Recipe Collection
+#### `ListUserRecipes`: Display Personal Recipe Collection
 
 **Description**: View all recipes saved in your personal collection.
 
 ---
 
-### `GetRecipeDetail`: View Recipe Details
+#### `GetRecipeDetail`: View Recipe Details
 
 **Description**: Click on any recipe to view complete details including all preparation steps and instructions.
 
 ---
 
-### `ReplanRecipe`: Modify Saved Recipes
+#### `ReplanRecipe`: Modify Saved Recipes
 
 **Description**: Request changes or modifications to a saved recipe. The system will regenerate the recipe with the requested alterations.
 
