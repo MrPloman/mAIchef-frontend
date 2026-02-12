@@ -67,9 +67,42 @@ List of 4 recipes (`requestedRecipe`) containing:
 
 ---
 
-#### `SaveUserRecipe`: Save Recipe to Personal Collection
+### `SaveUserRecipe`: Save Recipe to Personal Collection
 
-**Description**: Select and save one of the requested recipes to your personal recipe list.
+**Actor**: `Authenticated User`
+
+**Description**: Handles the persistence of requested recipes. When a recipe is selected and saved, it transitions from temporary to permanent status, enabling future modifications and execution.
+
+#### Inputs
+
+- **userId**: `string` - ID of the user saving the recipe
+- **recipeData**: `recipe` - Complete recipe data object
+
+#### Output
+
+The persisted recipe is confirmed by the server with a success acknowledgment message. A backend link is established, and the recipe with all its information is stored in the user's data store.
+
+#### Business Rules
+
+- 🔐 **Authentication Required**: Only authenticated users can execute this use case
+- ✅ The recipe must exist in the system
+- ⚠️ **Duplicate Prevention**: If the user already has an identical recipe, it cannot be added again. A warning message will be displayed
+- 📝 **Upon Saving**, the recipe receives:
+  - `userId` - Assigned to link recipe to user
+  - `version = 1` - Initial version number
+  - `_id` - Generated persistent identifier
+  - `createdAt` - Timestamp fixed at save time
+- 🎯 **Saved Recipes Enable**:
+  - Recipe execution
+  - Recipe modification/replanning
+  - Recipe export
+
+#### Error Handling
+
+- ❌ Duplicate recipe attempts will display a warning message
+- ❌ Non-existent recipes will return an error
+- ❌ Unauthenticated access attempts will be rejected
+- ❌ Server failures will display an error message
 
 ---
 
