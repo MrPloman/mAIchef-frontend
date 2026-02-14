@@ -23,15 +23,15 @@ mAIchef is an intelligent recipe handbook where users can request, customize, an
 
 ### 📋 Use Cases
 
-### 1. `RequestRecipes` - Search for Recipes with a Prompt
+### 1. 🔍 `RequestRecipes` - Search for Recipes with a Prompt
 
 Request recipes using a brief description. The system returns 4 suggested recipes.
 
-**Actor:** `User`
+**👤 Actor:** `User`
 
-**Description:** Resolves recipe retrieval through a user-created prompt and selectors. Returns 4 options displayed in a list.
+**📝 Description:** Resolves recipe retrieval through a user-created prompt and selectors. Returns 4 options displayed in a list.
 
-**Inputs:**
+**📥 Inputs:**
 
 - `prompt` (string): Information defined by the user through an InputText
 - `options` (optional):
@@ -41,7 +41,7 @@ Request recipes using a brief description. The system returns 4 suggested recipe
   - `restrictions` (RestrictionsType[]): Dietary restrictions
   - `duration` (number): Preparation time
 
-**Output:**
+**📤 Output:**
 
 List of 4 recipes (`requestedRecipe`) with the following information:
 
@@ -54,7 +54,7 @@ List of 4 recipes (`requestedRecipe`) with the following information:
 - `ingredientsSummary` (Ingredient[]): Array of ingredients
 - `createdAt` (Date): Recipe creation moment in the UI
 
-**Rules:**
+**✅ Rules:**
 
 - Prompt cannot be empty
 - Prompt can be sent without selecting any options (options are optional)
@@ -62,31 +62,31 @@ List of 4 recipes (`requestedRecipe`) with the following information:
 - A meaningful prompt will return a list of four `requestedRecipe`
 - Listed recipes are temporary and not saved anywhere. They only become permanent if the user saves them (another use case)
 
-**Errors:**
+**❌ Errors:**
 
 - Meaningless prompt without options returns an error message and empty `requestedRecipe` array
 - Failed response shows an error message
 
 ---
 
-### 2. `SaveUserRecipe` - Save Recipe to My List
+### 2. 💾 `SaveUserRecipe` - Save Recipe to My List
 
 Select one of the obtained recipes and save it.
 
-**Actor:** `Authenticated User` and `Recipe`
+**👤 Actor:** `Authenticated User` and `Recipe`
 
-**Description:** Resolves saving of obtained recipes. When selected, it becomes persistent and is no longer temporary, allowing it to be modified or executed later.
+**📝 Description:** Resolves saving of obtained recipes. When selected, it becomes persistent and is no longer temporary, allowing it to be modified or executed later.
 
-**Inputs:**
+**📥 Inputs:**
 
 - `userId` (string): ID of the user saving the recipe
 - `recipeData` (recipe): Complete recipe data
 
-**Output:**
+**📤 Output:**
 
 The persisted recipe - server only returns acknowledgment message. Backend creates the link and the recipe with all information is saved in the user's store.
 
-**Rules:**
+**✅ Rules:**
 
 - Only authenticated users can execute this use case
 - Recipe must exist
@@ -101,29 +101,29 @@ The persisted recipe - server only returns acknowledgment message. Backend creat
   - Replanned
   - Exported
 
-**Errors:**
+**❌ Errors:**
 
 - Meaningless prompt without options returns an error message and empty `requestedRecipe` array
 - Failed response shows an error message
 
 ---
 
-### 3. `RemoveUserRecipe` - Remove Recipe from My List
+### 3. 🗑️ `RemoveUserRecipe` - Remove Recipe from My List
 
-**Actor:** `Authenticated User` and `Recipe`
+**👤 Actor:** `Authenticated User` and `Recipe`
 
-**Description:** Removes a previously saved recipe. When re-selected (once already selected), the link between user and recipe is deleted.
+**📝 Description:** Removes a previously saved recipe. When re-selected (once already selected), the link between user and recipe is deleted.
 
-**Inputs:**
+**📥 Inputs:**
 
 - `userId` (string): ID of the user removing the recipe
 - `recipeId` (string): Recipe ID
 
-**Output:**
+**📤 Output:**
 
 Persisted recipe - server only returns acknowledgment message. Backend unlinks and the recipe with all information is removed from the frontend store.
 
-**Rules:**
+**✅ Rules:**
 
 - Only authenticated users can execute this use case
 - Recipe must exist and be linked to the user
@@ -131,7 +131,7 @@ Persisted recipe - server only returns acknowledgment message. Backend unlinks a
   - Recipe remains saved but its link to the user disappears
   - User no longer sees it in their list
 
-**Errors:**
+**❌ Errors:**
 
 - Recipe not found error
 - Link verification error
@@ -139,21 +139,21 @@ Persisted recipe - server only returns acknowledgment message. Backend unlinks a
 
 ---
 
-### 4. `ListUserRecipes` - List My Saved Recipes
+### 4. 📖 `ListUserRecipes` - List My Saved Recipes
 
-**Actor:** `Authenticated User`
+**👤 Actor:** `Authenticated User`
 
-**Description:** Resolves retrieval of all persisted recipes associated with an authenticated user. Returns complete list of saved recipes, including structural information (title, ingredients, steps, metadata, etc.). This use case does not modify state, only queries the `UserRecipeList` aggregate and returns its recipes.
+**📝 Description:** Resolves retrieval of all persisted recipes associated with an authenticated user. Returns complete list of saved recipes, including structural information (title, ingredients, steps, metadata, etc.). This use case does not modify state, only queries the `UserRecipeList` aggregate and returns its recipes.
 
-**Inputs:**
+**📥 Inputs:**
 
 - `userId` (string): User ID requesting the recipe list
 
-**Output:**
+**📤 Output:**
 
 - `recipes` (Recipe[]): Array of persisted recipes associated with the user. Returns empty array if user has no saved recipes.
 
-**Rules:**
+**✅ Rules:**
 
 - Only authenticated users can execute this use case
 - `userId` must exist in the system
@@ -164,7 +164,7 @@ Persisted recipe - server only returns acknowledgment message. Backend unlinks a
 - No OpenAI queries
 - No execution state alterations
 
-**Errors:**
+**❌ Errors:**
 
 - Recipe not found error
 - Link verification error
@@ -172,13 +172,13 @@ Persisted recipe - server only returns acknowledgment message. Backend unlinks a
 
 ---
 
-### 5. `GetRecipeDetail` - View Recipe Details and Explanation
+### 5. 📄 `GetRecipeDetail` - View Recipe Details and Explanation
 
 Click on recipe to display all steps.
 
-**Actor:** `Authenticated User`
+**👤 Actor:** `Authenticated User`
 
-**Description:** Resolves retrieval of complete detail of a recipe previously saved by the user. Returns all structural information necessary to:
+**📝 Description:** Resolves retrieval of complete detail of a recipe previously saved by the user. Returns all structural information necessary to:
 
 - Display ingredients
 - Display steps
@@ -186,16 +186,16 @@ Click on recipe to display all steps.
 - Show metadata (version, createdAt, etc.)
 - Enable later execution, replanning, or export
 
-**Inputs:**
+**📥 Inputs:**
 
 - `userId` (string): Authenticated user identifier
 - `recipeId` (string): Unique identifier of persisted recipe
 
-**Output:**
+**📤 Output:**
 
 - `recipe` (Recipe): Returns all recipe data
 
-**Rules:**
+**✅ Rules:**
 
 - Only authenticated users can execute this use case
 - `userId` must exist in the system
@@ -206,7 +206,7 @@ Click on recipe to display all steps.
 - No OpenAI queries
 - No execution state alterations
 
-**Errors:**
+**❌ Errors:**
 
 - Recipe not found error
 - Link verification error
@@ -214,15 +214,15 @@ Click on recipe to display all steps.
 
 ---
 
-### 6. `ReplanRecipe` - Request Changes to Saved Recipe and Generate New Modified Version
+### 6. 🔄 `ReplanRecipe` - Request Changes to Saved Recipe and Generate New Modified Version
 
-**Actor:** `Authenticated User`
+**👤 Actor:** `Authenticated User`
 
-**Description:** Resolves modification of a recipe previously saved by the user. From a persisted recipe and new instructions or preferences, the system generates a new recipe version.
+**📝 Description:** Resolves modification of a recipe previously saved by the user. From a persisted recipe and new instructions or preferences, the system generates a new recipe version.
 
 The original recipe is not deleted or overwritten, but a new persisted version is created, incrementing its version number and maintaining reference to the previous recipe.
 
-**Inputs:**
+**📥 Inputs:**
 
 - `userId` (string): ID of authenticated user wanting to modify the recipe
 - `recipeId` (string): ID of recipe to be replanned
@@ -230,7 +230,7 @@ The original recipe is not deleted or overwritten, but a new persisted version i
   - `prompt`
   - `preferences` (servings, mealTypes, cuisineTypes, restrictions, duration)
 
-**Output:**
+**📤 Output:**
 
 Server returns the new versioned recipe already persisted.
 
@@ -241,7 +241,7 @@ Server returns the new versioned recipe already persisted.
   - Updated `createdAt`
   - All structural data of the new recipe
 
-**Rules:**
+**✅ Rules:**
 
 - Only authenticated users can execute this use case
 - Recipe must exist
@@ -257,7 +257,7 @@ Server returns the new versioned recipe already persisted.
   - Export
 - Operation may involve a call to the planning service (AI), but domain doesn't directly depend on its implementation
 
-**Errors:**
+**❌ Errors:**
 
 - User not authenticated → authorization error
 - Recipe doesn't exist → `RecipeNotFound` error
