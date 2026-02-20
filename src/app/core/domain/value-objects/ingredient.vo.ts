@@ -5,9 +5,9 @@ import { Unit } from '../value-objects/unit.vo';
 export class Ingredient {
   constructor(
     public readonly name: IngredientName,
-    public readonly quantity?: Quantity,
-    public readonly unit?: Unit,
-    public readonly note?: string,
+    public readonly quantity: Quantity,
+    public readonly unit: Unit,
+    public readonly notes?: string,
   ) {
     if ((quantity && !unit) || (!quantity && unit)) {
       throw new Error('Quantity and unit must be provided together');

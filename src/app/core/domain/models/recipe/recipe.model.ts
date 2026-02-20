@@ -14,7 +14,7 @@ export class Recipe {
     public readonly ingredients: Ingredient[],
     public readonly steps: RecipeStep[],
     public readonly createdAt: Date,
-    public readonly userId?: string, // opcional
+    public readonly userId?: string,
     public readonly parentRecipeId?: string,
   ) {}
 
