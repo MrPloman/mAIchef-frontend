@@ -1,2 +1,8 @@
 @use "tailwindcss";
+@use "variables";
+
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: variables.$background-main;
+  font-family: variables.$font-title;
+}

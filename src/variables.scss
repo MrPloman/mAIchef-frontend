@@ -1,0 +1,21 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/700.css";
+// Colores principales
+$color-primary: #e63946; // rojo tomate (botones principales)
+$color-secondary: #f4a261; // naranja cálido (destacados)
+$color-accent: #2a9d8f; // verde hierba (categorías / acentos)
+
+// Colores de fondo
+$background-main: #fff8f0; // crema claro (fondo principal)
+$background-light: #fafafa; // blanco suave
+$background-beige: #f5ede3; // beige claro
+$background-green-light: #f1f7f5; // verde muy claro
+$background-card: #ffffff; // tarjetas / recetas
+
+// Texto
+$text-primary: #333333; // texto principal
+
+$font-title: "Playfair Display", serif;
+$font-text: "Inter", sans-serif;
