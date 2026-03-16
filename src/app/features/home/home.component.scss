@@ -1,0 +1,111 @@
+:root {
+  --color-primary: #e63946;
+  --color-secondary: #f4a261;
+  --color-accent: #2a9d8f;
+  --background-main: #fff0e0;
+  --background-light: #fafafa;
+  --background-beige: #f5ede3;
+  --background-card: #ffffff;
+  --text-primary: #333333;
+  --font-title: "Playfair Display", serif;
+  --font-text: "Inter", sans-serif;
+}
+
+body {
+  font-family: var(--font-text);
+  background-color: var(--background-main);
+  color: var(--text-primary);
+}
+
+h1 {
+  font-family: var(--font-title);
+}
+
+.recipe-box {
+  background-color: var(--background-card);
+  border-radius: 2rem;
+  box-shadow: 0 20px 50px -12px rgba(120, 50, 20, 0.08);
+}
+
+.filter-bubble {
+  background-color: var(--background-beige);
+  border: 1px solid transparent;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.825rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.filter-bubble:hover {
+  border-color: var(--color-secondary);
+  background-color: white;
+}
+
+.filter-bubble select,
+.filter-bubble input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+/* Dropdown Estilos */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 180px;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  padding: 0.5rem;
+  border: 1px solid var(--background-beige);
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.option-item:hover {
+  background-color: var(--background-beige);
+}
+
+.btn-search {
+  background-color: var(--color-primary);
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-search:hover {
+  background-color: #d62839;
+  transform: scale(1.02);
+}
+
+textarea {
+  resize: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
