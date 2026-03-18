@@ -1,79 +1,44 @@
-<body class="min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-4xl mx-auto px-6 py-10">
-    <!-- Header -->
-    <header class="text-center mb-10">
-      <h1 class="text-6xl md:text-8xl font-bold text-[#e63946] mb-2">
-        mAIchef
-      </h1>
-      <p class="text-[#333333] opacity-60 italic font-serif">
-        ¿Qué cocinamos hoy?
-      </p>
+<body>
+  <div class="container">
+    <header>
+      <h1>mAIchef</h1>
+      <p>¿Qué cocinamos hoy?</p>
     </header>
 
-    <div class="recipe-box p-6 md:p-8">
-      <!-- Fila Principal: Textarea y Botón -->
-      <div class="flex flex-col md:flex-row gap-4 items-stretch">
-        <!-- Columna Textarea -->
-        <div class="grow">
+    <div class="recipe-box">
+      <div id="firstRow">
+        <div id="prompt">
           <textarea
             id="recipePrompt"
-            class="w-full text-xl md:text-2xl p-2 bg-transparent border-none focus:ring-0 placeholder-slate-300 min-h-[120px]"
             placeholder="Escribe ingredientes o una idea..."
           ></textarea>
         </div>
 
-        <!-- Columna Botón -->
-        <div class="md:w-32 flex items-stretch">
-          <button
-            id="searchBtn"
-            class="btn-search w-full rounded-2xl font-bold flex flex-col items-center justify-center gap-2 shadow-lg shadow-red-900/10 py-4 md:py-0"
-          >
-            <span class="text-lg">Generar</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="3"
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
+        <div class="button-container">
+          <button id="searchBtn" class="btn-search">
+            <span>Generar</span>
+          </button>
+          <button id="resetBtn" class="btn-reset">
+            <span>Reset</span>
           </button>
         </div>
       </div>
 
-      <!-- Fila de Selectores (Bubbles) debajo -->
-      <div class="flex flex-wrap gap-2 mt-6 pt-6 border-t border-[#f5ede3]">
-        <!-- Bubble: Personas -->
+      <div class="divider"></div>
+
+      <div class="filters-row">
         <div class="filter-bubble">
-          <span class="text-slate-400">👥</span>
-          <input
-            type="number"
-            id="servings"
-            placeholder="Personas"
-            class="w-16 text-xs"
-          />
+          <span class="icon">👥</span>
+          <input type="number" id="servings" placeholder="Personas" />
         </div>
 
-        <!-- Bubble: Tiempo -->
         <div class="filter-bubble">
-          <span class="text-slate-400">⏱️</span>
-          <input
-            type="number"
-            id="maxDuration"
-            placeholder="Minutos"
-            class="w-16 text-xs"
-          />
+          <span class="icon">⏱️</span>
+          <input type="number" id="maxDuration" placeholder="Minutos" />
         </div>
 
-        <!-- Bubble: Momento -->
         <div class="filter-bubble">
-          <select id="mealTypes" class="text-xs">
+          <select id="mealTypes">
             <option value="">Cualquier momento</option>
             <option value="breakfast">Desayuno</option>
             <option value="lunch">Almuerzo</option>
@@ -81,9 +46,8 @@
           </select>
         </div>
 
-        <!-- Bubble: Cocina -->
         <div class="filter-bubble">
-          <select id="cuisineTypes" class="text-xs">
+          <select id="cuisineTypes">
             <option value="">Cualquier cocina</option>
             <option value="mediterranean">Mediterránea</option>
             <option value="asian">Asiática</option>
@@ -92,15 +56,14 @@
           </select>
         </div>
 
-        <!-- Bubble: Restricciones -->
-        <div class="filter-bubble" id="multiSelectToggle">
-          <span class="text-slate-400">🥗</span>
-          <span id="restrictionsLabel" class="font-semibold text-xs"
+        <div class="filter-bubble multi-select" id="multiSelectToggle">
+          <span class="icon">🥗</span>
+          <span id="restrictionsLabel" class="restrictions-label"
             >Restricciones</span
           >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-3 w-3 text-slate-400"
+            class="arrow"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -119,46 +82,41 @@
                 type="checkbox"
                 value="Vegano"
                 onchange="updateRestrictions()"
-                class="accent-[#2a9d8f]"
               />
-              <span class="text-xs">Vegano</span>
+              <span>Vegano</span>
             </label>
             <label class="option-item">
               <input
                 type="checkbox"
                 value="Sin Gluten"
                 onchange="updateRestrictions()"
-                class="accent-[#2a9d8f]"
               />
-              <span class="text-xs">Sin Gluten</span>
+              <span>Sin Gluten</span>
             </label>
             <label class="option-item">
               <input
                 type="checkbox"
                 value="Keto"
                 onchange="updateRestrictions()"
-                class="accent-[#2a9d8f]"
               />
-              <span class="text-xs">Keto</span>
+              <span>Keto</span>
             </label>
             <label class="option-item">
               <input
                 type="checkbox"
                 value="Sin Lactosa"
                 onchange="updateRestrictions()"
-                class="accent-[#2a9d8f]"
               />
-              <span class="text-xs">Sin Lactosa</span>
+              <span>Sin Lactosa</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Estado de carga -->
-    <div id="loading" class="hidden text-center mt-10">
-      <div class="inline-block animate-bounce text-2xl">🍅</div>
-      <p class="text-sm text-slate-500 font-medium">mAIchef está pensando...</p>
+    <div id="loading" class="loading-container hidden">
+      <span class="emoji">🍅</span>
+      <p>mAIchef está pensando...</p>
     </div>
   </div>
 </body>
