@@ -63,7 +63,7 @@
 
     #prompt {
       border-radius: 10px;
-      background-color: rgba(variables.$background-light, 0.25);
+      background-color: rgba(variables.$background-light, 0.15);
       padding: 10px;
       flex-grow: 1;
 
@@ -76,15 +76,6 @@
         outline: none;
         min-height: 120px;
         resize: none;
-        // color: variables.$text-primary;
-
-        // &::placeholder {
-        //   color: rgba(255, 255, 255, 0.4);
-        // }
-
-        // @media (min-width: 768px) {
-        //   font-size: 1.5rem;
-        // }
       }
     }
 
