@@ -1,0 +1,104 @@
+<div class="recipe-box">
+  <div id="firstRow">
+    <div id="prompt">
+      <textarea
+        id="recipePrompt"
+        placeholder="Escribe ingredientes o una idea..."
+      ></textarea>
+    </div>
+
+    <div class="button-container">
+      <button id="searchBtn" class="btn-search">
+        <span>Generar</span>
+      </button>
+      <button id="resetBtn" class="btn-reset">
+        <span>Reset</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="filters-row">
+    <div class="filter-bubble">
+      <span class="icon">👥</span>
+      <input type="number" id="servings" placeholder="Personas" />
+    </div>
+
+    <div class="filter-bubble">
+      <span class="icon">⏱️</span>
+      <input type="number" id="maxDuration" placeholder="Minutos" />
+    </div>
+
+    <div class="filter-bubble">
+      <select id="mealTypes">
+        <option value="">Cualquier momento</option>
+        <option value="breakfast">Desayuno</option>
+        <option value="lunch">Almuerzo</option>
+        <option value="dinner">Cena</option>
+      </select>
+    </div>
+
+    <div class="filter-bubble">
+      <select id="cuisineTypes">
+        <option value="">Cualquier cocina</option>
+        <option value="mediterranean">Mediterránea</option>
+        <option value="asian">Asiática</option>
+        <option value="mexican">Mexicana</option>
+        <option value="italian">Italiana</option>
+      </select>
+    </div>
+
+    <div class="filter-bubble multi-select" id="multiSelectToggle">
+      <span class="icon">🥗</span>
+      <span id="restrictionsLabel" class="restrictions-label"
+        >Restricciones</span
+      >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="arrow"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+
+      <div class="dropdown-content" id="restrictionsDropdown">
+        <label class="option-item">
+          <input
+            type="checkbox"
+            value="Vegano"
+            onchange="updateRestrictions()"
+          />
+          <span>Vegano</span>
+        </label>
+        <label class="option-item">
+          <input
+            type="checkbox"
+            value="Sin Gluten"
+            onchange="updateRestrictions()"
+          />
+          <span>Sin Gluten</span>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" value="Keto" onchange="updateRestrictions()" />
+          <span>Keto</span>
+        </label>
+        <label class="option-item">
+          <input
+            type="checkbox"
+            value="Sin Lactosa"
+            onchange="updateRestrictions()"
+          />
+          <span>Sin Lactosa</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
