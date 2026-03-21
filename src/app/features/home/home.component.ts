@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { LoaderComponent } from '../../shared/ui/loader/loader.component/loader.component';
 import { RecipeGeneratorComponent } from '../../shared/ui/recipe-generator/recipe-generator.component';
 
@@ -8,4 +8,6 @@ import { RecipeGeneratorComponent } from '../../shared/ui/recipe-generator/recip
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  public loading: WritableSignal<boolean> = signal(false);
+}
