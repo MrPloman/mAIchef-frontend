@@ -70,7 +70,7 @@
     // Vapor
     .steam {
       fill: none;
-      stroke: variables.$background-light;
+      stroke: variables.$color-secondary;
       stroke-width: 3;
       stroke-linecap: round;
       opacity: 0.6;
@@ -167,13 +167,9 @@
 /* Define the animation keyframes */
 @keyframes slideBottomUp {
   from {
-    /* Start 100% of its own height down from its final position and transparent */
-    transform: translateY(100%);
     opacity: 0;
   }
   to {
-    /* End at its original position and fully visible */
-    transform: translateY(0);
     opacity: 1;
   }
 }
@@ -181,13 +177,9 @@
 /* Define the animation keyframes */
 @keyframes slideMiddleUp {
   from {
-    /* Start 100% of its own height down from its final position and transparent */
-    transform: translateY(0);
     opacity: 1;
   }
   to {
-    /* End at its original position and fully visible */
-    transform: translateY(-100%);
     opacity: 0;
   }
 }

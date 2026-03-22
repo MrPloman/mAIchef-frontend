@@ -14,6 +14,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderComponent {
+  constructor() {}
+
   public messages: string[] = [
     'We are working on it...',
     'This is gonna be delicious...',
@@ -26,25 +28,38 @@ export class LoaderComponent {
   );
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    setInterval(() => {
-      this.nextMessage();
-    }, 4000);
+    this.initCycle();
   }
-  public nextMessage() {
-    const message = document.getElementById('textStatus');
-    message?.classList.add('slide-middle-up-element');
-    setTimeout(() => {
-      if (this.currentMessagePosition < this.messages.length - 1) {
-        this.currentMessagePosition++;
-        this.currentMessage.set(this.messages[this.currentMessagePosition]);
-      } else {
-        this.currentMessagePosition = 0;
-        this.currentMessage.set(this.messages[this.currentMessagePosition]);
-      }
-    }, 500);
 
-    console.log(this.currentMessage);
+  public initCycle() {
+    this.handleAnimationText('start');
+    setTimeout(() => {
+      this.handleAnimationText('end');
+      setTimeout(() => {
+        this.nextMessage();
+        this.initCycle();
+      }, 500);
+    }, 3500);
+  }
+
+  public nextMessage() {
+    if (this.currentMessagePosition < this.messages.length - 1) {
+      this.currentMessagePosition++;
+      this.currentMessage.set(this.messages[this.currentMessagePosition]);
+    } else {
+      this.currentMessagePosition = 0;
+      this.currentMessage.set(this.messages[this.currentMessagePosition]);
+    }
+  }
+  public handleAnimationText(mode: 'start' | 'end') {
+    const message = document.getElementById('textStatus');
+    if (mode === 'start') {
+      message?.classList.remove('slide-middle-up-element');
+      message?.classList.add('slide-bottom-up-element');
+    }
+    if (mode === 'end') {
+      message?.classList.remove('slide-bottom-up-element');
+      message?.classList.add('slide-middle-up-element');
+    }
   }
 }

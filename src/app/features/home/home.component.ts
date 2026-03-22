@@ -9,5 +9,6 @@ import { RecipeGeneratorComponent } from '../../shared/ui/recipe-generator/recip
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  constructor() {}
   public loading: WritableSignal<boolean> = signal(false);
 }
