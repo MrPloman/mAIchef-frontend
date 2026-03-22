@@ -1,39 +1,41 @@
-<svg viewBox="0 0 160 160" class="loader">
-  <!-- Vapor -->
-  <path class="steam" d="M70 40 C65 20, 75 20, 70 5" />
-  <path class="steam" d="M80 40 C75 20, 85 20, 80 5" />
-  <path class="steam" d="M90 40 C85 20, 95 20, 90 5" />
+<div id="container">
+  <svg viewBox="0 0 160 160" class="loader">
+    <!-- Vapor -->
+    <path class="steam" d="M70 40 C65 20, 75 20, 70 5" />
+    <path class="steam" d="M80 40 C75 20, 85 20, 80 5" />
+    <path class="steam" d="M90 40 C85 20, 95 20, 90 5" />
 
-  <!-- Olla -->
-  <rect x="30" y="70" width="100" height="50" rx="20" class="pot" />
-  <rect x="25" y="65" width="110" height="10" rx="5" class="pot-top" />
+    <!-- Olla -->
+    <rect x="30" y="70" width="100" height="50" rx="20" class="pot" />
+    <rect x="25" y="65" width="110" height="10" rx="5" class="pot-top" />
 
-  <!-- Asas -->
-  <circle cx="25" cy="95" r="8" class="handle" />
-  <circle cx="135" cy="95" r="8" class="handle" />
+    <!-- Asas -->
+    <circle cx="25" cy="95" r="8" class="handle" />
+    <circle cx="135" cy="95" r="8" class="handle" />
 
-  <!-- Agua -->
-  <clipPath id="clipPot">
-    <rect x="30" y="70" width="100" height="50" rx="20" />
-  </clipPath>
+    <!-- Agua -->
+    <clipPath id="clipPot">
+      <rect x="30" y="70" width="100" height="50" rx="20" />
+    </clipPath>
 
-  <g clip-path="url(#clipPot)" class="water">
-    <rect x="30" y="90" width="100" height="30" class="water-fill" />
+    <g clip-path="url(#clipPot)" class="water">
+      <rect x="30" y="90" width="100" height="30" class="water-fill" />
 
-    <!-- Burbujas -->
-    <circle class="bubble" cx="60" cy="105" r="3" />
-    <circle class="bubble" cx="80" cy="110" r="3" />
-    <circle class="bubble" cx="100" cy="105" r="3" />
-  </g>
-  <g class="fire" transform="translate(0, -20)">
-    <ellipse class="flame-base" cx="80" cy="150" rx="35" ry="8" />
+      <!-- Burbujas -->
+      <circle class="bubble" cx="60" cy="105" r="3" />
+      <circle class="bubble" cx="80" cy="110" r="3" />
+      <circle class="bubble" cx="100" cy="105" r="3" />
+    </g>
+    <g class="fire" transform="translate(0, -20)">
+      <ellipse class="flame-base" cx="80" cy="150" rx="35" ry="8" />
 
-    <path class="flame flame1" d="M55 150 Q60 140, 65 150 Z" />
-    <path class="flame flame2" d="M70 150 Q75 138, 80 150 Z" />
-    <path class="flame flame3" d="M85 150 Q90 140, 95 150 Z" />
-    <path class="flame flame4" d="M100 150 Q105 142, 110 150 Z" />
-  </g>
-</svg>
-<div id="textStatus">
-  <h4>We are working on it...</h4>
+      <path class="flame flame1" d="M55 150 Q60 140, 65 150 Z" />
+      <path class="flame flame2" d="M70 150 Q75 138, 80 150 Z" />
+      <path class="flame flame3" d="M85 150 Q90 140, 95 150 Z" />
+      <path class="flame flame4" d="M100 150 Q105 142, 110 150 Z" />
+    </g>
+  </svg>
+  <div id="textStatus" class="slide-bottom-up-element">
+    <h4>{{ currentMessage() }}</h4>
+  </div>
 </div>

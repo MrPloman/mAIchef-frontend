@@ -2,102 +2,111 @@
 @use "sass:color";
 
 :host {
-  display: block;
+  #container {
+    width: 100%;
+    height: 100%;
 
-  #textStatus {
-    margin: 0 auto;
+    #textStatus {
+      margin: 0 auto;
 
-    h4 {
-      font-size: 40px;
+      h4 {
+        font-size: 40px;
+        opacity: 0.6;
+        font-style: italic;
+        font-family: variables.$font-title;
+        text-align: center;
+      }
     }
-  }
 
-  .loader {
-    width: 250px;
-    margin: 0 auto;
-  }
+    .loader {
+      margin: 0 auto;
 
-  // Olla
-  .pot {
-    fill: variables.$background-card;
-  }
-
-  .pot-top {
-    fill: color.adjust(variables.$background-card, $lightness: 15%);
-  }
-
-  // Asas
-  .handle {
-    stroke: color.adjust(variables.$background-card, $lightness: 15%);
-    stroke-width: 4;
-    fill: none;
-  }
-
-  // Agua
-  .water-fill {
-    fill: variables.$color-secondary;
-  }
-
-  .water {
-    animation: waterMove 2s infinite ease-in-out alternate;
-  }
-
-  // Burbujas
-  .bubble {
-    fill: variables.$background-light;
-    opacity: 0.8;
-    animation: bubbleUp 2s infinite;
-
-    &:nth-child(1) {
-      animation-delay: 0s;
+      width: 250px;
+      margin: 0 auto;
     }
-    &:nth-child(2) {
+
+    // Olla
+    .pot {
+      fill: variables.$background-card;
+    }
+
+    .pot-top {
+      fill: color.adjust(variables.$background-card, $lightness: 15%);
+    }
+
+    // Asas
+    .handle {
+      stroke: color.adjust(variables.$background-card, $lightness: 15%);
+      stroke-width: 4;
+      fill: none;
+    }
+
+    // Agua
+    .water-fill {
+      fill: variables.$color-secondary;
+    }
+
+    .water {
+      animation: waterMove 2s infinite ease-in-out alternate;
+    }
+
+    // Burbujas
+    .bubble {
+      fill: variables.$background-light;
+      opacity: 0.8;
+      animation: bubbleUp 2s infinite;
+
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+      &:nth-child(2) {
+        animation-delay: 0.6s;
+      }
+      &:nth-child(3) {
+        animation-delay: 1.2s;
+      }
+    }
+
+    // Vapor
+    .steam {
+      fill: none;
+      stroke: variables.$background-light;
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: 0.6;
+      stroke-dasharray: 20;
+      stroke-dashoffset: 20;
+      animation: steamMove 2s infinite ease-in-out;
+    }
+
+    // Base del fuego (fogón)
+    .flame-base {
+      fill: rgba(255, 122, 0, 0.25);
+      filter: blur(3px);
+      margin-top: -20px;
+    }
+
+    // Llamas pequeñas
+    .flame {
+      fill: #ff7a00;
+      opacity: 0.8;
+      transform-origin: bottom center;
+      animation: flameSoft 1.5s infinite ease-in-out;
+    }
+
+    // Variaciones
+    .flame2 {
+      animation-delay: 0.2s;
+      fill: #ff944d;
+    }
+    .flame3 {
+      animation-delay: 0.4s;
+      fill: #ffb347;
+    }
+    .flame4 {
       animation-delay: 0.6s;
+      fill: #ff944d;
     }
-    &:nth-child(3) {
-      animation-delay: 1.2s;
-    }
-  }
-
-  // Vapor
-  .steam {
-    fill: none;
-    stroke: variables.$background-light;
-    stroke-width: 3;
-    stroke-linecap: round;
-    opacity: 0.6;
-    stroke-dasharray: 20;
-    stroke-dashoffset: 20;
-    animation: steamMove 2s infinite ease-in-out;
-  }
-
-  // Base del fuego (fogón)
-  .flame-base {
-    fill: rgba(255, 122, 0, 0.25);
-    filter: blur(3px);
-    margin-top: -20px;
-  }
-
-  // Llamas pequeñas
-  .flame {
-    fill: #ff7a00;
-    opacity: 0.8;
-    transform-origin: bottom center;
-    animation: flameSoft 1.5s infinite ease-in-out;
-  }
-
-  // Variaciones
-  .flame2 {
-    animation-delay: 0.2s;
-    fill: #ff944d;
-  }
-  .flame3 {
-    animation-delay: 0.4s;
-    fill: #ffb347;
-  }
-  .flame4 {
-    animation-delay: 0.6s;
-    fill: #ff944d;
   }
 }
 
@@ -145,5 +154,40 @@
   }
   100% {
     transform: translateY(2px);
+  }
+}
+.slide-bottom-up-element {
+  /* Apply the animation */
+  animation: slideBottomUp 0.5s ease-out forwards; /* 0.5s duration, ease-out timing, stays at the 'to' state */
+}
+.slide-middle-up-element {
+  animation: slideMiddleUp 0.5s ease-out forwards;
+}
+
+/* Define the animation keyframes */
+@keyframes slideBottomUp {
+  from {
+    /* Start 100% of its own height down from its final position and transparent */
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    /* End at its original position and fully visible */
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Define the animation keyframes */
+@keyframes slideMiddleUp {
+  from {
+    /* Start 100% of its own height down from its final position and transparent */
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    /* End at its original position and fully visible */
+    transform: translateY(-100%);
+    opacity: 0;
   }
 }

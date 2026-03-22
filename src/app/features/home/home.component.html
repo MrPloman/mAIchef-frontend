@@ -1,13 +1,13 @@
 <body>
-  <div class="container">
-    <header>
-      <h1>mAIchef</h1>
-      <p>¿Qué cocinamos hoy?</p>
-    </header>
-    @if (!loading()) {
+  @if (!loading()) {
+    <div class="container">
+      <header>
+        <h1>mAIchef</h1>
+        <p>¿Qué cocinamos hoy?</p>
+      </header>
       <app-recipe-generator [(loading)]="loading"></app-recipe-generator>
-    } @else {
-      <app-loader></app-loader>
-    }
-  </div>
+    </div>
+  } @else {
+    <app-loader></app-loader>
+  }
 </body>
