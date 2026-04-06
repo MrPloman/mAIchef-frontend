@@ -1,4 +1,4 @@
-import { Component, model, ModelSignal } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-recipe-generator',
@@ -7,8 +7,6 @@ import { Component, model, ModelSignal } from '@angular/core';
   styleUrl: './recipe-generator.component.scss',
 })
 export class RecipeGeneratorComponent {
-  public loading: ModelSignal<boolean> = model.required<boolean>();
-  public setUpdate() {
-    this.loading.update((s) => (s = !s));
-  }
+  // public loading: ModelSignal<boolean> = model.required<boolean>();
+  public getReceipe() {}
 }
