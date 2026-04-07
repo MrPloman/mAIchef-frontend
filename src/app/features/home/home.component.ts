@@ -14,8 +14,4 @@ export class HomeComponent {
   public loading$ = this.loadingFacade.isLoading$;
 
   constructor(private loadingFacade: LoaderFacade) {}
-
-  public getNewReceipe() {
-    this.loadingFacade.show();
-  }
 }

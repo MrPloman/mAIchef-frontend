@@ -1,5 +1,7 @@
 <body>
   @if (loading$ | async) {
+    <app-loader></app-loader>
+  } @else {
     <div class="container">
       <header>
         <h1>mAIchef</h1>
@@ -7,7 +9,5 @@
       </header>
       <app-recipe-generator></app-recipe-generator>
     </div>
-  } @else {
-    <app-loader></app-loader>
   }
 </body>
