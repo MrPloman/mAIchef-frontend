@@ -12,6 +12,18 @@ import { LoaderFacade } from '../../store/facades/loader.facade';
 })
 export class HomeComponent {
   public loading$ = this.loadingFacade.isLoading$;
+  public showLoader$ = this.loadingFacade.showLoader$;
 
-  constructor(private loadingFacade: LoaderFacade) {}
+  constructor(private loadingFacade: LoaderFacade) {
+    const loader = document.getElementById('loader');
+    this.showLoader$.subscribe((show) => {
+      if (loader) {
+        if (show) {
+          loader.classList.add('slide-middle-up-element');
+        } else {
+          loader.classList.remove('slide-middle-up-element');
+        }
+      }
+    });
+  }
 }

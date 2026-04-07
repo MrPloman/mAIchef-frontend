@@ -10,3 +10,7 @@ export const selectIsLoading = createSelector(
   selectLoaderState,
   (state) => state.isLoading,
 );
+export const selectShowLoader = createSelector(
+  selectLoaderState,
+  (state) => state.showLoader,
+);

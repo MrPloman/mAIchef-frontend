@@ -3,11 +3,16 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { hideLoader, showLoader } from '../actions/loader.actions';
 import { AppState } from '../app.state';
-import { selectIsLoading } from '../selectors/loader.selector';
+import {
+  selectIsLoading,
+  selectShowLoader,
+} from '../selectors/loader.selector';
 
 @Injectable({ providedIn: 'root' })
 export class LoaderFacade {
   readonly isLoading$: Observable<boolean> = this.store.select(selectIsLoading);
+  readonly showLoader$: Observable<boolean> =
+    this.store.select(selectShowLoader);
 
   constructor(private readonly store: Store<AppState>) {}
 

@@ -4,6 +4,7 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
+import { LoaderFacade } from '../../../../store/facades/loader.facade';
 
 @Component({
   selector: 'app-loader',
@@ -14,7 +15,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderComponent {
-  constructor() {}
+  constructor(private loaderFacade: LoaderFacade) {}
 
   public messages: string[] = [
     'We are working on it...',
