@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { hideLoader, showLoader } from '../actions/loader.actions';
+import { hideLoader, setLoader, showLoader } from '../actions/loader.actions';
 import { AppState } from '../app.state';
 import {
   selectIsLoading,
@@ -15,6 +15,10 @@ export class LoaderFacade {
     this.store.select(selectShowLoader);
 
   constructor(private readonly store: Store<AppState>) {}
+
+  set(): void {
+    this.store.dispatch(setLoader());
+  }
 
   show(): void {
     this.store.dispatch(showLoader());
