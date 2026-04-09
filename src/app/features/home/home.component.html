@@ -1,6 +1,9 @@
 <body>
   @if (loading$ | async) {
-    <app-loader id="loader"></app-loader>
+    <app-loader
+      id="loader"
+      [ngClass]="{ 'slide-middle-up-element': dissapearNow }"
+    ></app-loader>
   } @else {
     <div class="container">
       <header>

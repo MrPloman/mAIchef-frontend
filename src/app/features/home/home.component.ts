@@ -1,29 +1,31 @@
-import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { LoaderComponent } from '../../shared/ui/loader/loader.component/loader.component';
 import { RecipeGeneratorComponent } from '../../shared/ui/recipe-generator/recipe-generator.component';
 import { LoaderFacade } from '../../store/facades/loader.facade';
 
 @Component({
   selector: 'app-home',
-  imports: [LoaderComponent, RecipeGeneratorComponent, AsyncPipe],
+  imports: [LoaderComponent, RecipeGeneratorComponent, AsyncPipe, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   public loading$ = this.loadingFacade.isLoading$;
   public showLoader$ = this.loadingFacade.showLoader$;
+  public dissapearNow: boolean = false;
 
-  constructor(private loadingFacade: LoaderFacade) {
-    const loader = document.getElementById('loader');
+  constructor(
+    private loadingFacade: LoaderFacade,
+    private cdr: ChangeDetectorRef,
+  ) {
     this.showLoader$.subscribe((show) => {
-      if (loader) {
-        if (show) {
-          loader.classList.add('slide-middle-up-element');
-        } else {
-          loader.classList.remove('slide-middle-up-element');
-        }
+      if (show) {
+        this.dissapearNow = false;
+      } else {
+        this.dissapearNow = true;
       }
+      this.cdr.markForCheck(); // Use this instead
     });
   }
 }
