@@ -16,7 +16,7 @@ export class RecipeGeneratorComponent {
       this.loaderFacade.hide();
       setTimeout(() => {
         this.loaderFacade.set();
-      }, 1000);
+      }, 750);
     }, 5000);
   }
 }
