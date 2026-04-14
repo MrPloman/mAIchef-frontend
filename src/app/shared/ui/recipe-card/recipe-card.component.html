@@ -2,10 +2,14 @@
   <!-- Difficulty ribbon -->
   <div
     class="difficulty-ribbon"
-    [ngClass]="'difficulty-ribbon--' + recipe.difficulty"
-    aria-label="Difficulty: {{ recipe.difficulty }}"
+    [ngClass]="
+      'difficulty-ribbon--' + recipe.difficulty.getValue().toLowerCase()
+    "
+    aria-label="Difficulty: {{ recipe.difficulty.getValue() }}"
   >
-    <span class="difficulty-ribbon__label">{{ recipe.difficulty }}</span>
+    <span class="difficulty-ribbon__label">{{
+      recipe.difficulty.getValue()
+    }}</span>
   </div>
 
   <!-- Card header -->

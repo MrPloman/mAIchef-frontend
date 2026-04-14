@@ -1,7 +1,7 @@
 @use "../../../../variables" as variables;
 @use "sass:color";
 .recipe-box {
-  background-color: rgba(variables.$background-card, 0.1);
+  background-color: rgba(variables.$background-modal, 0.1);
   border-radius: 2rem;
   padding: 1.5rem;
   box-shadow: 0 20px 50px -12px rgba(73, 22, 22, 0.25);
@@ -49,7 +49,7 @@
 
       .btn-search,
       .btn-reset {
-        background-color: rgba(variables.$background-card, 0.6);
+        background-color: rgba(variables.$background-modal, 0.6);
 
         justify-self: center;
         align-self: center;
@@ -69,12 +69,12 @@
 
         &:hover {
           background-color: color.adjust(
-            rgba(variables.$background-card, 1),
+            rgba(variables.$background-modal, 1),
             $lightness: -5%
           );
           color: variables.$text-on-dark;
           transform: scale(1.02);
-          box-shadow: 0 10px 20px rgba(variables.$background-card, 0.3);
+          box-shadow: 0 10px 20px rgba(variables.$background-modal, 0.3);
         }
 
         span {
@@ -87,7 +87,7 @@
         }
       }
       .btn-reset {
-        background-color: rgba(variables.$background-card, 0.1);
+        background-color: rgba(variables.$background-modal, 0.1);
       }
     }
   }
@@ -111,14 +111,14 @@
       padding: 0.4rem 0.8rem;
       border-radius: 9999px;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      background-color: rgba(variables.$background-card, 0.2);
+      background-color: rgba(variables.$background-modal, 0.2);
       font-size: 0.825rem;
       color: variables.$text-on-dark;
       cursor: pointer;
       transition: all 0.2s ease;
 
       &:hover {
-        background-color: rgba(variables.$background-card, 0.5);
+        background-color: rgba(variables.$background-modal, 0.5);
       }
 
       .icon {
@@ -136,7 +136,7 @@
         cursor: pointer;
 
         option {
-          background-color: variables.$background-card;
+          background-color: variables.$background-modal;
           color: variables.$text-on-dark;
         }
       }

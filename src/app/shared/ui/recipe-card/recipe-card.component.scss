@@ -1,34 +1,22 @@
 @use "sass:list";
+@use ".././../../../variables" as variables;
+
 // ── Design Tokens ──────────────────────────────────────────────────────────
-$cream: #faf6ef;
-$parchment: #f0e9db;
-$terracotta: #c5603a;
-$sage: #5a7a5e;
-$amber: #d4a843;
-$ink: #1e1810;
-$warm-gray: #7a6f64;
-$border: rgba(#1e1810, 0.12);
-
-$font-display: "Playfair Display", Georgia, serif;
-$font-body: "Source Serif 4", "Georgia", serif;
-$font-mono: "DM Mono", "Courier New", monospace;
-
 // Difficulty palette
 $difficulty-colors: (
   easy: (
-    $sage,
+    variables.$sage,
     #e8f2e8,
   ),
   medium: (
-    $amber,
+    variables.$amber,
     #fdf3d8,
   ),
   hard: (
-    $terracotta,
+    variables.$terracotta,
     #fce8e0,
   ),
 );
-
 // ── Card Shell ─────────────────────────────────────────────────────────────
 .recipe-card {
   position: relative;
@@ -36,21 +24,21 @@ $difficulty-colors: (
   flex-direction: column;
 
   width: 360px;
-  background: $cream;
-  border: 1px solid $border;
+  background: variables.$cream;
+  border: 1px solid variables.$border;
   border-radius: 4px;
   padding: 2rem 1.75rem 1.5rem;
   box-shadow:
-    0 1px 2px rgba($ink, 0.05),
-    0 4px 16px rgba($ink, 0.07),
-    0 0 0 4px $parchment,
-    0 0 0 5px $border;
+    0 1px 2px rgba(variables.$ink, 0.05),
+    0 4px 16px rgba(variables.$ink, 0.07),
+    0 0 0 4px variables.$parchment,
+    0 0 0 5px variables.$border;
   overflow: hidden;
   transition:
     box-shadow 0.3s ease,
     transform 0.3s ease;
-  font-family: $font-body;
-  color: $ink;
+  font-family: variables.$font-title;
+  color: variables.$ink;
 
   &::before {
     content: "";
@@ -70,31 +58,34 @@ $difficulty-colors: (
   &:hover {
     transform: translateY(-3px);
     box-shadow:
-      0 2px 4px rgba($ink, 0.06),
-      0 12px 32px rgba($ink, 0.12),
-      0 0 0 4px $parchment,
-      0 0 0 5px $border;
+      0 2px 4px rgba(variables.$ink, 0.06),
+      0 12px 32px rgba(variables.$ink, 0.12),
+      0 0 0 4px variables.$parchment,
+      0 0 0 5px variables.$border;
   }
 }
 
 // ── Difficulty Ribbon ───────────────────────────────────────────────────────
 .difficulty-ribbon {
-  position: absolute;
   top: 0;
-  right: 0;
   display: flex;
   align-items: center;
   padding: 0.3rem 0.9rem;
   border-radius: 0 3px 0 12px;
-  font-family: $font-mono;
+  font-family: variables.$font-text;
   font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+  margin: 10px 0;
 
   @each $key, $colors in $difficulty-colors {
     &--#{$key} {
-      color: list.nth($colors, 2);
+      width: 90px;
+      color: black;
       background: list.nth($colors, 2);
       border-left: 1px solid rgba(list.nth($colors, 1), 0.25);
       border-bottom: 1px solid rgba(list.nth($colors, 1), 0.25);
@@ -109,20 +100,20 @@ $difficulty-colors: (
 }
 
 .recipe-card__eyebrow {
-  font-family: $font-mono;
+  font-family: variables.$font-text;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: $warm-gray;
+  color: variables.$warm-gray;
   margin: 0 0 0.3rem;
 }
 
 .recipe-card__title {
-  font-family: $font-display;
+  font-family: variables.$font-title;
   font-size: 1.55rem;
   font-weight: 700;
   line-height: 1.15;
-  color: $ink;
+  color: variables.$ink;
   margin: 0 0 0.6rem;
   letter-spacing: -0.01em;
 }
@@ -130,7 +121,7 @@ $difficulty-colors: (
 .recipe-card__description {
   font-size: 0.875rem;
   line-height: 1.6;
-  color: $warm-gray;
+  color: variables.$warm-gray;
   margin: 0;
 }
 
@@ -146,13 +137,13 @@ $difficulty-colors: (
     content: "";
     flex: 1;
     height: 1px;
-    background: $border;
+    background: variables.$border;
   }
 }
 
 .recipe-card__divider-icon {
   font-size: 0.55rem;
-  color: $terracotta;
+  color: variables.$terracotta;
   opacity: 0.7;
 }
 
@@ -178,44 +169,44 @@ $difficulty-colors: (
   }
 
   &__value {
-    font-family: $font-display;
+    font-family: variables.$font-title;
     font-size: 1.05rem;
     font-weight: 700;
-    color: $ink;
+    color: variables.$ink;
     line-height: 1;
   }
 
   &__label {
-    font-family: $font-mono;
+    font-family: variables.$font-text;
     font-size: 0.6rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: $warm-gray;
+    color: variables.$warm-gray;
   }
 }
 
 .stat-separator {
   width: 1px;
   height: 2.5rem;
-  background: $border;
+  background: variables.$border;
   flex-shrink: 0;
 }
 
 // ── Ingredients ───────────────────────────────────────────────────────────────
 .recipe-card__ingredients {
   margin-bottom: 1.25rem;
-  background: $parchment;
-  border: 1px solid $border;
+  background: variables.$parchment;
+  border: 1px solid variables.$border;
   border-radius: 3px;
   padding: 1rem 1.1rem;
 }
 
 .recipe-card__ingredients-title {
-  font-family: $font-mono;
+  font-family: variables.$font-title;
   font-size: 0.6rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: $warm-gray;
+  color: variables.$warm-gray;
   margin: 0 0 0.65rem;
 }
 
@@ -237,17 +228,17 @@ $difficulty-colors: (
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: $terracotta;
+    background: variables.$terracotta;
     flex-shrink: 0;
   }
 
   &__text {
     font-size: 0.82rem;
-    color: $ink;
+    color: variables.$ink;
     line-height: 1.4;
 
     strong {
-      color: $terracotta;
+      color: variables.$terracotta;
       font-weight: 600;
       margin-right: 0.15rem;
     }
@@ -255,9 +246,9 @@ $difficulty-colors: (
 }
 
 .ingredients-more {
-  font-family: $font-mono;
+  font-family: variables.$font-text;
   font-size: 0.68rem;
-  color: $warm-gray;
+  color: variables.$warm-gray;
   margin: 0.55rem 0 0;
   letter-spacing: 0.03em;
 }
@@ -268,13 +259,13 @@ $difficulty-colors: (
   align-items: center;
   justify-content: space-between;
   padding-top: 1rem;
-  border-top: 1px solid $border;
+  border-top: 1px solid variables.$border;
 }
 
 .recipe-card__date {
-  font-family: $font-mono;
+  font-family: variables.$font-text;
   font-size: 0.65rem;
-  color: $warm-gray;
+  color: variables.$warm-gray;
   letter-spacing: 0.05em;
 }
 
@@ -282,14 +273,14 @@ $difficulty-colors: (
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: $font-mono;
+  font-family: variables.$font-text;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: $terracotta;
+  color: variables.$terracotta;
   background: none;
-  border: 1px solid rgba($terracotta, 0.35);
+  border: 1px solid rgba(variables.$terracotta, 0.35);
   border-radius: 2px;
   padding: 0.45rem 0.85rem;
   cursor: pointer;
@@ -299,13 +290,13 @@ $difficulty-colors: (
     border-color 0.2s ease;
 
   &:hover {
-    background: $terracotta;
-    color: $cream;
-    border-color: $terracotta;
+    background: variables.$terracotta;
+    color: variables.$cream;
+    border-color: variables.$terracotta;
   }
 
   &:focus-visible {
-    outline: 2px solid $terracotta;
+    outline: 2px solid variables.$terracotta;
     outline-offset: 2px;
   }
 }

@@ -27,16 +27,16 @@
 
     // Olla
     .pot {
-      fill: variables.$background-card;
+      fill: variables.$background-modal;
     }
 
     .pot-top {
-      fill: color.adjust(variables.$background-card, $lightness: 15%);
+      fill: color.adjust(variables.$background-modal, $lightness: 15%);
     }
 
     // Asas
     .handle {
-      stroke: color.adjust(variables.$background-card, $lightness: 15%);
+      stroke: color.adjust(variables.$background-modal, $lightness: 15%);
       stroke-width: 4;
       fill: none;
     }
