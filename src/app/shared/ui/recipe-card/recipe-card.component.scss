@@ -1,3 +1,4 @@
+@use "sass:list";
 // ── Design Tokens ──────────────────────────────────────────────────────────
 $cream: #faf6ef;
 $parchment: #f0e9db;
@@ -93,10 +94,10 @@ $difficulty-colors: (
 
   @each $key, $colors in $difficulty-colors {
     &--#{$key} {
-      color: nth($colors, 1);
-      background: nth($colors, 2);
-      border-left: 1px solid rgba(nth($colors, 1), 0.25);
-      border-bottom: 1px solid rgba(nth($colors, 1), 0.25);
+      color: list.nth($colors, 2);
+      background: list.nth($colors, 2);
+      border-left: 1px solid rgba(list.nth($colors, 1), 0.25);
+      border-bottom: 1px solid rgba(list.nth($colors, 1), 0.25);
     }
   }
 }

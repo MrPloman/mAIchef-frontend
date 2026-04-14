@@ -74,7 +74,7 @@
   <!-- Footer -->
   <footer class="recipe-card__footer">
     <time [dateTime]="recipe.createdAt.toISOString()" class="recipe-card__date">
-      {{ recipe.createdAt | date: "MMM d, y" }}
+      {{ recipe.createdAt | date: "dd MMM yyyy" }}
     </time>
 
     <button class="recipe-card__cta" type="button">
