@@ -1,5 +1,5 @@
 export class Difficulty {
-  private constructor(private readonly value: string) {}
+  constructor(private readonly value: string) {}
 
   static EASY = new Difficulty('EASY');
   static MEDIUM = new Difficulty('MEDIUM');

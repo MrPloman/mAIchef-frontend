@@ -1,0 +1,318 @@
+// ── Design Tokens ──────────────────────────────────────────────────────────
+$cream: #faf6ef;
+$parchment: #f0e9db;
+$terracotta: #c5603a;
+$sage: #5a7a5e;
+$amber: #d4a843;
+$ink: #1e1810;
+$warm-gray: #7a6f64;
+$border: rgba(#1e1810, 0.12);
+
+$font-display: "Playfair Display", Georgia, serif;
+$font-body: "Source Serif 4", "Georgia", serif;
+$font-mono: "DM Mono", "Courier New", monospace;
+
+// Difficulty palette
+$difficulty-colors: (
+  easy: (
+    $sage,
+    #e8f2e8,
+  ),
+  medium: (
+    $amber,
+    #fdf3d8,
+  ),
+  hard: (
+    $terracotta,
+    #fce8e0,
+  ),
+);
+
+// ── Card Shell ─────────────────────────────────────────────────────────────
+.recipe-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  width: 360px;
+  background: $cream;
+  border: 1px solid $border;
+  border-radius: 4px;
+  padding: 2rem 1.75rem 1.5rem;
+  box-shadow:
+    0 1px 2px rgba($ink, 0.05),
+    0 4px 16px rgba($ink, 0.07),
+    0 0 0 4px $parchment,
+    0 0 0 5px $border;
+  overflow: hidden;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+  font-family: $font-body;
+  color: $ink;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 2px 4px rgba($ink, 0.06),
+      0 12px 32px rgba($ink, 0.12),
+      0 0 0 4px $parchment,
+      0 0 0 5px $border;
+  }
+}
+
+// ── Difficulty Ribbon ───────────────────────────────────────────────────────
+.difficulty-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 0.9rem;
+  border-radius: 0 3px 0 12px;
+  font-family: $font-mono;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  @each $key, $colors in $difficulty-colors {
+    &--#{$key} {
+      color: nth($colors, 1);
+      background: nth($colors, 2);
+      border-left: 1px solid rgba(nth($colors, 1), 0.25);
+      border-bottom: 1px solid rgba(nth($colors, 1), 0.25);
+    }
+  }
+}
+
+// ── Header ──────────────────────────────────────────────────────────────────
+.recipe-card__header {
+  margin-bottom: 1rem;
+  padding-right: 4rem;
+}
+
+.recipe-card__eyebrow {
+  font-family: $font-mono;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $warm-gray;
+  margin: 0 0 0.3rem;
+}
+
+.recipe-card__title {
+  font-family: $font-display;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: $ink;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.recipe-card__description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: $warm-gray;
+  margin: 0;
+}
+
+// ── Decorative Divider ───────────────────────────────────────────────────────
+.recipe-card__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: $border;
+  }
+}
+
+.recipe-card__divider-icon {
+  font-size: 0.55rem;
+  color: $terracotta;
+  opacity: 0.7;
+}
+
+// ── Stats ────────────────────────────────────────────────────────────────────
+.recipe-card__stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 0.15rem;
+
+  &__icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    margin-bottom: 0.1rem;
+  }
+
+  &__value {
+    font-family: $font-display;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: $ink;
+    line-height: 1;
+  }
+
+  &__label {
+    font-family: $font-mono;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $warm-gray;
+  }
+}
+
+.stat-separator {
+  width: 1px;
+  height: 2.5rem;
+  background: $border;
+  flex-shrink: 0;
+}
+
+// ── Ingredients ───────────────────────────────────────────────────────────────
+.recipe-card__ingredients {
+  margin-bottom: 1.25rem;
+  background: $parchment;
+  border: 1px solid $border;
+  border-radius: 3px;
+  padding: 1rem 1.1rem;
+}
+
+.recipe-card__ingredients-title {
+  font-family: $font-mono;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $warm-gray;
+  margin: 0 0 0.65rem;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  &__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: $terracotta;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: 0.82rem;
+    color: $ink;
+    line-height: 1.4;
+
+    strong {
+      color: $terracotta;
+      font-weight: 600;
+      margin-right: 0.15rem;
+    }
+  }
+}
+
+.ingredients-more {
+  font-family: $font-mono;
+  font-size: 0.68rem;
+  color: $warm-gray;
+  margin: 0.55rem 0 0;
+  letter-spacing: 0.03em;
+}
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+.recipe-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid $border;
+}
+
+.recipe-card__date {
+  font-family: $font-mono;
+  font-size: 0.65rem;
+  color: $warm-gray;
+  letter-spacing: 0.05em;
+}
+
+.recipe-card__cta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: $font-mono;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $terracotta;
+  background: none;
+  border: 1px solid rgba($terracotta, 0.35);
+  border-radius: 2px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    background: $terracotta;
+    color: $cream;
+    border-color: $terracotta;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $terracotta;
+    outline-offset: 2px;
+  }
+}
+
+.recipe-card__cta-arrow {
+  transition: transform 0.2s ease;
+
+  .recipe-card__cta:hover & {
+    transform: translateX(3px);
+  }
+}

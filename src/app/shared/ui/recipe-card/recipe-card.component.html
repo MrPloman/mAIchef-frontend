@@ -1,0 +1,85 @@
+<article class="recipe-card group">
+  <!-- Difficulty ribbon -->
+  <div
+    class="difficulty-ribbon"
+    [ngClass]="'difficulty-ribbon--' + recipe.difficulty"
+    aria-label="Difficulty: {{ recipe.difficulty }}"
+  >
+    <span class="difficulty-ribbon__label">{{ recipe.difficulty }}</span>
+  </div>
+
+  <!-- Card header -->
+  <header class="recipe-card__header">
+    <div class="recipe-card__title-wrap">
+      <p class="recipe-card__eyebrow">Recipe</p>
+      <h2 class="recipe-card__title">{{ recipe.title }}</h2>
+    </div>
+    <p class="recipe-card__description">{{ recipe.description }}</p>
+  </header>
+
+  <!-- Divider -->
+  <div class="recipe-card__divider" aria-hidden="true">
+    <span class="recipe-card__divider-icon">✦</span>
+  </div>
+
+  <!-- Stats row -->
+  <div class="recipe-card__stats">
+    <div class="stat">
+      <span class="stat__icon" aria-hidden="true">⏱</span>
+      <span class="stat__value">{{ formattedTime }}</span>
+      <span class="stat__label">Time</span>
+    </div>
+
+    <div class="stat-separator" aria-hidden="true"></div>
+
+    <div class="stat">
+      <span class="stat__icon" aria-hidden="true">🍽</span>
+      <span class="stat__value">{{ recipe.servings }}</span>
+      <span class="stat__label">Servings</span>
+    </div>
+
+    <div class="stat-separator" aria-hidden="true"></div>
+
+    <div class="stat">
+      <span class="stat__icon" aria-hidden="true">🥄</span>
+      <span class="stat__value">{{ recipe.ingredients.length }}</span>
+      <span class="stat__label">Ingredients</span>
+    </div>
+  </div>
+
+  <!-- Ingredients summary -->
+  <section class="recipe-card__ingredients" aria-label="Ingredients preview">
+    <h3 class="recipe-card__ingredients-title">Ingredients</h3>
+
+    <ul class="ingredients-list" role="list">
+      <li
+        *ngFor="let ingredient of visibleIngredients"
+        class="ingredients-list__item"
+      >
+        <span class="ingredients-list__dot" aria-hidden="true"></span>
+        <span class="ingredients-list__text">
+          <strong>{{ ingredient.quantity }} {{ ingredient.unit }}</strong>
+          {{ ingredient.name }}
+        </span>
+      </li>
+    </ul>
+
+    <p *ngIf="remainingIngredients > 0" class="ingredients-more">
+      +{{ remainingIngredients }} more ingredient{{
+        remainingIngredients > 1 ? "s" : ""
+      }}
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="recipe-card__footer">
+    <time [dateTime]="recipe.createdAt.toISOString()" class="recipe-card__date">
+      {{ recipe.createdAt | date: "MMM d, y" }}
+    </time>
+
+    <button class="recipe-card__cta" type="button">
+      View Recipe
+      <span class="recipe-card__cta-arrow" aria-hidden="true">→</span>
+    </button>
+  </footer>
+</article>

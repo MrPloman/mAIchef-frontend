@@ -1,1 +1,3 @@
-<p>results works!</p>
+@for (recipe of recipes; track recipe) {
+  <app-recipe-card [recipe]="recipe"></app-recipe-card>
+}
