@@ -9,3 +9,11 @@
   font-family: variables.$font-text;
   color: variables.$text-primary;
 }
+#results-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  app-recipe-card {
+    margin: 1rem;
+  }
+}

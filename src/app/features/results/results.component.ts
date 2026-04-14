@@ -61,5 +61,22 @@ export class ResultsComponent {
       ],
       createdAt: new Date('2024-05-10'),
     },
+    {
+      _id: '4',
+      title: 'Spaghetti Carbonara',
+      description:
+        'A silky Roman classic made with eggs, pecorino, guanciale, and black pepper — no cream needed.',
+      difficulty: new Difficulty('medium'),
+      estimatedTimeInMinutes: 25,
+      servings: 2,
+      ingredients: [
+        { name: 'Spaghetti', quantity: 200, unit: 'g' },
+        { name: 'Guanciale', quantity: 100, unit: 'g' },
+        { name: 'Egg yolks', quantity: 4, unit: '' },
+        { name: 'Pecorino Romano', quantity: 60, unit: 'g' },
+        { name: 'Black pepper', quantity: 1, unit: 'tsp' },
+      ],
+      createdAt: new Date('2024-03-15'),
+    },
   ];
 }

@@ -1,3 +1,5 @@
-@for (recipe of recipes; track recipe) {
-  <app-recipe-card [recipe]="recipe"></app-recipe-card>
-}
+<div id="results-grid">
+  @for (recipe of recipes; track recipe) {
+    <app-recipe-card [recipe]="recipe"></app-recipe-card>
+  }
+</div>
