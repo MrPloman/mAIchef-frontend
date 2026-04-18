@@ -8,7 +8,7 @@ export const selectRecipesState =
 
 export const selectRequestedRecipes = createSelector(
   selectRecipesState,
-  (recipesState) => recipesState.requestedRecipes,
+  (recipesState) => recipesState.recipes,
 );
 export const selectSelectedRecipe = createSelector(
   selectRecipesState,
