@@ -7,5 +7,6 @@ export const recipesReducer = createReducer<RecipesState>(
   on(getRecipesRequested, (state) => ({
     ...state,
     isLoading: true,
+    error: null,
   })),
 );
