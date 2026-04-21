@@ -21,14 +21,6 @@ export class HomeComponent {
     private cdr: ChangeDetectorRef,
     private router: Router,
   ) {
-    this.showLoader$.subscribe((show) => {
-      if (show) {
-        this.dissapearNow = false;
-      } else {
-        this.dissapearNow = true;
-        this.router.navigate(['/results']);
-      }
-      this.cdr.markForCheck();
-    });
+    this.cdr.markForCheck();
   }
 }
