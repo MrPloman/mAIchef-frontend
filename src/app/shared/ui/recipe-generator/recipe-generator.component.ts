@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { LoaderFacade } from '../../../store/facades/loader.facade';
 @Component({
@@ -16,10 +17,6 @@ import { LoaderFacade } from '../../../store/facades/loader.facade';
   styleUrl: './recipe-generator.component.scss',
 })
 export class RecipeGeneratorComponent {
-  // constructor() {}
-  // public getReceipe() {
-
-  // }
   recipeForm!: FormGroup;
 
   // Lista de opciones para las restricciones
@@ -37,8 +34,8 @@ export class RecipeGeneratorComponent {
 
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
-      recipePrompt: [''],
-      servings: [null],
+      recipePrompt: ['', Validators.required],
+      servings: [null, [Validators.min(1), Validators.required]],
       maxDuration: [null],
       mealType: [''],
       cuisineType: [''],
@@ -63,7 +60,8 @@ export class RecipeGeneratorComponent {
   }
 
   onGenerate() {
-    console.log('Datos del formulario:', this.recipeForm.value);
+    if (this.recipeForm.invalid) return;
+    const requestData = this.parseForm(this.recipeForm);
     // Aquí llamarías a tu servicio getReceipe()
     this.loaderFacade.set();
     this.loaderFacade.show();
@@ -73,6 +71,20 @@ export class RecipeGeneratorComponent {
         this.loaderFacade.set();
       }, 750);
     }, 5000);
+  }
+
+  parseForm(recipeForm: FormGroup) {
+    const formValue = recipeForm.value;
+    return {
+      prompt: formValue.recipePrompt,
+      preferences: {
+        servings: formValue.servings,
+        maxDuration: formValue.maxDuration,
+        mealType: formValue.mealType,
+        cuisineType: formValue.cuisineType,
+        restrictions: formValue.restrictions,
+      },
+    };
   }
 
   onReset() {
