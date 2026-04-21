@@ -60,7 +60,11 @@
       </select>
     </div>
 
-    <div class="filter-bubble multi-select" id="multiSelectToggle">
+    <div
+      class="filter-bubble multi-select"
+      id="multiSelectToggle"
+      (click)="toggleDropdown()"
+    >
       <span class="icon">🥗</span>
       <span id="restrictionsLabel" class="restrictions-label"
         >Restricciones</span
@@ -71,6 +75,7 @@
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
+        [style.transform]="isDropdownOpen ? 'rotate(180deg)' : 'none'"
       >
         <path
           stroke-linecap="round"
@@ -80,15 +85,21 @@
         />
       </svg>
 
-      <div class="dropdown-content" id="restrictionsDropdown">
-        <label *ngFor="let res of restrictionsList" class="option-item">
-          <input
-            type="checkbox"
-            [value]="res.value"
-            (change)="onCheckboxChange($event)"
-          />
-          <span>{{ res.name }}</span>
-        </label>
+      <div
+        class="dropdown-content"
+        id="restrictionsDropdown"
+        [class.show]="isDropdownOpen"
+      >
+        @for (restriction of restrictionOptions; track restriction.value) {
+          <label class="option-item">
+            <input
+              type="checkbox"
+              [value]="restriction.value"
+              (change)="onCheckboxChange($event, restriction.value)"
+            />
+            {{ restriction.name }}
+          </label>
+        }
       </div>
     </div>
   </div>

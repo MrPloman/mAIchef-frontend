@@ -169,6 +169,7 @@
         top: calc(100% + 8px);
         left: 0;
         min-width: 180px;
+
         padding: 0.5rem;
         border-radius: 1rem;
         border: 1px solid variables.$background-beige;
@@ -176,7 +177,9 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         color: variables.$text-primary;
         z-index: 50;
-
+        &.show {
+          display: block;
+        }
         .option-item {
           display: flex;
           align-items: center;

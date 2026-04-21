@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RestrictionTypeEnum } from '../../../core/domain/enums/restriction-type.enum';
 import { LoaderFacade } from '../../../store/facades/loader.facade';
 @Component({
   selector: 'app-recipe-generator',
@@ -20,12 +20,13 @@ export class RecipeGeneratorComponent {
   recipeForm!: FormGroup;
 
   // Lista de opciones para las restricciones
-  restrictionsList = [
-    { name: 'Vegano', value: 'vegano' },
-    { name: 'Sin Gluten', value: 'sin-gluten' },
-    { name: 'Keto', value: 'keto' },
-    { name: 'Sin Lactosa', value: 'sin-lactosa' },
-  ];
+  private restrictions = RestrictionTypeEnum;
+  public restrictionOptions = Object.keys(this.restrictions).map((key) => ({
+    name: key, // "Active"
+    value: this.restrictions[key as keyof typeof this.restrictions], // "ACT"
+  }));
+  selectedRestrictions: any;
+  public isDropdownOpen = false; // Flag to track state
 
   constructor(
     private fb: FormBuilder,
@@ -48,15 +49,17 @@ export class RecipeGeneratorComponent {
     return this.recipeForm.get('restrictions') as FormArray;
   }
 
-  onCheckboxChange(e: any) {
-    if (e.target.checked) {
-      this.restrictionsArray.push(new FormControl(e.target.value));
+  onCheckboxChange(event: any, value: string) {
+    if (event.target.checked) {
+      this.selectedRestrictions.push(value);
     } else {
-      const index = this.restrictionsArray.controls.findIndex(
-        (x) => x.value === e.target.value,
+      this.selectedRestrictions = this.selectedRestrictions.filter(
+        (r: any) => r !== value,
       );
-      this.restrictionsArray.removeAt(index);
     }
+
+    // Update your form control
+    this.recipeForm.get('restrictions')?.setValue(this.selectedRestrictions);
   }
 
   onGenerate() {
@@ -93,5 +96,16 @@ export class RecipeGeneratorComponent {
       cuisineType: '',
     });
     this.restrictionsArray.clear();
+  }
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  // Optional: Close dropdown when clicking outside
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    if (!(event.target as HTMLElement).closest('.filter-bubble')) {
+      this.isDropdownOpen = false;
+    }
   }
 }
