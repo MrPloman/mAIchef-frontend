@@ -21,11 +21,11 @@ export class RecipeGeneratorComponent {
 
   // Lista de opciones para las restricciones
   private restrictions = RestrictionTypeEnum;
-  public restrictionOptions = Object.keys(this.restrictions).map((key) => ({
+  private restrictionOptions = Object.keys(this.restrictions).map((key) => ({
     name: key, // "Active"
     value: this.restrictions[key as keyof typeof this.restrictions], // "ACT"
   }));
-  selectedRestrictions: string[] = [];
+  public selectedRestrictions: string[] = [];
   public isDropdownOpen = false; // Flag to track state
 
   constructor(
@@ -44,6 +44,9 @@ export class RecipeGeneratorComponent {
     });
   }
 
+  get restrictionsList() {
+    return this.restrictionOptions;
+  }
   // Getter para facilitar el acceso al FormArray en el HTML
   get restrictionsArray() {
     return this.recipeForm.get('restrictions') as FormArray;
@@ -62,11 +65,13 @@ export class RecipeGeneratorComponent {
     this.recipeForm.controls['restrictions'].setValue(
       this.selectedRestrictions,
     );
+    console.log(this.recipeForm.controls);
   }
 
   onGenerate() {
     if (this.recipeForm.invalid) return;
     const requestData = this.parseForm(this.recipeForm);
+    console.log(requestData);
     // Aquí llamarías a tu servicio getReceipe()
     this.loaderFacade.set();
     this.loaderFacade.show();
@@ -87,7 +92,7 @@ export class RecipeGeneratorComponent {
         maxDuration: formValue.maxDuration,
         mealType: formValue.mealType,
         cuisineType: formValue.cuisineType,
-        restrictions: formValue.restrictions,
+        restrictions: formValue.restrictions.value || [],
       },
     };
   }
@@ -96,8 +101,14 @@ export class RecipeGeneratorComponent {
     this.recipeForm.reset({
       mealType: '',
       cuisineType: '',
+      restrictions: [],
     });
-    this.restrictionsArray.clear();
+    this.selectedRestrictions = [];
+
+    console.log(this.recipeForm.controls, this.selectedRestrictions);
+    // this.selectedRestrictions = [];
+    // this.recipeForm.controls['restrictions'].setValue([]);
+    // this.restrictionsArray.clear();
   }
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;

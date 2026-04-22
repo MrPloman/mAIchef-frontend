@@ -90,11 +90,12 @@
         id="restrictionsDropdown"
         [class.show]="isDropdownOpen"
       >
-        @for (restriction of restrictionOptions; track restriction.value) {
+        @for (restriction of restrictionsList; track restriction.value) {
           <label class="option-item">
             <input
               type="checkbox"
               [value]="restriction.value"
+              [checked]="selectedRestrictions.includes(restriction.value)"
               (change)="onCheckboxChange($event, restriction.value)"
             />
             {{ restriction.name }}
