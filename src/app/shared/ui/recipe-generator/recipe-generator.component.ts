@@ -25,7 +25,7 @@ export class RecipeGeneratorComponent {
     name: key, // "Active"
     value: this.restrictions[key as keyof typeof this.restrictions], // "ACT"
   }));
-  selectedRestrictions: any;
+  selectedRestrictions: string[] = [];
   public isDropdownOpen = false; // Flag to track state
 
   constructor(
@@ -40,7 +40,7 @@ export class RecipeGeneratorComponent {
       maxDuration: [null],
       mealType: [''],
       cuisineType: [''],
-      restrictions: this.fb.array([]), // FormArray para los checkboxes
+      restrictions: [this.fb.array([])], // FormArray para los checkboxes
     });
   }
 
@@ -54,12 +54,14 @@ export class RecipeGeneratorComponent {
       this.selectedRestrictions.push(value);
     } else {
       this.selectedRestrictions = this.selectedRestrictions.filter(
-        (r: any) => r !== value,
+        (r: string) => r !== value,
       );
     }
 
     // Update your form control
-    this.recipeForm.get('restrictions')?.setValue(this.selectedRestrictions);
+    this.recipeForm.controls['restrictions'].setValue(
+      this.selectedRestrictions,
+    );
   }
 
   onGenerate() {
