@@ -173,9 +173,9 @@
         padding: 0.5rem;
         border-radius: 1rem;
         border: 1px solid variables.$background-beige;
-        background: variables.$background-light;
+        background-color: rgba(variables.$background-modal, 0.5);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        color: variables.$text-primary;
+        color: variables.$text-on-dark;
         z-index: 50;
         &.show {
           display: block;
@@ -190,7 +190,7 @@
           transition: background 0.2s;
 
           &:hover {
-            background-color: variables.$background-beige;
+            background-color: rgba(variables.$background-modal, 0.8);
           }
 
           input[type="checkbox"] {
