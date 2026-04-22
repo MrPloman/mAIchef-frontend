@@ -16,6 +16,17 @@ export class LoaderFacade {
 
   constructor(private readonly store: Store<AppState>) {}
 
+  public initLoadingAnimations() {
+    this.show();
+    this.set();
+  }
+  public finishLoadingAnimations() {
+    this.hide();
+    setTimeout(() => {
+      this.set();
+    }, 750);
+  }
+
   set(): void {
     this.store.dispatch(setLoader());
   }

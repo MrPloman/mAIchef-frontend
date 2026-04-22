@@ -4,7 +4,10 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../store/app.state';
 import { LoaderFacade } from '../../../../store/facades/loader.facade';
+import { selectLoaderState } from '../../../../store/selectors/loader.selector';
 
 @Component({
   selector: 'app-loader',
@@ -15,7 +18,18 @@ import { LoaderFacade } from '../../../../store/facades/loader.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderComponent {
-  constructor(private loaderFacade: LoaderFacade) {}
+  constructor(
+    private loaderFacade: LoaderFacade,
+    private store: Store<AppState>,
+  ) {
+    this.store.select(selectLoaderState).subscribe((state) => {
+      if (!state.showLoader) {
+        const loader = document.getElementById('loader');
+        loader?.classList.remove('slide-bottom-up-element');
+        loader?.classList.add('slide-middle-up-element');
+      }
+    });
+  }
 
   public messages: string[] = [
     'We are working on it...',

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import {
-  FormArray,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -36,8 +35,14 @@ export class RecipeGeneratorComponent {
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
       recipePrompt: ['', Validators.required],
-      servings: [null, [Validators.min(1), Validators.required]],
-      maxDuration: [null],
+      servings: [
+        null,
+        [Validators.min(1), Validators.max(12), Validators.required],
+      ],
+      maxDuration: [
+        null,
+        [Validators.min(1), Validators.max(640), Validators.required],
+      ],
       mealType: [''],
       cuisineType: [''],
       restrictions: [this.fb.array([])], // FormArray para los checkboxes
@@ -47,12 +52,8 @@ export class RecipeGeneratorComponent {
   get restrictionsList() {
     return this.restrictionOptions;
   }
-  // Getter para facilitar el acceso al FormArray en el HTML
-  get restrictionsArray() {
-    return this.recipeForm.get('restrictions') as FormArray;
-  }
 
-  onCheckboxChange(event: any, value: string) {
+  public onCheckboxChange(event: any, value: string) {
     if (event.target.checked) {
       this.selectedRestrictions.push(value);
     } else {
@@ -68,22 +69,18 @@ export class RecipeGeneratorComponent {
     console.log(this.recipeForm.controls);
   }
 
-  onGenerate() {
+  public onGenerate() {
     if (this.recipeForm.invalid) return;
     const requestData = this.parseForm(this.recipeForm);
     console.log(requestData);
     // Aquí llamarías a tu servicio getReceipe()
-    this.loaderFacade.set();
-    this.loaderFacade.show();
+    this.loaderFacade.initLoadingAnimations();
     setTimeout(() => {
-      this.loaderFacade.hide();
-      setTimeout(() => {
-        this.loaderFacade.set();
-      }, 750);
+      this.loaderFacade.finishLoadingAnimations();
     }, 5000);
   }
 
-  parseForm(recipeForm: FormGroup) {
+  private parseForm(recipeForm: FormGroup) {
     const formValue = recipeForm.value;
     return {
       prompt: formValue.recipePrompt,
@@ -106,9 +103,6 @@ export class RecipeGeneratorComponent {
     this.selectedRestrictions = [];
 
     console.log(this.recipeForm.controls, this.selectedRestrictions);
-    // this.selectedRestrictions = [];
-    // this.recipeForm.controls['restrictions'].setValue([]);
-    // this.restrictionsArray.clear();
   }
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
