@@ -30,7 +30,7 @@ export class ChordsEffects {
       ),
       map((response) => {
         // Process the response and dispatch a success action with the data
-        return getRecipesRequestedSuccess({ recipes: response.recipes });
+        return getRecipesRequestedSuccess({ recipes: response });
       }),
       catchError((error) => {
         // Handle errors and dispatch a failure action with the error message

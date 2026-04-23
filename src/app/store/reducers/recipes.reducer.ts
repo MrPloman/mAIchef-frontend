@@ -4,9 +4,8 @@ import { initialRecipesState, RecipesState } from '../state/recipes.state';
 
 export const recipesReducer = createReducer<RecipesState>(
   initialRecipesState,
-  on(getRecipesRequested, (state) => ({
+  on(getRecipesRequested, (state: RecipesState) => ({
     ...state,
-    isLoading: true,
     error: null,
   })),
 );
