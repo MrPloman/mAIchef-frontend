@@ -1,4 +1,6 @@
 import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Recipe } from '../domain/models/recipe/recipe.model';
 import { RecipePreferences } from '../domain/value-objects/recipe-preferences.vo';
 // import { languageType } from '@app/core/types/index.types';
 // import { Chord } from '../models/chord.model';
@@ -11,7 +13,7 @@ export interface RecipesRequestedAIPort {
   getRecipesRequested(
     prompt: string,
     preferences: RecipePreferences,
-  ): Promise<any>;
+  ): Observable<Recipe[]>;
   //   getAlternativeChords(chord: Chord): Promise<AiResponse>;
   //   getHandbookChords(chordName: string): Promise<AiResponse>;
   //   getProgression(
