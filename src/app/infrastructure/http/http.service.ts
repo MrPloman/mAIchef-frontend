@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
   private http = inject(HttpClient);
+  private readonly baseUrl = environment.apiUrl;
 
   /**
    * GET Request
@@ -24,7 +25,8 @@ export class HttpService {
    * @param body Payload
    */
   post<T>(url: string, body: any): Observable<T> {
-    return this.http.post<T>(url, body);
+    const _url = `${this.baseUrl}${url}`;
+    return this.http.post<T>(_url, body);
   }
 
   /**
@@ -33,7 +35,8 @@ export class HttpService {
    * @param body Payload
    */
   put<T>(url: string, body: any): Observable<T> {
-    return this.http.put<T>(url, body);
+    const _url = `${this.baseUrl}${url}`;
+    return this.http.put<T>(_url, body);
   }
 
   /**
@@ -41,8 +44,9 @@ export class HttpService {
    * @param url API Endpoint
    */
   delete<T>(url: string, params?: Record<string, any>): Observable<T> {
+    const _url = `${this.baseUrl}${url}`;
     const options = { params: this.createParams(params) };
-    return this.http.delete<T>(url, options);
+    return this.http.delete<T>(_url, options);
   }
 
   /**

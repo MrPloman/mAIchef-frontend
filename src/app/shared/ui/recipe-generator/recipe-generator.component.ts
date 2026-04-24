@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RestrictionTypeEnum } from '../../../core/domain/enums/restriction-type.enum';
-import { LoaderFacade } from '../../../store/facades/loader.facade';
+import { RecipesFacade } from '../../../store/facades/recipes.facade';
 @Component({
   selector: 'app-recipe-generator',
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
@@ -29,7 +29,7 @@ export class RecipeGeneratorComponent {
 
   constructor(
     private fb: FormBuilder,
-    private loaderFacade: LoaderFacade,
+    private recipesFacade: RecipesFacade,
   ) {}
 
   ngOnInit(): void {
@@ -72,12 +72,16 @@ export class RecipeGeneratorComponent {
   public onGenerate() {
     if (this.recipeForm.invalid) return;
     const requestData = this.parseForm(this.recipeForm);
-    console.log(requestData);
-    // Aquí llamarías a tu servicio getReceipe()
-    this.loaderFacade.initLoadingAnimations();
-    setTimeout(() => {
-      this.loaderFacade.finishLoadingAnimations();
-    }, 5000);
+    this.recipesFacade.getRecipesRequested(
+      requestData.prompt,
+      requestData.preferences,
+    );
+    // console.log(requestData);
+    // // Aquí llamarías a tu servicio getReceipe()
+    // this.loaderFacade.initLoadingAnimations();
+    // setTimeout(() => {
+    //   this.loaderFacade.finishLoadingAnimations();
+    // }, 5000);
   }
 
   private parseForm(recipeForm: FormGroup) {

@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
 import { RecipePreferences } from '../../core/domain/value-objects/recipe-preferences.vo';
-import { showLoader } from '../actions/loader.actions';
 import {
   getRecipesRequested,
   setRecipeSelected,
@@ -24,7 +23,6 @@ export class RecipesFacade {
   }
 
   getRecipesRequested(prompt: string, preferences: RecipePreferences): void {
-    this.store.dispatch(showLoader());
     this.store.dispatch(getRecipesRequested({ prompt, preferences }));
   }
 }

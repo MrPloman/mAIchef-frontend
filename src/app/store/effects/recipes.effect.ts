@@ -1,11 +1,8 @@
-import { inject, Inject } from '@angular/core';
+import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap } from 'rxjs';
-import {
-  RECIPES_REQUESTED_AI_PORT,
-  RecipesRequestedAIPort,
-} from '../../core/ports/recipes.ports';
+import { RECIPES_REQUESTED_AI_PORT } from '../../core/ports/recipes.ports';
 import {
   getRecipesRequested,
   getRecipesRequestedFailure,
@@ -13,16 +10,13 @@ import {
 } from '../actions/recipes.actions';
 import { AppState } from '../app.state';
 
-export class ChordsEffects {
-  constructor(
-    @Inject(RECIPES_REQUESTED_AI_PORT)
-    private aiRequestedRecipesPort: RecipesRequestedAIPort,
-  ) {}
-
+export class RecipesEffects {
+  constructor() {}
+  private aiRequestedRecipesPort = inject(RECIPES_REQUESTED_AI_PORT);
   private actions$ = inject(Actions);
-  private store = inject<Store<AppState>>(Store);
+  private store = inject(Store<AppState>);
 
-  public getChordsGuessing = createEffect(() =>
+  public getRecipesRequested = createEffect(() =>
     this.actions$.pipe(
       ofType(getRecipesRequested),
       switchMap(({ prompt, preferences }) =>

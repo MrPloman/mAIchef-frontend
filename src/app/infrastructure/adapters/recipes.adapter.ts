@@ -12,12 +12,11 @@ import { HttpService } from '../http/http.service';
 })
 export class RecipeHttpAdapter implements RecipesRequestedAIPort {
   private http = inject(HttpService);
-  private readonly endpoint = '/api/recipes';
-
+  private readonly endpoint = '/ai/generate';
   getRecipesRequested(
     prompt: string,
     preferences: RecipePreferences,
   ): Observable<Recipe[]> {
-    return this.http.get<any[]>(this.endpoint);
+    return this.http.post<any[]>(this.endpoint, { prompt, preferences });
   }
 }
