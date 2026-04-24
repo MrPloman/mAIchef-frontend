@@ -41,7 +41,7 @@
       />
     </div>
 
-    <div class="filter-bubble">
+    <!-- <div class="filter-bubble">
       <select formControlName="mealTypes" id="mealType">
         <option value="">Anytime</option>
 
@@ -49,8 +49,49 @@
           <option [value]="mealType.value">{{ mealType.name }}</option>
         }
       </select>
-    </div>
+    </div> -->
+    <div
+      class="filter-bubble multi-select"
+      id="multiSelectToggle"
+      (click)="toggleMealTypesDropdown()"
+    >
+      <span id="mealTypeLabel" class="mealtypes-label">Meal Types</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="arrow"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        [style.transform]="
+          isRestrictionsDropdownOpen ? 'rotate(180deg)' : 'none'
+        "
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
 
+      <div
+        class="dropdown-content"
+        id="mealTypesDropdown"
+        [class.show]="mealTypesDropdownOpen"
+      >
+        @for (mealtype of mealTypesList; track mealtype.value) {
+          <label class="option-item">
+            <input
+              type="checkbox"
+              [value]="mealtype.value"
+              [checked]="selectedCuisines.includes(mealtype.value)"
+              (change)="onCheckboxChange($event, mealtype.value, 'mealTypes')"
+            />
+            {{ mealtype.name }}
+          </label>
+        }
+      </div>
+    </div>
     <!-- <div class="filter-bubble">
       <select formControlName="cuisineTypes" id="cuisineTypes">
         <option value="">Anytime</option>

@@ -25,6 +25,8 @@ export class RecipeGeneratorComponent {
     name: key,
     value: this.mealTypes[key as keyof typeof this.mealTypes],
   }));
+  public selectedMealTypes: string[] = [];
+  public mealTypesDropdownOpen = false; // Flag to track state
 
   private cuisineTypes = CuisineTypeEnum; // Restrictions setup
   private cuisineTypesOptions = Object.keys(this.cuisineTypes).map((key) => ({
@@ -155,6 +157,9 @@ export class RecipeGeneratorComponent {
   }
   toggleCuisinesDropdown() {
     this.cuisinesDropdownOpen = !this.cuisinesDropdownOpen;
+  }
+  toggleMealTypesDropdown() {
+    this.mealTypesDropdownOpen = !this.mealTypesDropdownOpen;
   }
 
   // Optional: Close dropdown when clicking outside
