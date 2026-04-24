@@ -43,8 +43,8 @@ export class RecipeGeneratorComponent {
         null,
         [Validators.min(1), Validators.max(640), Validators.required],
       ],
-      mealType: [''],
-      cuisineType: [''],
+      mealTypes: [],
+      cuisineTypes: [],
       restrictions: [this.fb.array([])], // FormArray para los checkboxes
     });
   }
@@ -91,8 +91,8 @@ export class RecipeGeneratorComponent {
       preferences: {
         servings: formValue.servings,
         maxDuration: formValue.maxDuration,
-        mealType: formValue.mealType,
-        cuisineType: formValue.cuisineType,
+        mealTypes: formValue.mealTypes,
+        cuisineTypes: formValue.cuisineTypes,
         restrictions: formValue.restrictions.value || [],
       },
     };
@@ -100,8 +100,8 @@ export class RecipeGeneratorComponent {
 
   onReset() {
     this.recipeForm.reset({
-      mealType: '',
-      cuisineType: '',
+      mealTypes: '',
+      cuisineTypes: '',
       restrictions: [],
     });
     this.selectedRestrictions = [];

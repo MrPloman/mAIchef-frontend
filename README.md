@@ -228,7 +228,7 @@ The original recipe is not deleted or overwritten, but a new persisted version i
 - `recipeId` (string): ID of recipe to be replanned
 - `replanRequest` (RecipeRequest): New structured information that may include:
   - `prompt`
-  - `preferences` (servings, mealTypes, cuisineTypes, restrictions, duration)
+  - `preferences` (servings, mealTypess, cuisineTypess, restrictions, duration)
 
 **📤 Output:**
 
