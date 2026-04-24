@@ -42,28 +42,71 @@
     </div>
 
     <div class="filter-bubble">
-      <select formControlName="mealTypes" id="mealTypess">
-        <option value="">Cualquier momento</option>
-        <option value="BREAKFAST">Desayuno</option>
-        <option value="LUNCH">Almuerzo</option>
-        <option value="DINNER">Cena</option>
+      <select formControlName="mealTypes" id="mealType">
+        <option value="">Anytime</option>
+
+        @for (mealType of mealTypesList; track mealType.value) {
+          <option [value]="mealType.value">{{ mealType.name }}</option>
+        }
       </select>
     </div>
 
-    <div class="filter-bubble">
-      <select formControlName="cuisineTypes" id="cuisineTypess">
-        <option value="">Cualquier cocina</option>
-        <option value="MEDITERRANEAN">Mediterránea</option>
-        <option value="ASIAN">Asiática</option>
-        <option value="MEXICAN">Mexicana</option>
-        <option value="ITALIAN">Italiana</option>
+    <!-- <div class="filter-bubble">
+      <select formControlName="cuisineTypes" id="cuisineTypes">
+        <option value="">Anytime</option>
+
+        @for (cuisineType of cuisineTypesList; track cuisineType.value) {
+          <option [value]="cuisineType.value">{{ cuisineType.name }}</option>
+        }
       </select>
+    </div> -->
+    <div
+      class="filter-bubble multi-select"
+      id="multiSelectToggle"
+      (click)="toggleCuisinesDropdown()"
+    >
+      <span id="cuisinesLabel" class="cuisines-label">Cuisines</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="arrow"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        [style.transform]="
+          isRestrictionsDropdownOpen ? 'rotate(180deg)' : 'none'
+        "
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+
+      <div
+        class="dropdown-content"
+        id="cuisinesDropdown"
+        [class.show]="cuisinesDropdownOpen"
+      >
+        @for (cuisine of cuisineTypesList; track cuisine.value) {
+          <label class="option-item">
+            <input
+              type="checkbox"
+              [value]="cuisine.value"
+              [checked]="selectedCuisines.includes(cuisine.value)"
+              (change)="onCheckboxChange($event, cuisine.value, 'cuisineTypes')"
+            />
+            {{ cuisine.name }}
+          </label>
+        }
+      </div>
     </div>
 
     <div
       class="filter-bubble multi-select"
       id="multiSelectToggle"
-      (click)="toggleDropdown()"
+      (click)="toggleRestrictionsDropdown()"
     >
       <span class="icon">🥗</span>
       <span id="restrictionsLabel" class="restrictions-label"
@@ -75,7 +118,9 @@
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        [style.transform]="isDropdownOpen ? 'rotate(180deg)' : 'none'"
+        [style.transform]="
+          isRestrictionsDropdownOpen ? 'rotate(180deg)' : 'none'
+        "
       >
         <path
           stroke-linecap="round"
@@ -88,7 +133,7 @@
       <div
         class="dropdown-content"
         id="restrictionsDropdown"
-        [class.show]="isDropdownOpen"
+        [class.show]="isRestrictionsDropdownOpen"
       >
         @for (restriction of restrictionsList; track restriction.value) {
           <label class="option-item">
@@ -96,7 +141,9 @@
               type="checkbox"
               [value]="restriction.value"
               [checked]="selectedRestrictions.includes(restriction.value)"
-              (change)="onCheckboxChange($event, restriction.value)"
+              (change)="
+                onCheckboxChange($event, restriction.value, 'restrictions')
+              "
             />
             {{ restriction.name }}
           </label>
