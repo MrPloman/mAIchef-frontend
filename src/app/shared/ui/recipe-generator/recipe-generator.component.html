@@ -139,7 +139,7 @@
     <div
       class="filter-bubble multi-select"
       id="multiSelectRestrictionsToggle"
-      (click)="toggleRestrictionsDropdown()"
+      (click)="toggleRestrictionsDropdown($event)"
     >
       <span class="icon">🥗</span>
       <span id="restrictionsLabel" class="restrictions-label"
@@ -166,7 +166,7 @@
       <div
         class="dropdown-content"
         id="restrictionsDropdown"
-        (click)="toggleRestrictionsDropdown()"
+        (click)="$event.stopPropagation()"
       >
         @for (restriction of restrictionsList; track restriction.value) {
           <label class="option-item">

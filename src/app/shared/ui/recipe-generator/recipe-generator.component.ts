@@ -152,7 +152,7 @@ export class RecipeGeneratorComponent {
     this.selectedRestrictions = [];
     this.selectedCuisines = [];
   }
-  toggleRestrictionsDropdown() {
+  toggleRestrictionsDropdown(event: Event) {
     const dropdown = document.getElementById('restrictionsDropdown');
     if (this.isRestrictionsDropdownOpen) {
       dropdown?.classList.add('hide');
@@ -212,7 +212,6 @@ export class RecipeGeneratorComponent {
         this.isRestrictionsDropdownOpen = false;
         restrictionsDropdown?.classList.remove('show');
       }, 750);
-      console.log('Clicked outside restrictions dropdown');
     }
   }
 }
