@@ -77,7 +77,7 @@
       <div
         class="dropdown-content"
         id="mealTypesDropdown"
-        [class.show]="mealTypesDropdownOpen"
+        (click)="$event.stopPropagation()"
       >
         @for (mealtype of mealTypesList; track mealtype.value) {
           <label class="option-item">
@@ -105,9 +105,7 @@
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        [style.transform]="
-          isRestrictionsDropdownOpen ? 'rotate(180deg)' : 'none'
-        "
+        [style.transform]="cuisinesDropdownOpen ? 'rotate(180deg)' : 'none'"
       >
         <path
           stroke-linecap="round"
@@ -120,7 +118,7 @@
       <div
         class="dropdown-content"
         id="cuisinesDropdown"
-        [class.show]="cuisinesDropdownOpen"
+        (click)="$event.stopPropagation()"
       >
         @for (cuisine of cuisineTypesList; track cuisine.value) {
           <label class="option-item">
@@ -139,7 +137,7 @@
     <div
       class="filter-bubble multi-select"
       id="multiSelectRestrictionsToggle"
-      (click)="toggleRestrictionsDropdown($event)"
+      (click)="toggleRestrictionsDropdown()"
     >
       <span class="icon">🥗</span>
       <span id="restrictionsLabel" class="restrictions-label"

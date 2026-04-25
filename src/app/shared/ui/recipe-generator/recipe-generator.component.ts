@@ -152,7 +152,9 @@ export class RecipeGeneratorComponent {
     this.selectedRestrictions = [];
     this.selectedCuisines = [];
   }
-  toggleRestrictionsDropdown(event: Event) {
+
+  // Dropdown toggle methods
+  toggleRestrictionsDropdown() {
     const dropdown = document.getElementById('restrictionsDropdown');
     if (this.isRestrictionsDropdownOpen) {
       dropdown?.classList.add('hide');
@@ -167,51 +169,81 @@ export class RecipeGeneratorComponent {
         this.isRestrictionsDropdownOpen = true;
       }, 300);
     }
-
-    // if (this.isRestrictionsDropdownOpen) {
-    //   const dropdown = document.getElementById('restrictionsDropdown');
-    //   dropdown?.classList.add('hide');
-
-    //   setTimeout(() => {
-    //     this.isRestrictionsDropdownOpen = !this.isRestrictionsDropdownOpen;
-    //     dropdown?.classList.remove('hide');
-    //   }, 750);
-    // } else {
-    //   const dropdown = document.getElementById('restrictionsDropdown');
-    //   dropdown?.classList.remove('hide');
-    //     this.isRestrictionsDropdownOpen = !this.isRestrictionsDropdownOpen;
-
-    //   setTimeout(() => {
-    //     dropdown?.classList.remove('show');
-    //   }, 750);
-    // }
   }
+
   toggleCuisinesDropdown() {
-    this.cuisinesDropdownOpen = !this.cuisinesDropdownOpen;
+    const dropdown = document.getElementById('cuisinesDropdown');
+    if (this.cuisinesDropdownOpen) {
+      dropdown?.classList.add('hide');
+      setTimeout(() => {
+        dropdown?.classList.remove('show');
+        this.cuisinesDropdownOpen = false;
+      }, 300);
+    } else {
+      dropdown?.classList.remove('hide');
+      dropdown?.classList.add('show');
+      setTimeout(() => {
+        this.cuisinesDropdownOpen = true;
+      }, 300);
+    }
   }
+
   toggleMealTypesDropdown() {
-    this.mealTypesDropdownOpen = !this.mealTypesDropdownOpen;
+    const dropdown = document.getElementById('mealTypesDropdown');
+    if (this.mealTypesDropdownOpen) {
+      dropdown?.classList.add('hide');
+      setTimeout(() => {
+        dropdown?.classList.remove('show');
+        this.mealTypesDropdownOpen = false;
+      }, 300);
+    } else {
+      dropdown?.classList.remove('hide');
+      dropdown?.classList.add('show');
+      setTimeout(() => {
+        this.mealTypesDropdownOpen = true;
+      }, 300);
+    }
   }
 
   // Optional: Close dropdown when clicking outside
   @HostListener('document:click', ['$event'])
-  closeRestrictionsDropdown(event: Event) {
-    const restrictionsDropdown = document.getElementById(
-      'restrictionsDropdown',
-    );
-    if (
-      !(event.target as HTMLElement).closest(
-        '#multiSelectRestrictionsToggle',
-      ) &&
-      this.isRestrictionsDropdownOpen &&
-      restrictionsDropdown?.classList.contains('show')
-    ) {
-      restrictionsDropdown?.classList.add('hide');
+  closeDropdowns(event: Event) {
+    const target = event.target as HTMLElement;
 
-      setTimeout(() => {
-        this.isRestrictionsDropdownOpen = false;
-        restrictionsDropdown?.classList.remove('show');
-      }, 750);
-    }
+    const dropdowns = [
+      {
+        id: 'restrictionsDropdown',
+        toggleId: 'multiSelectRestrictionsToggle',
+        isOpen: this.isRestrictionsDropdownOpen,
+        close: () => (this.isRestrictionsDropdownOpen = false),
+      },
+      {
+        id: 'mealTypesDropdown',
+        toggleId: 'multiSelectMealTypesToggle',
+        isOpen: this.mealTypesDropdownOpen,
+        close: () => (this.mealTypesDropdownOpen = false),
+      },
+      {
+        id: 'cuisinesDropdown',
+        toggleId: 'multiSelectCuisinesToggle',
+        isOpen: this.cuisinesDropdownOpen,
+        close: () => (this.cuisinesDropdownOpen = false),
+      },
+    ];
+
+    dropdowns.forEach(({ id, toggleId, isOpen, close }) => {
+      const dropdown = document.getElementById(id);
+      if (
+        !target.closest(`#${toggleId}`) &&
+        isOpen &&
+        dropdown?.classList.contains('show')
+      ) {
+        dropdown.classList.add('hide');
+        setTimeout(() => {
+          close();
+          dropdown.classList.remove('show');
+        }, 750);
+      }
+    });
   }
 }

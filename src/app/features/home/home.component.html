@@ -1,16 +1,14 @@
-<body>
-  @if (loading$ | async) {
-    <app-loader
-      id="loader"
-      [ngClass]="{ 'slide-middle-up-element': dissapearNow }"
-    ></app-loader>
-  } @else {
-    <div class="container">
-      <header>
-        <h1>mAIchef</h1>
-        <p>¿Qué cocinamos hoy?</p>
-      </header>
-      <app-recipe-generator></app-recipe-generator>
-    </div>
-  }
-</body>
+@if (loading$ | async) {
+  <app-loader
+    id="loader"
+    [ngClass]="{ 'slide-middle-up-element': dissapearNow }"
+  ></app-loader>
+} @else {
+  <div class="container">
+    <header>
+      <h1>mAIchef</h1>
+      <p>¿Qué cocinamos hoy?</p>
+    </header>
+    <app-recipe-generator></app-recipe-generator>
+  </div>
+}

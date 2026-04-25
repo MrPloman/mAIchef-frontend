@@ -30,6 +30,8 @@
   padding: 1.5rem;
   box-shadow: 0 20px 50px -12px rgba(73, 22, 22, 0.25);
   color: variables.$text-primary;
+  width: 60%;
+  margin: 0 auto;
 
   @media (min-width: 768px) {
     padding: 2rem;
@@ -128,9 +130,11 @@
     gap: 0.5rem;
 
     .filter-bubble {
+      width: 200px;
       position: relative;
       display: flex;
       align-items: center;
+      justify-self: space-between;
       gap: 0.4rem;
       padding: 0.4rem 0.8rem;
       border-radius: 9999px;
@@ -182,9 +186,11 @@
       }
 
       .arrow {
+        position: absolute;
         width: 0.75rem;
         height: 0.75rem;
         opacity: 0.5;
+        right: 15px;
       }
 
       .dropdown-content {
@@ -192,7 +198,7 @@
         position: absolute;
         top: calc(100% + 8px);
         left: 0;
-        min-width: 180px;
+        width: 200px;
 
         padding: 0.5rem;
         border-radius: 1rem;
