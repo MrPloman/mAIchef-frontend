@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,6 +11,7 @@ import { CuisineTypeEnum } from '../../../core/domain/enums/cuisine-type.enum';
 import { MealTypeEnum } from '../../../core/domain/enums/meal-type.enum';
 import { RestrictionTypeEnum } from '../../../core/domain/enums/restriction-type.enum';
 import { RecipesFacade } from '../../../store/facades/recipes.facade';
+import { ToastService } from '../../services/toast.service';
 @Component({
   selector: 'app-recipe-generator',
   imports: [FormsModule, ReactiveFormsModule, CommonModule],
@@ -19,6 +20,7 @@ import { RecipesFacade } from '../../../store/facades/recipes.facade';
 })
 export class RecipeGeneratorComponent {
   recipeForm!: FormGroup;
+  private toast = inject(ToastService);
 
   private mealTypes = MealTypeEnum;
   private mealTypesOptions = Object.keys(this.mealTypes).map((key) => ({
@@ -121,7 +123,10 @@ export class RecipeGeneratorComponent {
   }
 
   public onGenerate() {
-    if (this.recipeForm.invalid) return;
+    if (this.recipeForm.invalid) {
+      this.toast.error('Please fill in all required fields.');
+      return;
+    }
     const requestData = this.parseForm(this.recipeForm);
     this.recipesFacade.getRecipesRequested(
       requestData.prompt,
@@ -151,6 +156,7 @@ export class RecipeGeneratorComponent {
     });
     this.selectedRestrictions = [];
     this.selectedCuisines = [];
+    this.toast.info('Form reset successfully');
   }
 
   // Dropdown toggle methods
