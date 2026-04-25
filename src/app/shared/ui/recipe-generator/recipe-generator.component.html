@@ -52,7 +52,7 @@
     </div> -->
     <div
       class="filter-bubble multi-select"
-      id="multiSelectToggle"
+      id="multiSelectMealTypesToggle"
       (click)="toggleMealTypesDropdown()"
     >
       <span id="mealTypeLabel" class="mealtypes-label">Meal Types</span>
@@ -92,18 +92,10 @@
         }
       </div>
     </div>
-    <!-- <div class="filter-bubble">
-      <select formControlName="cuisineTypes" id="cuisineTypes">
-        <option value="">Anytime</option>
 
-        @for (cuisineType of cuisineTypesList; track cuisineType.value) {
-          <option [value]="cuisineType.value">{{ cuisineType.name }}</option>
-        }
-      </select>
-    </div> -->
     <div
       class="filter-bubble multi-select"
-      id="multiSelectToggle"
+      id="multiSelectCuisinesToggle"
       (click)="toggleCuisinesDropdown()"
     >
       <span id="cuisinesLabel" class="cuisines-label">Cuisines</span>
@@ -146,7 +138,7 @@
 
     <div
       class="filter-bubble multi-select"
-      id="multiSelectToggle"
+      id="multiSelectRestrictionsToggle"
       (click)="toggleRestrictionsDropdown()"
     >
       <span class="icon">🥗</span>
@@ -174,7 +166,7 @@
       <div
         class="dropdown-content"
         id="restrictionsDropdown"
-        [class.show]="isRestrictionsDropdownOpen"
+        (click)="toggleRestrictionsDropdown()"
       >
         @for (restriction of restrictionsList; track restriction.value) {
           <label class="option-item">

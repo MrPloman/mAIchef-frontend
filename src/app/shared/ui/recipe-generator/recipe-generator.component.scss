@@ -1,5 +1,29 @@
 @use "../../../../variables" as variables;
 @use "sass:color";
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+@keyframes growUp {
+  0% {
+    transform: scaleY(1);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+
 .recipe-box {
   background-color: rgba(variables.$background-modal, 0.1);
   border-radius: 2rem;
@@ -176,9 +200,16 @@
         background-color: rgba(variables.$background-modal, 0.5);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         color: variables.$text-on-dark;
-        z-index: 50;
+        z-index: 100;
+
         &.show {
           display: block;
+          transform-origin: top center;
+          animation: growDown 300ms ease-in-out forwards;
+        }
+        &.hide {
+          transform-origin: center top;
+          animation: growUp 300ms ease-in-out forwards;
         }
         .option-item {
           display: flex;

@@ -153,7 +153,38 @@ export class RecipeGeneratorComponent {
     this.selectedCuisines = [];
   }
   toggleRestrictionsDropdown() {
-    this.isRestrictionsDropdownOpen = !this.isRestrictionsDropdownOpen;
+    const dropdown = document.getElementById('restrictionsDropdown');
+    if (this.isRestrictionsDropdownOpen) {
+      dropdown?.classList.add('hide');
+      setTimeout(() => {
+        dropdown?.classList.remove('show');
+        this.isRestrictionsDropdownOpen = false;
+      }, 300);
+    } else {
+      dropdown?.classList.remove('hide');
+      dropdown?.classList.add('show');
+      setTimeout(() => {
+        this.isRestrictionsDropdownOpen = true;
+      }, 300);
+    }
+
+    // if (this.isRestrictionsDropdownOpen) {
+    //   const dropdown = document.getElementById('restrictionsDropdown');
+    //   dropdown?.classList.add('hide');
+
+    //   setTimeout(() => {
+    //     this.isRestrictionsDropdownOpen = !this.isRestrictionsDropdownOpen;
+    //     dropdown?.classList.remove('hide');
+    //   }, 750);
+    // } else {
+    //   const dropdown = document.getElementById('restrictionsDropdown');
+    //   dropdown?.classList.remove('hide');
+    //     this.isRestrictionsDropdownOpen = !this.isRestrictionsDropdownOpen;
+
+    //   setTimeout(() => {
+    //     dropdown?.classList.remove('show');
+    //   }, 750);
+    // }
   }
   toggleCuisinesDropdown() {
     this.cuisinesDropdownOpen = !this.cuisinesDropdownOpen;
@@ -164,10 +195,24 @@ export class RecipeGeneratorComponent {
 
   // Optional: Close dropdown when clicking outside
   @HostListener('document:click', ['$event'])
-  closeDropdown(event: Event) {
-    if (!(event.target as HTMLElement).closest('.filter-bubble')) {
-      this.isRestrictionsDropdownOpen = false;
-      this.cuisinesDropdownOpen = false;
+  closeRestrictionsDropdown(event: Event) {
+    const restrictionsDropdown = document.getElementById(
+      'restrictionsDropdown',
+    );
+    if (
+      !(event.target as HTMLElement).closest(
+        '#multiSelectRestrictionsToggle',
+      ) &&
+      this.isRestrictionsDropdownOpen &&
+      restrictionsDropdown?.classList.contains('show')
+    ) {
+      restrictionsDropdown?.classList.add('hide');
+
+      setTimeout(() => {
+        this.isRestrictionsDropdownOpen = false;
+        restrictionsDropdown?.classList.remove('show');
+      }, 750);
+      console.log('Clicked outside restrictions dropdown');
     }
   }
 }
