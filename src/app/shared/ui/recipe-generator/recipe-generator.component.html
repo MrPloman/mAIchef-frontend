@@ -6,6 +6,12 @@
         id="recipePrompt"
         placeholder="Escribe ingredientes o una idea..."
       ></textarea>
+      @if (
+        recipeForm.get("recipePrompt")?.invalid &&
+        recipeForm.get("recipePrompt")?.touched
+      ) {
+        <span class="error-msg">{{ errorMessage }}</span>
+      }
     </div>
 
     <div class="button-container">
@@ -21,7 +27,13 @@
   <div class="divider"></div>
 
   <div class="filters-row">
-    <div class="filter-bubble">
+    <div
+      class="filter-bubble"
+      [class.error-border]="
+        recipeForm.get('servings')?.invalid &&
+        recipeForm.get('servings')?.touched
+      "
+    >
       <span class="icon">👥</span>
       <input
         type="number"
@@ -41,15 +53,6 @@
       />
     </div>
 
-    <!-- <div class="filter-bubble">
-      <select formControlName="mealTypes" id="mealType">
-        <option value="">Anytime</option>
-
-        @for (mealType of mealTypesList; track mealType.value) {
-          <option [value]="mealType.value">{{ mealType.name }}</option>
-        }
-      </select>
-    </div> -->
     <div
       class="filter-bubble multi-select"
       id="multiSelectMealTypesToggle"

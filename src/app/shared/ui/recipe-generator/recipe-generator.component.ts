@@ -19,7 +19,7 @@ import { ToastService } from '../../services/toast.service';
   styleUrl: './recipe-generator.component.scss',
 })
 export class RecipeGeneratorComponent {
-  recipeForm!: FormGroup;
+  public recipeForm!: FormGroup;
   private toast = inject(ToastService);
 
   private mealTypes = MealTypeEnum;
@@ -46,6 +46,7 @@ export class RecipeGeneratorComponent {
   public selectedRestrictions: string[] = [];
   public isRestrictionsDropdownOpen = false; // Flag to track state
 
+  public errorMessage = '';
   constructor(
     private fb: FormBuilder,
     private recipesFacade: RecipesFacade,
@@ -124,6 +125,7 @@ export class RecipeGeneratorComponent {
 
   public onGenerate() {
     if (this.recipeForm.invalid) {
+      this.recipeForm.markAllAsTouched();
       this.toast.error('Please fill in all required fields.');
       return;
     }
