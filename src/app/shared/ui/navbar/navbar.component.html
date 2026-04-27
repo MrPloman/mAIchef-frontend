@@ -1,0 +1,16 @@
+<nav class="recipe-nav" #navContainer>
+  <!-- sliding bubble -->
+  <span class="bubble" #bubble></span>
+
+  <a
+    *ngFor="let item of navItems; let i = index"
+    #navBtn
+    [routerLink]="item.route"
+    routerLinkActive="active"
+    class="nav-item"
+    (click)="onNavClick(i)"
+  >
+    <span class="nav-icon" aria-hidden="true">{{ item.icon }}</span>
+    <span class="nav-label">{{ item.label }}</span>
+  </a>
+</nav>

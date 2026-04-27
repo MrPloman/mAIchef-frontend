@@ -1,0 +1,11 @@
+app-navbar {
+  position: absolute;
+  margin: 0 auto !important;
+  width: auto;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 1000; // Ensure it stays above other content
+  display: flex;
+  justify-self: center;
+}
