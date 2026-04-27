@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RecipeCardComponent } from '../../shared/ui/recipe-card/recipe-card.component';
 import { selectRequestedRecipes } from '../../store/selectors/recipes.selector';
@@ -11,10 +12,15 @@ import { selectRequestedRecipes } from '../../store/selectors/recipes.selector';
 })
 export class ResultsComponent {
   private recipes$ = this.store.select(selectRequestedRecipes);
-  constructor(private store: Store) {
+  constructor(
+    private store: Store,
+    private router: Router,
+  ) {
     this.recipes$.subscribe((recipes) => {
       if (recipes.length > 0) {
         this.recipes = recipes;
+      } else {
+        this.router.navigate(['/']);
       }
     });
   }

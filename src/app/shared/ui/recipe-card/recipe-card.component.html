@@ -62,8 +62,11 @@
       >
         <span class="ingredients-list__dot" aria-hidden="true"></span>
         <span class="ingredients-list__text">
-          <strong>{{ ingredient.quantity }} {{ ingredient.unit }}</strong>
-          {{ ingredient.name }}
+          <strong
+            >{{ ingredient.quantity.getValue() }}
+            {{ ingredient.unit.getValue() }}</strong
+          >
+          {{ ingredient.name.getValue() | titlecase }}
         </span>
       </li>
     </ul>
