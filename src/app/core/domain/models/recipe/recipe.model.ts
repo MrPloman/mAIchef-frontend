@@ -47,4 +47,34 @@ export class Recipe {
       params.parentRecipeId,
     );
   }
+  // recipe.model.ts
+  static fromPersistence(params: {
+    _id: string;
+    version: number;
+    title: string;
+    description: string;
+    difficulty: Difficulty;
+    estimatedTimeInMinutes: number;
+    servings: number;
+    ingredients: Ingredient[];
+    steps: RecipeStep[];
+    createdAt: Date; // <-- acepta la fecha existente
+    userId?: string;
+    parentRecipeId?: string;
+  }): Recipe {
+    return new Recipe(
+      params._id,
+      params.version,
+      params.title,
+      params.description,
+      params.difficulty,
+      params.estimatedTimeInMinutes,
+      params.servings,
+      params.ingredients,
+      params.steps,
+      params.createdAt, // <-- usa la del JSON, no new Date()
+      params.userId,
+      params.parentRecipeId,
+    );
+  }
 }

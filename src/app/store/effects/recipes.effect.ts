@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
 import { RECIPES_REQUESTED_AI_PORT } from '../../core/ports/recipes.ports';
+import { RecipesHelperService } from '../../shared/utils/recipes.helper';
 import {
   getRecipesRequested,
   getRecipesRequestedFailure,
@@ -17,6 +18,8 @@ export class RecipesEffects {
   private actions$ = inject(Actions);
   private store = inject(Store<AppState>);
   private router = inject(Router);
+  private parseRecipeResponseToModel =
+    inject(RecipesHelperService).parseRecipeResponseToModel;
 
   public getRecipesRequested = createEffect(() =>
     this.actions$.pipe(
@@ -29,6 +32,7 @@ export class RecipesEffects {
         return getRecipesRequestedSuccess({ recipes: response });
       }),
       catchError((error) => {
+        console.log(error);
         // Handle errors and dispatch a failure action with the error message
         return of(getRecipesRequestedFailure({ error: error.message }));
       }),
