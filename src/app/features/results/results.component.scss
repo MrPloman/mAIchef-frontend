@@ -10,10 +10,23 @@
   color: variables.$text-primary;
 }
 #results-grid {
+  margin-top: 10%;
   display: flex;
+  width: 90%;
   flex-wrap: wrap;
   justify-content: center;
+
   app-recipe-card {
-    margin: 1rem;
+    margin: 2rem;
+  }
+}
+@media (max-width: 1500px) {
+  #results-grid {
+    margin-top: 15%;
+  }
+}
+@media (max-width: 1000px) {
+  #results-grid {
+    margin-top: 30%;
   }
 }
