@@ -10,6 +10,11 @@ export const selectRequestedRecipes = createSelector(
   selectRecipesState,
   (recipesState) => recipesState.recipes,
 );
+
+export const selectLengthOfRecipes = createSelector(
+  selectRecipesState,
+  (recipesState) => recipesState.recipes.length,
+);
 export const selectSelectedRecipe = createSelector(
   selectRecipesState,
   (recipesState) => recipesState.selectedRecipe,

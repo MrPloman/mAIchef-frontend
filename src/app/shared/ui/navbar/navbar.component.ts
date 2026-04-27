@@ -5,6 +5,7 @@ import {
   ElementRef,
   OnDestroy,
   QueryList,
+  SimpleChanges,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -14,7 +15,9 @@ import {
   RouterLink,
   RouterLinkActive,
 } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Subscription, filter, firstValueFrom } from 'rxjs';
+import { selectLengthOfRecipes } from '../../../store/selectors/recipes.selector';
 
 @Component({
   selector: 'app-navbar',
@@ -30,13 +33,38 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
   navItems: any[] = [
     { label: 'Home', icon: '⌂', route: '/home', enabled: true },
     { label: 'Results', icon: '◎', route: '/results', enabled: false },
-    { label: 'Lists', icon: '◷', route: '/lists', enabled: false },
+    {
+      label: 'Lists',
+      icon: '◷',
+      route: '/lists',
+      enabled: false,
+    },
     { label: 'Profile', icon: '👤', route: '/profile', enabled: true },
   ];
 
   private routerSub!: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+  ) {
+    this.getRecipesLength();
+  }
+  private async getRecipesLength() {
+    const numberOfRecipes = await firstValueFrom(
+      this.store.select(selectLengthOfRecipes),
+    );
+    if (numberOfRecipes > 0) {
+      this.navItems[1].enabled = true;
+    } else {
+      this.navItems[1].enabled = false;
+    }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    this.getRecipesLength();
+  }
 
   ngAfterViewInit(): void {
     this.moveBubbleToActive();
