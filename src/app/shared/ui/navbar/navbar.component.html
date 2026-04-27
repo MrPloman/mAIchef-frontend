@@ -9,6 +9,8 @@
     routerLinkActive="active"
     class="nav-item"
     (click)="onNavClick(i)"
+    [class.disabled]="!item.enabled"
+    [attr.aria-disabled]="!item.enabled"
   >
     <span class="nav-icon" aria-hidden="true">{{ item.icon }}</span>
     <span class="nav-label">{{ item.label }}</span>

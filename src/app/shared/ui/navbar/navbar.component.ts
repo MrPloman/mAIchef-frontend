@@ -28,11 +28,10 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('navBtn') navBtns!: QueryList<ElementRef<HTMLElement>>;
 
   navItems: any[] = [
-    { label: 'Home', icon: '⌂', route: '/home' },
-    { label: 'Explore', icon: '◎', route: '/explore' },
-    { label: 'Saved', icon: '♡', route: '/saved' },
-    { label: 'My Recipes', icon: '✎', route: '/my-recipes' },
-    { label: 'Planner', icon: '◷', route: '/planner' },
+    { label: 'Home', icon: '⌂', route: '/home', enabled: true },
+    { label: 'Results', icon: '◎', route: '/results', enabled: false },
+    { label: 'Lists', icon: '◷', route: '/lists', enabled: false },
+    { label: 'Profile', icon: '👤', route: '/profile', enabled: true },
   ];
 
   private routerSub!: Subscription;

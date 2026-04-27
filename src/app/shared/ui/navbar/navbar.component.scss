@@ -65,29 +65,33 @@
     font-weight: 600;
     pointer-events: none; // prevents re-clicking the active route
   }
-}
-
-// ──────────────────────────────────────────────────────────────
-// Icon inside each item
-// ──────────────────────────────────────────────────────────────
-.nav-icon {
-  font-size: 15px;
-  line-height: 1;
-  width: 16px;
-  text-align: center;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-// ──────────────────────────────────────────────────────────────
-// Responsive — collapse labels on small screens
-// ──────────────────────────────────────────────────────────────
-@media (max-width: 640px) {
-  .nav-label {
-    display: none;
+  &.disabled {
+    color: $warm-gray;
+    pointer-events: none;
   }
 
-  .nav-item {
-    padding: 10px 14px;
+  // ──────────────────────────────────────────────────────────────
+  // Icon inside each item
+  // ──────────────────────────────────────────────────────────────
+  .nav-icon {
+    font-size: 15px;
+    line-height: 1;
+    width: 16px;
+    text-align: center;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  // ──────────────────────────────────────────────────────────────
+  // Responsive — collapse labels on small screens
+  // ──────────────────────────────────────────────────────────────
+  @media (max-width: 640px) {
+    .nav-label {
+      display: none;
+    }
+
+    .nav-item {
+      padding: 10px 14px;
+    }
   }
 }
