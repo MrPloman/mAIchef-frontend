@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
 import { RECIPES_REQUESTED_AI_PORT } from '../../core/ports/recipes.ports';
 import {
   getRecipesRequested,
@@ -15,6 +16,7 @@ export class RecipesEffects {
   private aiRequestedRecipesPort = inject(RECIPES_REQUESTED_AI_PORT);
   private actions$ = inject(Actions);
   private store = inject(Store<AppState>);
+  private router = inject(Router);
 
   public getRecipesRequested = createEffect(() =>
     this.actions$.pipe(
@@ -31,5 +33,16 @@ export class RecipesEffects {
         return of(getRecipesRequestedFailure({ error: error.message }));
       }),
     ),
+  );
+
+  // Efecto separado que reacciona al éxito y navega
+  navigateAfterLoad$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(getRecipesRequestedSuccess),
+        delay(750), // Pequeña demora para mostrar el resultado antes de navegar
+        tap(() => this.router.navigate(['/results'])),
+      ),
+    { dispatch: false }, // No despacha ninguna acción
   );
 }
