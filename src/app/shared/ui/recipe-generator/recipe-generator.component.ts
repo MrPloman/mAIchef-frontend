@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -46,7 +46,7 @@ export class RecipeGeneratorComponent {
   public selectedRestrictions: string[] = [];
   public isRestrictionsDropdownOpen = false; // Flag to track state
 
-  public errorMessage = '';
+  public errorMessage = signal('');
   constructor(
     private fb: FormBuilder,
     private recipesFacade: RecipesFacade,
@@ -98,7 +98,6 @@ export class RecipeGeneratorComponent {
         this.recipeForm.controls['restrictions'].setValue(
           this.selectedRestrictions,
         );
-
         break;
       case 'cuisineTypes':
         if (event.target.checked) {
@@ -113,20 +112,24 @@ export class RecipeGeneratorComponent {
         );
         break;
       case 'mealTypes':
-        // Handle meal types checkbox change
-        break;
-
-      default:
+        if (event.target.checked) {
+          this.selectedMealTypes.push(value);
+        } else {
+          this.selectedMealTypes = this.selectedMealTypes.filter(
+            (m: string) => m !== value,
+          );
+        }
+        this.recipeForm.controls['mealTypes'].setValue(this.selectedMealTypes);
         break;
     }
-
-    // Update your form control
   }
-
+  private manageError(message: string) {
+    this.recipeForm.markAllAsTouched();
+    this.toast.error(message);
+  }
   public onGenerate() {
     if (this.recipeForm.invalid) {
-      this.recipeForm.markAllAsTouched();
-      this.toast.error('Please fill in all required fields.');
+      this.manageError('Please fill in all required fields.');
       return;
     }
     const requestData = this.parseForm(this.recipeForm);
