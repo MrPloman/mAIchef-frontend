@@ -1,0 +1,100 @@
+@use "../../../../variables" as variables;
+@use "sass:color"; // Add this line at the top
+.fab-group {
+  position: fixed;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  bottom: 0;
+  right: 50px;
+  justify-content: center;
+  top: 400px;
+}
+.fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid variables.$border;
+  background: variables.$cream;
+  cursor: pointer;
+  box-shadow:
+    0 2px 8px rgba(variables.$ink, 0.1),
+    0 0 0 3px variables.$parchment,
+    0 0 0 4px variables.$border;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+  margin: 5px;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 6px 18px rgba(variables.$ink, 0.14),
+      0 0 0 3px variables.$parchment,
+      0 0 0 4px variables.$border;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid variables.$terracotta;
+    outline-offset: 3px;
+  }
+
+  // Like button
+  &--like {
+    color: variables.$terracotta;
+    position: relative;
+  }
+
+  &--liked {
+    background: color.adjust(variables.$terracotta, $lightness: 15%);
+    border-color: rgba(variables.$terracotta, 0.35);
+
+    &:hover {
+      background: color.adjust(variables.$terracotta, $lightness: 28%);
+    }
+  }
+
+  // Chat button
+  &--chat {
+    color: variables.$sage;
+
+    &:hover {
+      background: variables.$parchment;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  &__count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: variables.$terracotta;
+    color: variables.$cream;
+    font-family: variables.$font-text;
+    font-size: 0.55rem;
+    font-weight: 600;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.02em;
+  }
+}

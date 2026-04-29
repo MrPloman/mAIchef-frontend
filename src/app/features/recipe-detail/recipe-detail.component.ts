@@ -6,11 +6,13 @@ import { Duration } from '../../core/domain/value-objects/duration.vo';
 import { Ingredient } from '../../core/domain/value-objects/ingredient.vo';
 import { StepInstruction } from '../../core/domain/value-objects/step-instruction.vo';
 import { StepOrder } from '../../core/domain/value-objects/step-order.vo';
+import { ReplanActions } from '../../shared/ui/replan-actions/replan-actions';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
+  imports: [ReplanActions],
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe = MOCK_RECIPE;
