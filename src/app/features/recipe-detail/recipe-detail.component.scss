@@ -1,0 +1,553 @@
+@use "sass:list";
+@use "sass:color";
+@use "../../../variables" as variables;
+
+// ── Page Shell ────────────────────────────────────────────────────────────────
+.page {
+  background: variables.$parchment;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  font-family: variables.$font-text;
+  color: variables.$ink;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// ── Loading & Error states ────────────────────────────────────────────────────
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 5rem 1rem;
+
+  &__spinner {
+    display: block;
+    width: 28px;
+    height: 28px;
+    border: 2px solid variables.$border;
+    border-top-color: variables.$terracotta;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  &__text {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: variables.$warm-gray;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__title {
+    font-family: variables.$font-title;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: variables.$ink;
+  }
+
+  &__body {
+    font-size: 0.82rem;
+    color: variables.$warm-gray;
+    margin-bottom: 0.75rem;
+  }
+}
+
+// ── Back link ─────────────────────────────────────────────────────────────────
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: variables.$warm-gray;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: variables.$font-text;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: variables.$terracotta;
+  }
+}
+
+// ── Paper texture mixin ───────────────────────────────────────────────────────
+@mixin paper-texture {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 0;
+  }
+
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@mixin card-shell {
+  background: variables.$cream;
+  border: 1px solid variables.$border;
+  border-radius: 4px;
+  box-shadow:
+    0 1px 2px rgba(variables.$ink, 0.05),
+    0 4px 16px rgba(variables.$ink, 0.07),
+    0 0 0 4px variables.$parchment,
+    0 0 0 5px variables.$border;
+}
+
+// ── Hero Card ─────────────────────────────────────────────────────────────────
+.hero-card {
+  @include card-shell;
+  @include paper-texture;
+  padding: 2.25rem 2rem 1.75rem;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__meta {
+    flex: 1;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid variables.$border;
+    margin-top: 0.25rem;
+  }
+
+  &__date {
+    font-size: 0.65rem;
+    color: variables.$warm-gray;
+    letter-spacing: 0.05em;
+  }
+
+  &__version {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: variables.$warm-gray;
+    background: variables.$parchment;
+    border: 1px solid variables.$border;
+    border-radius: 2px;
+    padding: 0.25rem 0.6rem;
+    font-family: variables.$font-text;
+  }
+}
+
+// ── Eyebrow & Title ───────────────────────────────────────────────────────────
+.eyebrow {
+  font-family: variables.$font-text;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: variables.$warm-gray;
+  margin-bottom: 0.4rem;
+}
+
+.recipe-title {
+  font-family: variables.$font-title;
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: variables.$ink;
+  letter-spacing: -0.01em;
+}
+
+.recipe-description {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: variables.$warm-gray;
+  max-width: 560px;
+}
+
+// ── Difficulty Badge ──────────────────────────────────────────────────────────
+$difficulty-map: (
+  easy: (
+    bg: #e8f2e8,
+    border: variables.$sage,
+    text: color.adjust(variables.$sage, $lightness: -12%),
+  ),
+  medium: (
+    bg: #fdf3d8,
+    border: variables.$amber,
+    text: color.adjust(variables.$amber, $lightness: -22%),
+  ),
+  hard: (
+    bg: #fce8e0,
+    border: variables.$terracotta,
+    text: color.adjust(variables.$terracotta, $lightness: -8%),
+  ),
+);
+
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.35rem 0.9rem;
+  border-radius: 3px;
+  font-family: variables.$font-text;
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  @each $key, $tokens in $difficulty-map {
+    &--#{$key} {
+      background: map-get($tokens, bg);
+      border: 1px solid rgba(map-get($tokens, border), 0.3);
+      color: map-get($tokens, text);
+    }
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.7;
+  }
+}
+
+// ── Divider ───────────────────────────────────────────────────────────────────
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.4rem 0;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: variables.$border;
+  }
+
+  &__diamond {
+    width: 5px;
+    height: 5px;
+    background: variables.$terracotta;
+    opacity: 0.6;
+    transform: rotate(45deg);
+  }
+}
+
+// ── Stats Row ─────────────────────────────────────────────────────────────────
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0.25rem 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+
+  &__value {
+    font-family: variables.$font-title;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: variables.$ink;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: variables.$warm-gray;
+  }
+}
+
+.stat-sep {
+  width: 1px;
+  height: 2.5rem;
+  background: variables.$border;
+}
+
+// ── Section Card ──────────────────────────────────────────────────────────────
+.section-card {
+  @include card-shell;
+  padding: 1.6rem 1.75rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+
+  &__title {
+    font-family: variables.$font-title;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: variables.$ink;
+  }
+
+  &__count {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: variables.$warm-gray;
+    font-family: variables.$font-text;
+  }
+}
+
+// ── Ingredients ───────────────────────────────────────────────────────────────
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ing-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid variables.$border;
+
+  &__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: variables.$terracotta;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  &__text {
+    font-size: 0.84rem;
+    color: variables.$ink;
+    line-height: 1.45;
+  }
+
+  &__qty {
+    color: variables.$terracotta;
+    font-weight: 600;
+    margin-right: 3px;
+  }
+}
+
+// ── Steps ─────────────────────────────────────────────────────────────────────
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid variables.$border;
+
+  &--last {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &__num {
+    font-family: variables.$font-title;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: variables.$terracotta;
+    opacity: 0.25;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+    text-align: right;
+  }
+
+  &__body {
+    flex: 1;
+  }
+
+  &__instruction {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: variables.$ink;
+    margin-bottom: 0.5rem;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: variables.$warm-gray;
+    background: variables.$parchment;
+    border: 1px solid variables.$border;
+    border-radius: 2px;
+    padding: 0.2rem 0.6rem;
+    font-family: variables.$font-text;
+  }
+
+  &__clock {
+    font-size: 11px;
+  }
+}
+
+// ── Step Tips ─────────────────────────────────────────────────────────────────
+.step-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 0.65rem;
+  list-style: none;
+  padding: 0;
+
+  &__item {
+    font-size: 0.78rem;
+    color: variables.$warm-gray;
+    line-height: 1.5;
+    font-style: italic;
+    background: variables.$parchment;
+    border-left: 2px solid variables.$terracotta;
+    border-radius: 0 2px 2px 0;
+    padding: 0.4rem 0.7rem;
+  }
+}
+
+// ── Footer strip ──────────────────────────────────────────────────────────────
+.footer-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.75rem;
+  background: variables.$cream;
+  border: 1px solid variables.$border;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 4px variables.$parchment,
+    0 0 0 5px variables.$border;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    p {
+      font-size: 0.7rem;
+      color: variables.$warm-gray;
+      letter-spacing: 0.04em;
+    }
+  }
+}
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+.btn-fork {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: variables.$font-text;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: variables.$terracotta;
+  background: none;
+  border: 1px solid rgba(variables.$terracotta, 0.35);
+  border-radius: 2px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    background: variables.$terracotta;
+    color: variables.$cream;
+    border-color: variables.$terracotta;
+  }
+
+  &:focus-visible {
+    outline: 2px solid variables.$terracotta;
+    outline-offset: 2px;
+  }
+}
+
+.btn-ghost {
+  font-family: variables.$font-text;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: variables.$warm-gray;
+  background: none;
+  border: 1px solid variables.$border;
+  border-radius: 2px;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    color: variables.$ink;
+    border-color: rgba(variables.$ink, 0.3);
+  }
+}
