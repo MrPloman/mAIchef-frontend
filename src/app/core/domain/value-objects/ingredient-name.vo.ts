@@ -4,6 +4,9 @@ export class IngredientName {
       throw new Error('Ingredient name must have at least 2 characters');
     }
   }
+  static create(value: string): IngredientName {
+    return new IngredientName(value);
+  }
 
   getValue(): string {
     return this.value;

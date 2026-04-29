@@ -37,6 +37,9 @@ export class Unit {
       throw new Error(`Invalid unit: ${value}`);
     }
   }
+  static create(value: string): Unit {
+    return new Unit(value);
+  }
 
   getValue(): string {
     return this.value;

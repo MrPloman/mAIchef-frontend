@@ -5,6 +5,10 @@ export class StepOrder {
     }
   }
 
+  static create(value: number): StepOrder {
+    return new StepOrder(value);
+  }
+
   getValue(): number {
     return this.value;
   }

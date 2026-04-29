@@ -13,6 +13,24 @@ export class Ingredient {
       throw new Error('Quantity and unit must be provided together');
     }
   }
+  static create({
+    name,
+    quantity,
+    unit,
+    notes,
+  }: {
+    name: string;
+    quantity: number;
+    unit: string;
+    notes?: string;
+  }): Ingredient {
+    return new Ingredient(
+      IngredientName.create(name),
+      Quantity.create(quantity),
+      Unit.create(unit),
+      notes,
+    );
+  }
 
   hasQuantity(): boolean {
     return !!this.quantity;

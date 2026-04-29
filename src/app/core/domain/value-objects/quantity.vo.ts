@@ -4,6 +4,9 @@ export class Quantity {
       throw new Error('Quantity must be greater than 0');
     }
   }
+  static create(value: number): Quantity {
+    return new Quantity(value);
+  }
 
   getValue(): number {
     return this.value;

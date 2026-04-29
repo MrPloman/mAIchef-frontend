@@ -4,6 +4,9 @@ export class StepInstruction {
       throw new Error('Instruction must contain at least 5 characters');
     }
   }
+  static create(value: string): StepInstruction {
+    return new StepInstruction(value);
+  }
 
   getValue(): string {
     return this.value;
