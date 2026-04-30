@@ -7,10 +7,16 @@
           <p class="eyebrow">Italian · Pasta</p>
           <h1 class="recipe-title">{{ recipe.title }}</h1>
         </div>
-        <span class="difficulty-badge difficulty-badge--{{ difficultyClass }}">
-          <span class="difficulty-badge__dot"></span>
-          {{ recipe.difficulty.getValue() }}
-        </span>
+
+        <div class="hero-card__right">
+          <span
+            class="difficulty-badge difficulty-badge--{{ difficultyClass }}"
+          >
+            <span class="difficulty-badge__dot"></span>
+            {{ recipe.difficulty.getValue() }}
+          </span>
+          <app-replan-actions></app-replan-actions>
+        </div>
       </div>
 
       <p class="recipe-description">{{ recipe.description }}</p>
@@ -117,17 +123,5 @@
         }
       </ol>
     </section>
-
-    <!-- ── Footer ────────────────────────────────────────────────────────── -->
-    <div class="footer-strip">
-      <div class="footer-strip__info">
-        <p>Created {{ formatDate(recipe.createdAt) }}</p>
-        @if (recipe.parentRecipeId) {
-          <p>Forked from: {{ recipe.parentRecipeId }}</p>
-        }
-      </div>
-      <button class="btn-fork" (click)="forkRecipe()">Fork Recipe →</button>
-    </div>
   </div>
-  <app-replan-actions></app-replan-actions>
 </div>

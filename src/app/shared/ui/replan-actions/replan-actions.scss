@@ -1,14 +1,9 @@
 @use "../../../../variables" as variables;
 @use "sass:color"; // Add this line at the top
 .fab-group {
-  position: fixed;
-  width: 400px;
   display: flex;
   flex-direction: row;
-  bottom: 0;
-  right: 50px;
   justify-content: center;
-  top: 400px;
 }
 .fab {
   display: flex;
