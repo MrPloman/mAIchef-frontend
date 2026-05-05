@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthComponent } from './features/auth/auth.component/auth.component';
+import { AuthComponent } from './features/auth/auth.component';
 import { HomeComponent } from './features/home/home.component';
 import { RecipeDetailComponent } from './features/recipe-detail/recipe-detail.component';
 import { ResultsComponent } from './features/results/results.component';

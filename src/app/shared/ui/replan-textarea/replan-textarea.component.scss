@@ -1,0 +1,162 @@
+// Adjust the path to match your project structure.
+// Common locations: '../variables', '../../styles/variables', 'src/styles/variables'
+@use "../../../../variables" as v;
+
+$_radius: 14px;
+$_shadow-low:
+  0 4px 12px rgba(v.$ink, 0.13),
+  0 1px 4px rgba(v.$ink, 0.08);
+$_shadow-high:
+  0 20px 48px rgba(v.$ink, 0.11),
+  0 6px 16px rgba(v.$ink, 0.07);
+
+:host {
+  display: block;
+}
+
+.recipe-note {
+  position: fixed;
+  top: 220px;
+  right: 32px;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 320px;
+  padding: 16px;
+
+  background: v.$cream;
+  border: 1px solid v.$border;
+  border-radius: $_radius;
+  box-shadow: $_shadow-low;
+
+  // Entry runs once; levitate loops forever after the entry finishes.
+  animation:
+    slide-in 320ms cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    levitate 1.2s ease-in-out 0.3s infinite alternate;
+
+  &--hidden {
+    display: none;
+  }
+
+  &__textarea {
+    resize: none;
+    width: 100%;
+    min-height: 140px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+
+    font-family: v.$font-text;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: v.$ink;
+
+    background: v.$background-light;
+    border: 1px solid v.$border;
+    border-radius: calc(#{$_radius} - 4px);
+    outline: none;
+
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease;
+
+    &::placeholder {
+      color: v.$warm-gray;
+    }
+
+    &:focus {
+      border-color: v.$color-accent;
+      box-shadow: 0 0 0 3px rgba(v.$color-accent, 0.15);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__send {
+    flex: 1;
+    padding: 9px 18px;
+
+    font-family: v.$font-text;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: v.$text-on-dark;
+    letter-spacing: 0.02em;
+
+    background: v.$color-primary;
+    border: none;
+    border-radius: calc(#{$_radius} - 6px);
+    cursor: pointer;
+
+    transition:
+      opacity 160ms ease,
+      transform 120ms ease;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__hide {
+    padding: 9px 12px;
+
+    font-family: v.$font-text;
+    font-size: 0.8rem;
+    color: v.$warm-gray;
+
+    background: transparent;
+    border: 1px solid v.$border;
+    border-radius: calc(#{$_radius} - 6px);
+    cursor: pointer;
+
+    transition:
+      color 160ms ease,
+      border-color 160ms ease,
+      background 160ms ease;
+
+    &:hover {
+      color: v.$ink;
+      border-color: v.$parchment;
+      background: v.$parchment;
+    }
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// The card drifts up 8px and back down in a smooth sine-like loop.
+// The box-shadow morphs in sync: deeper/softer when high, tighter when low.
+@keyframes levitate {
+  from {
+    transform: translateY(0px);
+    box-shadow: $_shadow-low;
+  }
+  to {
+    transform: translateY(-20px);
+    box-shadow: $_shadow-high;
+  }
+}

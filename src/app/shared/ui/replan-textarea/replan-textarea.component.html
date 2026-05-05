@@ -1,0 +1,21 @@
+<div class="recipe-note" [class.recipe-note--hidden]="!visible()">
+  <textarea
+    class="recipe-note__textarea"
+    placeholder="Add a note about this recipe…"
+    [(ngModel)]="message"
+    (keydown.meta.enter)="onSend()"
+    (keydown.control.enter)="onSend()"
+  ></textarea>
+
+  <div class="recipe-note__actions">
+    <button
+      class="recipe-note__send"
+      [disabled]="!message().trim()"
+      (click)="onSend()"
+    >
+      Send
+    </button>
+
+    <button class="recipe-note__hide" (click)="hide()">Hide</button>
+  </div>
+</div>
