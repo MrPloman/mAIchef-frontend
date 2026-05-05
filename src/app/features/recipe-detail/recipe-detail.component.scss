@@ -21,27 +21,6 @@
   gap: 1.5rem;
 }
 
-// ── Shared mixins ─────────────────────────────────────────────────────────────
-// @mixin paper-texture {
-//   position: relative;
-//   overflow: hidden;
-
-//   &::before {
-//     content: "";
-//     position: absolute;
-//     inset: 0;
-//     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-//     pointer-events: none;
-//     border-radius: inherit;
-//     z-index: 0;
-//   }
-
-//   & > * {
-//     position: relative;
-//     z-index: 1;
-//   }
-// }
-
 @mixin card-shell {
   background: variables.$cream;
   border: 1px solid variables.$border;

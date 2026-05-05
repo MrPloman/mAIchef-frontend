@@ -1,0 +1,387 @@
+@use "../../../../variables" as variables;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shimmer keyframe
+// ─────────────────────────────────────────────────────────────────────────────
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shimmer mixin — shared by every skeleton bubble and the divider diamond
+// ─────────────────────────────────────────────────────────────────────────────
+@mixin shimmer-fill {
+  background: linear-gradient(
+    90deg,
+    variables.$border 0%,
+    variables.$parchment 40%,
+    color-mix(in srgb, variables.$cream 60%, variables.$border) 50%,
+    variables.$parchment 60%,
+    variables.$border 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Card shell — mirrors the mixin from the parent stylesheet
+// ─────────────────────────────────────────────────────────────────────────────
+@mixin card-shell {
+  background: variables.$cream;
+  border: 1px solid variables.$border;
+  border-radius: 20px;
+  box-shadow:
+    0 1px 2px rgba(variables.$ink, 0.05),
+    0 4px 16px rgba(variables.$ink, 0.07),
+    0 0 0 4px variables.$parchment,
+    0 0 0 5px variables.$border;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Page shell
+// ─────────────────────────────────────────────────────────────────────────────
+.page {
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  font-family: variables.$font-text;
+  color: variables.$ink;
+}
+
+.container {
+  max-width: 60%;
+  margin: 0 auto;
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Hero card
+// ─────────────────────────────────────────────────────────────────────────────
+.hero-card {
+  @include card-shell;
+  padding: 2.25rem 2rem 1.75rem;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__meta {
+    flex: 1;
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid variables.$border;
+    margin-top: 0.25rem;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Divider
+// ─────────────────────────────────────────────────────────────────────────────
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1.4rem 0;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: variables.$border;
+  }
+
+  &__diamond {
+    @include shimmer-fill;
+    width: 5px;
+    height: 5px;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    animation-delay: 0.05s;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stats row
+// ─────────────────────────────────────────────────────────────────────────────
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0.25rem 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.stat-sep {
+  width: 1px;
+  height: 2.5rem;
+  background: variables.$border;
+  opacity: 0.5;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section card
+// ─────────────────────────────────────────────────────────────────────────────
+.section-card {
+  @include card-shell;
+  padding: 1.6rem 1.75rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Ingredients grid
+// ─────────────────────────────────────────────────────────────────────────────
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ing-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid
+    color-mix(in srgb, variables.$border 40%, transparent);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Steps list
+// ─────────────────────────────────────────────────────────────────────────────
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid
+    color-mix(in srgb, variables.$border 50%, transparent);
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &--last {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &__body {
+    flex: 1;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+}
+
+.step-tips {
+  margin-top: 0.65rem;
+  list-style: none;
+  padding: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Skeleton bubbles
+// ─────────────────────────────────────────────────────────────────────────────
+.skel {
+  @include shimmer-fill;
+  display: block;
+  border-radius: 6px;
+
+  &--eyebrow {
+    width: 90px;
+    height: 10px;
+    margin-bottom: 0.65rem;
+    border-radius: 3px;
+  }
+
+  &--title {
+    width: 72%;
+    height: 2rem;
+    margin-bottom: 0.4rem;
+    border-radius: 8px;
+    animation-delay: 0.05s;
+
+    &-short {
+      width: 45%;
+      animation-delay: 0.1s;
+    }
+  }
+
+  &--badge {
+    width: 90px;
+    height: 26px;
+    border-radius: 4px;
+  }
+
+  &--action-btn {
+    width: 100px;
+    height: 32px;
+    border-radius: 6px;
+    animation-delay: 0.06s;
+  }
+
+  &--desc {
+    width: 100%;
+    height: 13px;
+    margin-bottom: 0.4rem;
+    border-radius: 4px;
+    animation-delay: 0.08s;
+
+    &-short {
+      width: 60%;
+      animation-delay: 0.16s;
+    }
+  }
+
+  &--stat-value {
+    width: 48px;
+    height: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    animation-delay: 0.1s;
+  }
+
+  &--stat-label {
+    width: 52px;
+    height: 8px;
+    border-radius: 3px;
+    animation-delay: 0.18s;
+  }
+
+  &--footer-date {
+    width: 110px;
+    height: 9px;
+    border-radius: 3px;
+  }
+
+  &--footer-version {
+    width: 32px;
+    height: 18px;
+    border-radius: 3px;
+    animation-delay: 0.06s;
+  }
+
+  &--section-title {
+    width: 100px;
+    height: 1.1rem;
+    border-radius: 6px;
+  }
+
+  &--section-count {
+    width: 120px;
+    height: 9px;
+    border-radius: 3px;
+    animation-delay: 0.06s;
+  }
+
+  &--ing-dot {
+    width: 8px;
+    min-width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 5px;
+    animation-delay: calc(var(--row, 0) * 0.07s + 0.05s);
+  }
+
+  &--ing-text {
+    height: 12px;
+    width: 65%;
+    border-radius: 4px;
+    align-self: center;
+    animation-delay: calc(var(--row, 0) * 0.07s + 0.1s);
+  }
+
+  &--step-num {
+    width: 2rem;
+    min-width: 2rem;
+    height: 1.8rem;
+    border-radius: 4px;
+    animation-delay: calc(var(--row, 0) * 0.12s + 0.04s);
+  }
+
+  &--step-line {
+    width: 100%;
+    height: 12px;
+    border-radius: 4px;
+    margin-bottom: 0.45rem;
+    animation-delay: calc(var(--row, 0) * 0.12s + 0.1s);
+
+    &-short {
+      width: 55%;
+      animation-delay: calc(var(--row, 0) * 0.12s + 0.2s);
+    }
+  }
+
+  &--step-duration {
+    width: 80px;
+    height: 22px;
+    border-radius: 3px;
+    animation-delay: calc(var(--row, 0) * 0.12s + 0.14s);
+  }
+
+  &--step-tip {
+    width: 88%;
+    height: 38px;
+    border-radius: 0 3px 3px 0;
+    animation-delay: calc(var(--row, 0) * 0.12s + 0.18s);
+  }
+}
+
+// Width cycling for ingredient text bubbles
+.ing-item:nth-child(3n + 2) .skel--ing-text {
+  width: 75%;
+}
+.ing-item:nth-child(3n + 3) .skel--ing-text {
+  width: 85%;
+}

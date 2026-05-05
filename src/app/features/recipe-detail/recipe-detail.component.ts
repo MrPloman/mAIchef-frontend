@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RecipeStep } from '../../core/domain/models/recipe/recipe-step.model';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
@@ -6,6 +7,7 @@ import { Duration } from '../../core/domain/value-objects/duration.vo';
 import { Ingredient } from '../../core/domain/value-objects/ingredient.vo';
 import { StepInstruction } from '../../core/domain/value-objects/step-instruction.vo';
 import { StepOrder } from '../../core/domain/value-objects/step-order.vo';
+import { RecipeDetailLoaderComponent } from '../../shared/ui/recipe-detail-loader/recipe-detail-loader.component';
 import { ReplanActions } from '../../shared/ui/replan-actions/replan-actions';
 import { ReplanTextareaComponent } from '../../shared/ui/replan-textarea/replan-textarea.component';
 
@@ -13,7 +15,13 @@ import { ReplanTextareaComponent } from '../../shared/ui/replan-textarea/replan-
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.scss'],
-  imports: [ReplanActions, ReplanTextareaComponent, ReplanTextareaComponent],
+  imports: [
+    ReplanActions,
+    ReplanTextareaComponent,
+    ReplanTextareaComponent,
+    RecipeDetailLoaderComponent,
+    CommonModule,
+  ],
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe = MOCK_RECIPE;

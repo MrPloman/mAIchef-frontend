@@ -1,0 +1,102 @@
+<div class="page page--loading">
+  <div class="container">
+    <!-- ── Hero Card Skeleton ──────────────────────────────────────────────── -->
+    <div class="hero-card">
+      <div class="hero-card__top">
+        <div class="hero-card__meta">
+          <div class="skel skel--eyebrow"></div>
+          <div class="skel skel--title"></div>
+          <div class="skel skel--title skel--title-short"></div>
+        </div>
+
+        <div class="hero-card__right">
+          <div class="skel skel--badge"></div>
+          <div class="skel skel--action-btn"></div>
+        </div>
+      </div>
+
+      <div class="skel skel--desc"></div>
+      <div class="skel skel--desc skel--desc-short"></div>
+
+      <div class="divider">
+        <div class="divider__diamond"></div>
+      </div>
+
+      <div class="stats-row">
+        @for (_ of [0, 1, 2, 3]; track $index) {
+          @if ($index > 0) {
+            <div class="stat-sep"></div>
+          }
+          <div class="stat-item">
+            <div class="skel skel--stat-value"></div>
+            <div class="skel skel--stat-label"></div>
+          </div>
+        }
+      </div>
+
+      <div class="hero-card__footer">
+        <div class="skel skel--footer-date"></div>
+        <div class="skel skel--footer-version"></div>
+      </div>
+    </div>
+
+    <!-- ── Ingredients Skeleton ────────────────────────────────────────────── -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="skel skel--section-title"></div>
+        <div class="skel skel--section-count"></div>
+      </div>
+
+      <ul class="ingredients-grid">
+        @for (_ of ingredientRows; track $index) {
+          <li class="ing-item" [style.--row]="$index">
+            <div class="skel skel--ing-dot"></div>
+            <div class="skel skel--ing-text"></div>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <!-- ── Steps Skeleton ─────────────────────────────────────────────────── -->
+    <section class="section-card">
+      <div class="section-head">
+        <div class="skel skel--section-title"></div>
+        <div class="skel skel--section-count"></div>
+      </div>
+
+      <ol class="steps-list">
+        @for (step of stepRows; track $index; let last = $last) {
+          <li
+            class="step-item"
+            [class.step-item--last]="last"
+            [style.--row]="$index"
+          >
+            <div class="skel skel--step-num"></div>
+            <div class="step-item__body">
+              @for (
+                _ of [].constructor(step.lines);
+                track $index;
+                let lineLast = $last
+              ) {
+                <div
+                  class="skel skel--step-line"
+                  [class.skel--step-line-short]="lineLast && step.lines > 1"
+                ></div>
+              }
+              @if (step.hasDuration) {
+                <div class="step-item__meta">
+                  <div class="skel skel--step-duration"></div>
+                </div>
+              }
+              @if (step.hasTip) {
+                <div class="step-tips">
+                  <div class="skel skel--step-tip"></div>
+                </div>
+              }
+            </div>
+          </li>
+        }
+      </ol>
+    </section>
+  </div>
+</div>
