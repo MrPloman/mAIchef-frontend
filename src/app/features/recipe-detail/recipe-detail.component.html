@@ -1,129 +1,132 @@
-<div class="page">
-  <div class="container">
-    <!-- ── Hero card ─────────────────────────────────────────────────────── -->
-    <div class="hero-card">
-      <div class="hero-card__top">
-        <div class="hero-card__meta">
-          <p class="eyebrow">Italian · Pasta</p>
-          <h1 class="recipe-title">{{ recipe.title }}</h1>
-        </div>
+@if (!(selectIsLoading | async)) {
+  <div class="page">
+    <div class="container">
+      <!-- ── Hero card ─────────────────────────────────────────────────────── -->
+      <div class="hero-card">
+        <div class="hero-card__top">
+          <div class="hero-card__meta">
+            <p class="eyebrow">Italian · Pasta</p>
+            <h1 class="recipe-title">{{ recipe.title }}</h1>
+          </div>
 
-        <div class="hero-card__right">
-          <span
-            class="difficulty-badge difficulty-badge--{{ difficultyClass }}"
-          >
-            <span class="difficulty-badge__dot"></span>
-            {{ recipe.difficulty.getValue() }}
-          </span>
-          <app-replan-actions></app-replan-actions>
-        </div>
-      </div>
-
-      <p class="recipe-description">{{ recipe.description }}</p>
-
-      <div class="divider"><div class="divider__diamond"></div></div>
-
-      <div class="stats-row">
-        <div class="stat-item">
-          <span class="stat-item__value">{{
-            formatTime(recipe.estimatedTimeInMinutes)
-          }}</span>
-          <span class="stat-item__label">Total time</span>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat-item">
-          <span class="stat-item__value">{{ recipe.servings }}</span>
-          <span class="stat-item__label">Servings</span>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat-item">
-          <span class="stat-item__value">{{ ingredientCount }}</span>
-          <span class="stat-item__label">Ingredients</span>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat-item">
-          <span class="stat-item__value">{{ stepCount }}</span>
-          <span class="stat-item__label">Steps</span>
-        </div>
-      </div>
-
-      <div class="hero-card__footer">
-        <span class="hero-card__date"
-          >Created {{ formatDate(recipe.createdAt) }}</span
-        >
-        <span class="hero-card__version">v{{ recipe.version }}</span>
-      </div>
-    </div>
-
-    <!-- ── Ingredients ───────────────────────────────────────────────────── -->
-    <section class="section-card">
-      <div class="section-head">
-        <h2 class="section-head__title">Ingredients</h2>
-        <span class="section-head__count"
-          >{{ ingredientCount }} items · {{ recipe.servings }} servings</span
-        >
-      </div>
-
-      <ul class="ingredients-grid">
-        @for (ing of recipe.ingredients; track ing.name.getValue()) {
-          <li class="ing-item">
-            <span class="ing-item__dot"></span>
-            <span class="ing-item__text">
-              <strong class="ing-item__qty">
-                {{ ing.quantity.getValue()
-                }}{{ ing.unit.getValue() ? " " + ing.unit.getValue() : "" }}
-              </strong>
-              {{ ing.name.getValue() }}
+          <div class="hero-card__right">
+            <span
+              class="difficulty-badge difficulty-badge--{{ difficultyClass }}"
+            >
+              <span class="difficulty-badge__dot"></span>
+              {{ recipe.difficulty.getValue() }}
             </span>
-          </li>
-        }
-      </ul>
-    </section>
+            <app-replan-actions></app-replan-actions>
+          </div>
+        </div>
 
-    <!-- ── Steps ─────────────────────────────────────────────────────────── -->
-    <section class="section-card">
-      <div class="section-head">
-        <h2 class="section-head__title">Steps</h2>
-        <span class="section-head__count">{{ stepCount }} steps</span>
+        <p class="recipe-description">{{ recipe.description }}</p>
+
+        <div class="divider"><div class="divider__diamond"></div></div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-item__value">{{
+              formatTime(recipe.estimatedTimeInMinutes)
+            }}</span>
+            <span class="stat-item__label">Total time</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat-item">
+            <span class="stat-item__value">{{ recipe.servings }}</span>
+            <span class="stat-item__label">Servings</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat-item">
+            <span class="stat-item__value">{{ ingredientCount }}</span>
+            <span class="stat-item__label">Ingredients</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat-item">
+            <span class="stat-item__value">{{ stepCount }}</span>
+            <span class="stat-item__label">Steps</span>
+          </div>
+        </div>
+
+        <div class="hero-card__footer">
+          <span class="hero-card__date"
+            >Created {{ formatDate(recipe.createdAt) }}</span
+          >
+          <span class="hero-card__version">v{{ recipe.version }}</span>
+        </div>
       </div>
 
-      <ol class="steps-list">
-        @for (
-          step of recipe.steps;
-          track step.order.getValue();
-          let last = $last
-        ) {
-          <li class="step-item" [class.step-item--last]="last">
-            <span class="step-item__num">{{
-              padOrder(step.order.getValue())
-            }}</span>
+      <!-- ── Ingredients ───────────────────────────────────────────────────── -->
+      <section class="section-card">
+        <div class="section-head">
+          <h2 class="section-head__title">Ingredients</h2>
+          <span class="section-head__count"
+            >{{ ingredientCount }} items · {{ recipe.servings }} servings</span
+          >
+        </div>
 
-            <div class="step-item__body">
-              <p class="step-item__instruction">
-                {{ step.instruction.getValue() }}
-              </p>
+        <ul class="ingredients-grid">
+          @for (ing of recipe.ingredients; track ing.name.getValue()) {
+            <li class="ing-item">
+              <span class="ing-item__dot"></span>
+              <span class="ing-item__text">
+                <strong class="ing-item__qty">
+                  {{ ing.quantity.getValue()
+                  }}{{ ing.unit.getValue() ? " " + ing.unit.getValue() : "" }}
+                </strong>
+                {{ ing.name.getValue() }}
+              </span>
+            </li>
+          }
+        </ul>
+      </section>
 
-              @if (formatStepDuration(step); as dur) {
-                <div class="step-item__meta">
-                  <span class="step-item__duration">
-                    <span class="step-item__clock">◷</span> {{ dur }}
-                  </span>
-                </div>
-              }
+      <!-- ── Steps ─────────────────────────────────────────────────────────── -->
+      <section class="section-card">
+        <div class="section-head">
+          <h2 class="section-head__title">Steps</h2>
+          <span class="section-head__count">{{ stepCount }} steps</span>
+        </div>
 
-              @if (step.tips && step.tips.length > 0) {
-                <ul class="step-tips">
-                  @for (tip of step.tips; track tip) {
-                    <li class="step-tips__item">{{ tip }}</li>
-                  }
-                </ul>
-              }
-            </div>
-          </li>
-        }
-      </ol>
-    </section>
+        <ol class="steps-list">
+          @for (
+            step of recipe.steps;
+            track step.order.getValue();
+            let last = $last
+          ) {
+            <li class="step-item" [class.step-item--last]="last">
+              <span class="step-item__num">{{
+                padOrder(step.order.getValue())
+              }}</span>
+
+              <div class="step-item__body">
+                <p class="step-item__instruction">
+                  {{ step.instruction.getValue() }}
+                </p>
+
+                @if (formatStepDuration(step); as dur) {
+                  <div class="step-item__meta">
+                    <span class="step-item__duration">
+                      <span class="step-item__clock">◷</span> {{ dur }}
+                    </span>
+                  </div>
+                }
+
+                @if (step.tips && step.tips.length > 0) {
+                  <ul class="step-tips">
+                    @for (tip of step.tips; track tip) {
+                      <li class="step-tips__item">{{ tip }}</li>
+                    }
+                  </ul>
+                }
+              </div>
+            </li>
+          }
+        </ol>
+      </section>
+    </div>
+    <app-replan-textarea></app-replan-textarea>
   </div>
-  <app-replan-textarea></app-replan-textarea>
-</div>
-<app-recipe-detail-loader></app-recipe-detail-loader>
+} @else {
+  <app-recipe-detail-loader></app-recipe-detail-loader>
+}

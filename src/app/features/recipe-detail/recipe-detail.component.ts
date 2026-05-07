@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { RecipeStep } from '../../core/domain/models/recipe/recipe-step.model';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
 import { Difficulty } from '../../core/domain/value-objects/difficulty.vo';
@@ -10,6 +11,7 @@ import { StepOrder } from '../../core/domain/value-objects/step-order.vo';
 import { RecipeDetailLoaderComponent } from '../../shared/ui/recipe-detail-loader/recipe-detail-loader.component';
 import { ReplanActions } from '../../shared/ui/replan-actions/replan-actions';
 import { ReplanTextareaComponent } from '../../shared/ui/replan-textarea/replan-textarea.component';
+import { selectIsLoading } from '../../store/selectors/loader.selector';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -24,7 +26,9 @@ import { ReplanTextareaComponent } from '../../shared/ui/replan-textarea/replan-
   ],
 })
 export class RecipeDetailComponent implements OnInit {
+  constructor(private store: Store) {}
   recipe: Recipe = MOCK_RECIPE;
+  public selectIsLoading = this.store.select(selectIsLoading);
 
   get difficultyClass(): string {
     return this.recipe.difficulty.getValue().toLowerCase();
