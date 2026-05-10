@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './shared/ui/navbar/navbar.component';
@@ -8,7 +7,7 @@ import { LoaderFacade } from './store/facades/loader.facade';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastComponent, NavbarComponent, AsyncPipe],
+  imports: [RouterOutlet, ToastComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
