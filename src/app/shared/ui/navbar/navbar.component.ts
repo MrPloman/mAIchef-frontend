@@ -17,6 +17,7 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription, filter, firstValueFrom } from 'rxjs';
+import { LoaderFacade } from '../../../store/facades/loader.facade';
 import { selectLengthOfRecipes } from '../../../store/selectors/recipes.selector';
 
 @Component({
@@ -41,12 +42,14 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
     },
     { label: 'Profile', icon: '👤', route: '/profile', enabled: true },
   ];
+  public loading$ = this.loadingFacade.isLoading$;
 
   private routerSub!: Subscription;
 
   constructor(
     private router: Router,
     private store: Store,
+    private loadingFacade: LoaderFacade,
   ) {
     this.getRecipesLength();
   }
@@ -79,6 +82,7 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
   }
 
   onNavClick(index: number): void {
+    if (this.loading$) return;
     const btn = this.navBtns.get(index)?.nativeElement;
     if (btn) this.animateBubble(btn);
   }

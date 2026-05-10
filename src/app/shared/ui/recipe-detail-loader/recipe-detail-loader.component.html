@@ -1,4 +1,10 @@
-<div class="page page--loading">
+<div
+  class="page page--loading"
+  [ngClass]="{
+    'disappear-now': !(showLoader$ | async),
+    'appear-now': (showLoader$ | async),
+  }"
+>
   <div class="container">
     <!-- ── Hero Card Skeleton ──────────────────────────────────────────────── -->
     <div class="hero-card">

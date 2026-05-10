@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { RecipeStep } from '../../core/domain/models/recipe/recipe-step.model';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
 import { Difficulty } from '../../core/domain/value-objects/difficulty.vo';
@@ -26,10 +25,7 @@ import { LoaderFacade } from '../../store/facades/loader.facade';
   ],
 })
 export class RecipeDetailComponent implements OnInit {
-  constructor(
-    private store: Store,
-    private loadingFacade: LoaderFacade,
-  ) {}
+  constructor(private loadingFacade: LoaderFacade) {}
   recipe: Recipe = MOCK_RECIPE;
   public loading$ = this.loadingFacade.isLoading$;
   public showLoader$ = this.loadingFacade.showLoader$;

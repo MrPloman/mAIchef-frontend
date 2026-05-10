@@ -46,7 +46,6 @@
 // Page shell
 // ─────────────────────────────────────────────────────────────────────────────
 .page {
-  min-height: 100vh;
   padding: 2rem 1rem 4rem;
   font-family: variables.$font-text;
   color: variables.$ink;
@@ -384,4 +383,29 @@
 }
 .ing-item:nth-child(3n + 3) .skel--ing-text {
   width: 85%;
+}
+
+.disappear-now {
+  animation: dissapearNow 0.5s ease-out forwards;
+}
+/* Define the animation keyframes */
+@keyframes dissapearNow {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.appear-now {
+  animation: appearNow 0.5s ease-out forwards;
+}
+/* Define the animation keyframes */
+@keyframes appearNow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

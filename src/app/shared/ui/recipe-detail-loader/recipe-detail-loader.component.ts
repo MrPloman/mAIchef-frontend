@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { LoaderFacade } from '../../../store/facades/loader.facade';
 
 @Component({
   selector: 'app-recipe-detail-loader',
@@ -9,6 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './recipe-detail-loader.component.scss',
 })
 export class RecipeDetailLoaderComponent {
+  constructor(private loadingFacade: LoaderFacade) {}
+  public loading$ = this.loadingFacade.isLoading$;
+  public showLoader$ = this.loadingFacade.showLoader$;
   readonly ingredientRows = Array(6);
   readonly stepRows = [
     { lines: 3, hasDuration: true, hasTip: true },

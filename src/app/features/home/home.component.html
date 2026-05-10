@@ -1,7 +1,7 @@
 @if (loading$ | async) {
   <app-loader
     id="loader"
-    [ngClass]="{ 'slide-middle-up-element': dissapearNow }"
+    [ngClass]="{ 'dissapear-now': dissapearNow }"
   ></app-loader>
 } @else {
   <div class="container">

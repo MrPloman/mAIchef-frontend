@@ -38,11 +38,11 @@
     }
   }
 }
-.slide-middle-up-element {
-  animation: slideMiddleUp 0.5s ease-out forwards;
+.dissapear-now {
+  animation: dissapearNow 0.5s ease-out forwards;
 }
 /* Define the animation keyframes */
-@keyframes slideMiddleUp {
+@keyframes dissapearNow {
   from {
     opacity: 1;
   }

@@ -26,7 +26,7 @@ export class LoaderComponent {
       if (!state.showLoader) {
         const loader = document.getElementById('loader');
         loader?.classList.remove('slide-bottom-up-element');
-        loader?.classList.add('slide-middle-up-element');
+        loader?.classList.add('dissapear-now');
       }
     });
   }
@@ -69,12 +69,12 @@ export class LoaderComponent {
   public handleAnimationText(mode: 'start' | 'end') {
     const message = document.getElementById('textStatus');
     if (mode === 'start') {
-      message?.classList.remove('slide-middle-up-element');
+      message?.classList.remove('dissapear-now');
       message?.classList.add('slide-bottom-up-element');
     }
     if (mode === 'end') {
       message?.classList.remove('slide-bottom-up-element');
-      message?.classList.add('slide-middle-up-element');
+      message?.classList.add('dissapear-now');
     }
   }
 }

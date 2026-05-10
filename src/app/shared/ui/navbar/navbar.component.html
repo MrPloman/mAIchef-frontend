@@ -9,7 +9,7 @@
     routerLinkActive="active"
     class="nav-item"
     (click)="onNavClick(i)"
-    [class.disabled]="!item.enabled"
+    [class.disabled]="!item.enabled || (loading$ | async)"
     [attr.aria-disabled]="!item.enabled"
   >
     <span class="nav-icon" aria-hidden="true">{{ item.icon }}</span>
