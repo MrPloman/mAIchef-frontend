@@ -11,7 +11,7 @@ import { StepOrder } from '../../core/domain/value-objects/step-order.vo';
 import { RecipeDetailLoaderComponent } from '../../shared/ui/recipe-detail-loader/recipe-detail-loader.component';
 import { ReplanActions } from '../../shared/ui/replan-actions/replan-actions';
 import { ReplanTextareaComponent } from '../../shared/ui/replan-textarea/replan-textarea.component';
-import { selectIsLoading } from '../../store/selectors/loader.selector';
+import { LoaderFacade } from '../../store/facades/loader.facade';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -26,10 +26,13 @@ import { selectIsLoading } from '../../store/selectors/loader.selector';
   ],
 })
 export class RecipeDetailComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private loadingFacade: LoaderFacade,
+  ) {}
   recipe: Recipe = MOCK_RECIPE;
-  public selectIsLoading = this.store.select(selectIsLoading);
-
+  public loading$ = this.loadingFacade.isLoading$;
+  public showLoader$ = this.loadingFacade.showLoader$;
   get difficultyClass(): string {
     return this.recipe.difficulty.getValue().toLowerCase();
   }

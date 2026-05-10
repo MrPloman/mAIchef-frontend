@@ -18,13 +18,9 @@ export class LoaderFacade {
 
   public initLoadingAnimations() {
     this.show();
-    this.set();
   }
   public finishLoadingAnimations() {
     this.hide();
-    setTimeout(() => {
-      this.set();
-    }, 750);
   }
 
   set(): void {

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LoaderFacade } from '../../../store/facades/loader.facade';
 
 @Component({
   selector: 'app-replan-textarea',
@@ -10,6 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './replan-textarea.component.scss',
 })
 export class ReplanTextareaComponent {
+  constructor(private loadingFacade: LoaderFacade) {}
   readonly send = output<string>();
 
   protected message = signal('');
@@ -20,6 +22,10 @@ export class ReplanTextareaComponent {
     if (!text) return;
     this.send.emit(text);
     this.message.set('');
+    this.loadingFacade.initLoadingAnimations();
+    setTimeout(() => {
+      this.loadingFacade.finishLoadingAnimations();
+    }, 4000);
   }
 
   protected hide(): void {
