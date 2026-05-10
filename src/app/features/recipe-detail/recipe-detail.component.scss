@@ -438,3 +438,27 @@ $_difficulty: (
     outline-offset: 2px;
   }
 }
+.disappear-now {
+  animation: dissapearNow 0.5s ease-out forwards;
+}
+/* Define the animation keyframes */
+@keyframes dissapearNow {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.appear-now {
+  animation: appearNow 0.5s ease-out forwards;
+}
+/* Define the animation keyframes */
+@keyframes appearNow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

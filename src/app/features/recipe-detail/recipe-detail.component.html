@@ -1,5 +1,11 @@
 @if (!(loading$ | async)) {
-  <div class="page">
+  <div
+    class="page"
+    [ngClass]="{
+      'disappear-now': (loading$ | async),
+      'appear-now': !(loading$ | async),
+    }"
+  >
     <div class="container">
       <!-- ── Hero card ─────────────────────────────────────────────────────── -->
       <div class="hero-card">
