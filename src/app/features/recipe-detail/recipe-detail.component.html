@@ -22,7 +22,9 @@
               <span class="difficulty-badge__dot"></span>
               {{ recipe.difficulty.getValue() }}
             </span>
-            <app-replan-actions></app-replan-actions>
+            @if (isAuthenticated$ | async) {
+              <app-replan-actions></app-replan-actions>
+            }
           </div>
         </div>
 
@@ -131,7 +133,9 @@
         </ol>
       </section>
     </div>
-    <app-replan-textarea></app-replan-textarea>
+    @if (isAuthenticated$ | async) {
+      <app-replan-textarea></app-replan-textarea>
+    }
   </div>
 } @else {
   <app-recipe-detail-loader></app-recipe-detail-loader>
