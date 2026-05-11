@@ -5,9 +5,10 @@ import { RecipeDetailComponent } from './features/recipe-detail/recipe-detail.co
 import { ResultsComponent } from './features/results/results.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'profile', component: AuthComponent },
   { path: 'recipe/:id', component: RecipeDetailComponent },
+  { path: '**', redirectTo: '/home' }, // Wildcard must be last
 ];
