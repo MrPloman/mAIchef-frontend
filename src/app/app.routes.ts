@@ -7,11 +7,6 @@ import {
 
 export const routes: Routes = [
   {
-    path: '',
-    loadComponent: () =>
-      import('./features/home/home.component').then((m) => m.HomeComponent),
-  },
-  {
     path: 'home',
     loadComponent: () =>
       import('./features/home/home.component').then((m) => m.HomeComponent),
@@ -42,6 +37,11 @@ export const routes: Routes = [
         (m) => m.RecipeDetailComponent,
       ),
     canActivate: [recipeDetailGuard],
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/home',
   },
   { path: '**', redirectTo: '/home' }, // Wildcard must be last
 ];
