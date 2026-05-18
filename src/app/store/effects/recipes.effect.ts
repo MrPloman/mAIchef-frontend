@@ -44,7 +44,7 @@ export class RecipesEffects {
     () =>
       this.actions$.pipe(
         ofType(getRecipesRequestedSuccess),
-        delay(750), // Pequeña demora para mostrar el resultado antes de navegar
+        delay(500), // Pequeña demora para mostrar el resultado antes de navegar
         tap(() => this.router.navigate(['/results'])),
       ),
     { dispatch: false }, // No despacha ninguna acción

@@ -146,8 +146,8 @@ export class RecipeGeneratorComponent {
       preferences: {
         servings: formValue.servings,
         maxDuration: formValue.maxDuration,
-        mealTypes: formValue.mealTypes,
-        cuisineTypes: formValue.cuisineTypes,
+        mealTypes: formValue.mealTypes.value || [],
+        cuisineTypes: formValue.cuisineTypes.value || [],
         restrictions: formValue.restrictions.value || [],
       },
     };
@@ -155,8 +155,8 @@ export class RecipeGeneratorComponent {
 
   onReset() {
     this.recipeForm.reset({
-      mealTypes: '',
-      cuisineTypes: '',
+      mealTypes: [],
+      cuisineTypes: [],
       restrictions: [],
     });
     this.selectedRestrictions = [];
