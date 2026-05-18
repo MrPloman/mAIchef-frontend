@@ -1,25 +1,46 @@
 import { Routes } from '@angular/router';
-import { AuthComponent } from './features/auth/auth.component';
-import { HomeComponent } from './features/home/home.component';
-import { RecipeDetailComponent } from './features/recipe-detail/recipe-detail.component';
-import { ResultsComponent } from './features/results/results.component';
+import { listsPageGuard } from './shared/guards/lists.guard';
 import {
   recipeDetailGuard,
   recipesRequestedGuard,
 } from './shared/guards/recipe.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./features/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'lists',
+    loadComponent: () =>
+      import('./features/lists/lists.component').then((m) => m.ListsComponent),
+    canActivate: [listsPageGuard],
+  },
   {
     path: 'results',
-    component: ResultsComponent,
+    loadComponent: () =>
+      import('./features/results/results.component').then(
+        (m) => m.ResultsComponent,
+      ),
     canActivate: [recipesRequestedGuard],
   },
-  { path: 'profile', component: AuthComponent },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./features/auth/auth.component').then((m) => m.AuthComponent),
+  },
   {
     path: 'recipe/:id',
-    component: RecipeDetailComponent,
+    loadComponent: () =>
+      import('./features/recipe-detail/recipe-detail.component').then(
+        (m) => m.RecipeDetailComponent,
+      ),
     canActivate: [recipeDetailGuard],
   },
   { path: '**', redirectTo: '/home' }, // Wildcard must be last
