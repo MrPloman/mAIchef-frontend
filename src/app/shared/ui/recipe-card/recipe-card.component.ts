@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Recipe } from '../../../core/domain/models/recipe/recipe.model';
 import { AuthFacade } from '../../../store/facades/auth.facade';
+import { RecipesFacade } from '../../../store/facades/recipes.facade';
 
 @Component({
   selector: 'app-recipe-card',
@@ -14,6 +15,7 @@ export class RecipeCardComponent {
   @Input({ required: true }) recipe!: Recipe;
   public isAuthenticated$ = this.authFacade.isAuthenticated$;
   constructor(
+    private recipesFacade: RecipesFacade,
     private authFacade: AuthFacade,
     private router: Router,
   ) {}
@@ -35,6 +37,8 @@ export class RecipeCardComponent {
   toggleLike() {}
 
   public viewRecipe() {
+    this.recipesFacade.setRecipeSelected(this.recipe._id);
+
     this.router.navigate(['/recipe', this.recipe._id]);
   }
 }

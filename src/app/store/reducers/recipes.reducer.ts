@@ -3,11 +3,16 @@ import {
   getRecipesRequested,
   getRecipesRequestedFailure,
   getRecipesRequestedSuccess,
+  setRecipeSelected,
 } from '../actions/recipes.actions';
 import { initialRecipesState, RecipesState } from '../state/recipes.state';
 
 export const recipesReducer = createReducer<RecipesState>(
   initialRecipesState,
+  on(setRecipeSelected, (state: RecipesState, { recipeId }) => ({
+    ...state,
+    selectedRecipe: recipeId,
+  })),
   on(getRecipesRequested, (state: RecipesState) => ({
     recipes: [], // Clear recipes when a new request is made
     selectedRecipe: null, // Reset selected recipe

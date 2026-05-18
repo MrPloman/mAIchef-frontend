@@ -4,7 +4,7 @@ import { RecipePreferences } from '../../core/domain/value-objects/recipe-prefer
 
 export const setRecipeSelected = createAction(
   '[Recipe] Set Recipe Selected',
-  props<{ recipeId: number }>(),
+  props<{ recipeId: string }>(),
 );
 export const getRecipesRequested = createAction(
   '[Recipe] Get Recipes Requested',

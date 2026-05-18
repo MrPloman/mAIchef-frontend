@@ -28,7 +28,7 @@
         <div class="hero-card__top">
           <div class="hero-card__meta">
             <p class="eyebrow">Italian · Pasta</p>
-            <h1 class="recipe-title">{{ recipe.title }}</h1>
+            <h1 class="recipe-title">{{ recipe ? recipe.title : "" }}</h1>
           </div>
 
           <div class="hero-card__right">
@@ -36,7 +36,7 @@
               class="difficulty-badge difficulty-badge--{{ difficultyClass }}"
             >
               <span class="difficulty-badge__dot"></span>
-              {{ recipe.difficulty.getValue() }}
+              {{ recipe ? recipe.difficulty.getValue() : "" }}
             </span>
             @if (isAuthenticated$ | async) {
               <app-replan-actions></app-replan-actions>
@@ -44,20 +44,22 @@
           </div>
         </div>
 
-        <p class="recipe-description">{{ recipe.description }}</p>
+        <p class="recipe-description">{{ recipe ? recipe.description : "" }}</p>
 
         <div class="divider"><div class="divider__diamond"></div></div>
 
         <div class="stats-row">
           <div class="stat-item">
             <span class="stat-item__value">{{
-              formatTime(recipe.estimatedTimeInMinutes)
+              recipe ? formatTime(recipe.estimatedTimeInMinutes) : ""
             }}</span>
             <span class="stat-item__label">Total time</span>
           </div>
           <div class="stat-sep"></div>
           <div class="stat-item">
-            <span class="stat-item__value">{{ recipe.servings }}</span>
+            <span class="stat-item__value">{{
+              recipe ? recipe.servings : ""
+            }}</span>
             <span class="stat-item__label">Servings</span>
           </div>
           <div class="stat-sep"></div>
@@ -74,9 +76,9 @@
 
         <div class="hero-card__footer">
           <span class="hero-card__date"
-            >Created {{ formatDate(recipe.createdAt) }}</span
+            >Created {{ recipe ? formatDate(recipe.createdAt) : "" }}</span
           >
-          <span class="hero-card__version">v{{ recipe.version }}</span>
+          <span class="hero-card__version">v{{ recipe?.version }}</span>
         </div>
       </div>
 
@@ -85,12 +87,12 @@
         <div class="section-head">
           <h2 class="section-head__title">Ingredients</h2>
           <span class="section-head__count"
-            >{{ ingredientCount }} items · {{ recipe.servings }} servings</span
+            >{{ ingredientCount }} items · {{ recipe?.servings }} servings</span
           >
         </div>
 
         <ul class="ingredients-grid">
-          @for (ing of recipe.ingredients; track ing.name.getValue()) {
+          @for (ing of recipe?.ingredients; track ing.name.getValue()) {
             <li class="ing-item">
               <span class="ing-item__dot"></span>
               <span class="ing-item__text">
@@ -114,7 +116,7 @@
 
         <ol class="steps-list">
           @for (
-            step of recipe.steps;
+            step of recipe?.steps;
             track step.order.getValue();
             let last = $last
           ) {

@@ -1,18 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { RecipeStep } from '../../core/domain/models/recipe/recipe-step.model';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
-import { Difficulty } from '../../core/domain/value-objects/difficulty.vo';
-import { Duration } from '../../core/domain/value-objects/duration.vo';
-import { Ingredient } from '../../core/domain/value-objects/ingredient.vo';
-import { StepInstruction } from '../../core/domain/value-objects/step-instruction.vo';
-import { StepOrder } from '../../core/domain/value-objects/step-order.vo';
 import { RecipeDetailLoaderComponent } from '../../shared/ui/recipe-detail-loader/recipe-detail-loader.component';
 import { ReplanActions } from '../../shared/ui/replan-actions/replan-actions';
 import { ReplanTextareaComponent } from '../../shared/ui/replan-textarea/replan-textarea.component';
 import { AuthFacade } from '../../store/facades/auth.facade';
 import { LoaderFacade } from '../../store/facades/loader.facade';
+import { RecipesFacade } from '../../store/facades/recipes.facade';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -28,24 +25,28 @@ import { LoaderFacade } from '../../store/facades/loader.facade';
 })
 export class RecipeDetailComponent implements OnInit {
   constructor(
+    private recipesFacade: RecipesFacade,
     private loadingFacade: LoaderFacade,
     private authFacade: AuthFacade,
     private router: Router,
-  ) {}
-  recipe: Recipe = MOCK_RECIPE;
+  ) {
+    this.recipesFacade.selectedRecipe.subscribe((r) => (this.recipe = r));
+  }
+  public recipe$: Observable<Recipe | null> = this.recipesFacade.selectedRecipe;
+  public recipe: Recipe | null = null;
   public isAuthenticated$ = this.authFacade.isAuthenticated$;
   public loading$ = this.loadingFacade.isLoading$;
   public showLoader$ = this.loadingFacade.showLoader$;
   get difficultyClass(): string {
-    return this.recipe.difficulty.getValue().toLowerCase();
+    return this.recipe?.difficulty?.getValue().toLowerCase() || '';
   }
 
   get ingredientCount(): number {
-    return this.recipe.ingredients.length;
+    return this.recipe?.ingredients.length || 0;
   }
 
   get stepCount(): number {
-    return this.recipe.steps.length;
+    return this.recipe?.steps.length || 0;
   }
 
   ngOnInit(): void {
@@ -90,90 +91,90 @@ export class RecipeDetailComponent implements OnInit {
 }
 
 // ── Mock ──────────────────────────────────────────────────────────────────────
-const MOCK_RECIPE: Recipe = Recipe.fromPersistence({
-  _id: 'rec_8f2a91d3',
-  version: 2,
-  title: 'Tagliatelle al Ragù Bolognese',
-  description:
-    'A slow-cooked Bolognese from the Emilia-Romagna tradition — ground veal and pork, a splash of whole milk, and a patience-rewarding four-hour simmer that turns a handful of humble ingredients into something extraordinary.',
-  difficulty: Difficulty.from('MEDIUM'),
-  estimatedTimeInMinutes: 240,
-  servings: 4,
-  createdAt: new Date('2025-04-14'),
-  userId: 'usr_abc123',
-  ingredients: [
-    Ingredient.create({ name: 'ground veal', quantity: 300, unit: 'G' }),
-    Ingredient.create({ name: 'ground pork', quantity: 200, unit: 'G' }),
-    Ingredient.create({ name: 'fresh tagliatelle', quantity: 400, unit: 'G' }),
-    Ingredient.create({ name: 'pancetta, diced', quantity: 120, unit: 'G' }),
-    Ingredient.create({ name: 'white onion', quantity: 1, unit: 'UNIT' }),
-    Ingredient.create({ name: 'celery stalks', quantity: 2, unit: 'UNIT' }),
-    Ingredient.create({ name: 'medium carrot', quantity: 1, unit: 'UNIT' }),
-    Ingredient.create({ name: 'dry white wine', quantity: 150, unit: 'ML' }),
-    Ingredient.create({ name: 'whole milk', quantity: 100, unit: 'ML' }),
-    Ingredient.create({
-      name: 'San Marzano tomatoes',
-      quantity: 200,
-      unit: 'G',
-    }),
-    Ingredient.create({ name: 'unsalted butter', quantity: 30, unit: 'G' }),
-    Ingredient.create({ name: 'Parmigiano Reggiano', quantity: 40, unit: 'G' }),
-  ],
-  steps: [
-    new RecipeStep(
-      StepOrder.create(1),
-      StepInstruction.create(
-        'Finely dice the onion, carrot, and celery into equal-sized pieces — this is your soffritto. In a heavy-bottomed pot over low heat, melt the butter and render the pancetta until the fat turns translucent. Add the soffritto and cook gently, stirring often, until completely softened and just beginning to turn golden.',
-      ),
-      Duration.create(15),
-      [
-        'Patience here pays dividends — rushing the soffritto yields a bitter base. Low and slow is the rule.',
-      ],
-    ),
-    new RecipeStep(
-      StepOrder.create(2),
-      StepInstruction.create(
-        'Raise the heat to medium-high. Add the ground veal and pork in two batches, breaking the meat apart with a wooden spoon. Allow each batch to brown properly — do not stir constantly. Season lightly with salt.',
-      ),
-      Duration.create(10),
-      [
-        'Browning creates the Maillard reaction — the deep savory base of the sauce. Avoid crowding the pot.',
-      ],
-    ),
-    new RecipeStep(
-      StepOrder.create(3),
-      StepInstruction.create(
-        'Pour in the white wine. Stir well, scraping any fond from the bottom of the pot. Let the wine reduce completely until the sharp alcohol smell is gone and the liquid has almost disappeared.',
-      ),
-      Duration.create(8),
-    ),
-    new RecipeStep(
-      StepOrder.create(4),
-      StepInstruction.create(
-        'Add the whole milk, stir, and let it absorb into the meat over medium heat until fully evaporated. Then add the crushed San Marzano tomatoes. Stir everything together, reduce the heat to the lowest simmer, and cover with the lid slightly ajar.',
-      ),
-      Duration.create(210),
-      [
-        'The milk softens the acidity of the meat and prevents the sauce from turning sour during the long cook.',
-        'Stir every 20–30 minutes. Add a ladleful of warm water if the sauce thickens too much.',
-      ],
-    ),
-    new RecipeStep(
-      StepOrder.create(5),
-      StepInstruction.create(
-        'Bring a large pot of heavily salted water to a rolling boil. Cook the fresh tagliatelle for 2–3 minutes, or until al dente. Reserve a full cup of starchy pasta water before draining.',
-      ),
-      Duration.create(3),
-    ),
-    new RecipeStep(
-      StepOrder.create(6),
-      StepInstruction.create(
-        'Add the drained tagliatelle directly into the ragù. Toss over medium heat, adding pasta water a splash at a time until the sauce coats every strand. Plate immediately and finish with freshly grated Parmigiano Reggiano.',
-      ),
-      undefined,
-      [
-        'Tossing in the sauce — not topping it — is what makes a ragù become part of the pasta, not just sit on top.',
-      ],
-    ),
-  ],
-});
+// const MOCK_RECIPE: Recipe = Recipe.fromPersistence({
+//   _id: 'rec_8f2a91d3',
+//   version: 2,
+//   title: 'Tagliatelle al Ragù Bolognese',
+//   description:
+//     'A slow-cooked Bolognese from the Emilia-Romagna tradition — ground veal and pork, a splash of whole milk, and a patience-rewarding four-hour simmer that turns a handful of humble ingredients into something extraordinary.',
+//   difficulty: Difficulty.from('MEDIUM'),
+//   estimatedTimeInMinutes: 240,
+//   servings: 4,
+//   createdAt: new Date('2025-04-14'),
+//   userId: 'usr_abc123',
+//   ingredients: [
+//     Ingredient.create({ name: 'ground veal', quantity: 300, unit: 'G' }),
+//     Ingredient.create({ name: 'ground pork', quantity: 200, unit: 'G' }),
+//     Ingredient.create({ name: 'fresh tagliatelle', quantity: 400, unit: 'G' }),
+//     Ingredient.create({ name: 'pancetta, diced', quantity: 120, unit: 'G' }),
+//     Ingredient.create({ name: 'white onion', quantity: 1, unit: 'UNIT' }),
+//     Ingredient.create({ name: 'celery stalks', quantity: 2, unit: 'UNIT' }),
+//     Ingredient.create({ name: 'medium carrot', quantity: 1, unit: 'UNIT' }),
+//     Ingredient.create({ name: 'dry white wine', quantity: 150, unit: 'ML' }),
+//     Ingredient.create({ name: 'whole milk', quantity: 100, unit: 'ML' }),
+//     Ingredient.create({
+//       name: 'San Marzano tomatoes',
+//       quantity: 200,
+//       unit: 'G',
+//     }),
+//     Ingredient.create({ name: 'unsalted butter', quantity: 30, unit: 'G' }),
+//     Ingredient.create({ name: 'Parmigiano Reggiano', quantity: 40, unit: 'G' }),
+//   ],
+//   steps: [
+//     new RecipeStep(
+//       StepOrder.create(1),
+//       StepInstruction.create(
+//         'Finely dice the onion, carrot, and celery into equal-sized pieces — this is your soffritto. In a heavy-bottomed pot over low heat, melt the butter and render the pancetta until the fat turns translucent. Add the soffritto and cook gently, stirring often, until completely softened and just beginning to turn golden.',
+//       ),
+//       Duration.create(15),
+//       [
+//         'Patience here pays dividends — rushing the soffritto yields a bitter base. Low and slow is the rule.',
+//       ],
+//     ),
+//     new RecipeStep(
+//       StepOrder.create(2),
+//       StepInstruction.create(
+//         'Raise the heat to medium-high. Add the ground veal and pork in two batches, breaking the meat apart with a wooden spoon. Allow each batch to brown properly — do not stir constantly. Season lightly with salt.',
+//       ),
+//       Duration.create(10),
+//       [
+//         'Browning creates the Maillard reaction — the deep savory base of the sauce. Avoid crowding the pot.',
+//       ],
+//     ),
+//     new RecipeStep(
+//       StepOrder.create(3),
+//       StepInstruction.create(
+//         'Pour in the white wine. Stir well, scraping any fond from the bottom of the pot. Let the wine reduce completely until the sharp alcohol smell is gone and the liquid has almost disappeared.',
+//       ),
+//       Duration.create(8),
+//     ),
+//     new RecipeStep(
+//       StepOrder.create(4),
+//       StepInstruction.create(
+//         'Add the whole milk, stir, and let it absorb into the meat over medium heat until fully evaporated. Then add the crushed San Marzano tomatoes. Stir everything together, reduce the heat to the lowest simmer, and cover with the lid slightly ajar.',
+//       ),
+//       Duration.create(210),
+//       [
+//         'The milk softens the acidity of the meat and prevents the sauce from turning sour during the long cook.',
+//         'Stir every 20–30 minutes. Add a ladleful of warm water if the sauce thickens too much.',
+//       ],
+//     ),
+//     new RecipeStep(
+//       StepOrder.create(5),
+//       StepInstruction.create(
+//         'Bring a large pot of heavily salted water to a rolling boil. Cook the fresh tagliatelle for 2–3 minutes, or until al dente. Reserve a full cup of starchy pasta water before draining.',
+//       ),
+//       Duration.create(3),
+//     ),
+//     new RecipeStep(
+//       StepOrder.create(6),
+//       StepInstruction.create(
+//         'Add the drained tagliatelle directly into the ragù. Toss over medium heat, adding pasta water a splash at a time until the sauce coats every strand. Plate immediately and finish with freshly grated Parmigiano Reggiano.',
+//       ),
+//       undefined,
+//       [
+//         'Tossing in the sauce — not topping it — is what makes a ragù become part of the pasta, not just sit on top.',
+//       ],
+//     ),
+//   ],
+// });

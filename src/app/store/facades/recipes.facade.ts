@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
 import { RecipePreferences } from '../../core/domain/value-objects/recipe-preferences.vo';
 import {
@@ -8,7 +8,11 @@ import {
   setRecipeSelected,
 } from '../actions/recipes.actions';
 import { AppState } from '../app.state';
-import { selectRequestedRecipes } from '../selectors/recipes.selector';
+import {
+  selectRequestedRecipes,
+  selectSelectedRecipe,
+  selectSelectedRecipeId,
+} from '../selectors/recipes.selector';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesFacade {
@@ -22,7 +26,23 @@ export class RecipesFacade {
     return this.requestedRecipes$;
   }
 
-  setRecipeSelected(recipeId: number): void {
+  get selectedRecipe(): Observable<Recipe | null> {
+    const _id = this.store.select(selectSelectedRecipe);
+    return this.store.select(selectSelectedRecipeId).pipe(
+      map((id) => {
+        if (id === null) return null;
+        let selectedRecipe: Recipe | null = null;
+        this.requestedRecipes$
+          .subscribe((recipes) => {
+            selectedRecipe = recipes.find((r: Recipe) => r._id === id) || null;
+          })
+          .unsubscribe();
+        return selectedRecipe;
+      }),
+    );
+  }
+
+  setRecipeSelected(recipeId: string): void {
     this.store.dispatch(setRecipeSelected({ recipeId }));
   }
 

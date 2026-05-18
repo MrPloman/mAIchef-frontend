@@ -6,6 +6,11 @@ export const RECIPES_FEATURE_KEY = 'recipes';
 export const selectRecipesState =
   createFeatureSelector<RecipesState>(RECIPES_FEATURE_KEY);
 
+export const selectSelectedRecipeId = createSelector(
+  selectRecipesState,
+  (recipesState) => recipesState.selectedRecipe,
+);
+
 export const selectRequestedRecipes = createSelector(
   selectRecipesState,
   (recipesState) => recipesState.recipes,
