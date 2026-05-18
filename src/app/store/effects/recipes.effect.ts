@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, delay, map, of, switchMap, tap } from 'rxjs';
 import { RECIPES_REQUESTED_AI_PORT } from '../../core/ports/recipes.ports';
-import { RecipesHelperService } from '../../shared/utils/recipes.helper';
+import { RecipesService } from '../../shared/services/recipes.service';
 import {
   getRecipesRequested,
   getRecipesRequestedFailure,
@@ -19,7 +19,7 @@ export class RecipesEffects {
   private store = inject(Store<AppState>);
   private router = inject(Router);
   private parseRecipeResponseToModel =
-    inject(RecipesHelperService).parseRecipeResponseToModel;
+    inject(RecipesService).parseRecipeResponseToModel;
 
   public getRecipesRequested = createEffect(() =>
     this.actions$.pipe(
