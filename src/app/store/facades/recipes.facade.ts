@@ -18,6 +18,10 @@ export class RecipesFacade {
 
   constructor(private readonly store: Store<AppState>) {}
 
+  get returnRecipesRequested() {
+    return this.requestedRecipes$;
+  }
+
   setRecipeSelected(recipeId: number): void {
     this.store.dispatch(setRecipeSelected({ recipeId }));
   }
