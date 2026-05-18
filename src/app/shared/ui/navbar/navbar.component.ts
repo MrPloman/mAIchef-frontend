@@ -19,6 +19,7 @@ import { Store } from '@ngrx/store';
 import { Subscription, filter, firstValueFrom } from 'rxjs';
 import { LoaderFacade } from '../../../store/facades/loader.facade';
 import { selectLengthOfRecipes } from '../../../store/selectors/recipes.selector';
+import { navItems } from '../../constants/index';
 
 @Component({
   selector: 'app-navbar',
@@ -31,19 +32,8 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
   @ViewChild('bubble') bubbleEl!: ElementRef<HTMLElement>;
   @ViewChildren('navBtn') navBtns!: QueryList<ElementRef<HTMLElement>>;
 
-  navItems: any[] = [
-    { label: 'Home', icon: '⌂', route: '/home', enabled: true },
-    { label: 'Results', icon: '◎', route: '/results', enabled: false },
-    {
-      label: 'Lists',
-      icon: '◷',
-      route: '/lists',
-      enabled: false,
-    },
-    { label: 'Profile', icon: '👤', route: '/profile', enabled: true },
-  ];
   public loading$ = this.loadingFacade.isLoading$;
-
+  public navItems = navItems;
   private routerSub!: Subscription;
 
   constructor(
