@@ -3,6 +3,48 @@
 @use "sass:color";
 @use "sass:map";
 
+.fab {
+  position: absolute;
+  left: 20%;
+  top: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &--back {
+    background-color: variables.$color-primary;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+      background-color: #f0f0f0;
+      color: #000000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transform: translateX(-2px); // subtle slide hint on hover
+    }
+
+    &:active {
+      transform: scale(0.92);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+  }
+}
+
 // ── Page Shell ────────────────────────────────────────────────────────────────
 .page {
   min-height: 100vh;

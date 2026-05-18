@@ -1,5 +1,5 @@
 <div id="results-grid">
-  @for (recipe of recipes; track recipe) {
+  @for (recipe of recipes$ | async; track recipe) {
     <app-recipe-card [recipe]="recipe"></app-recipe-card>
   }
 </div>

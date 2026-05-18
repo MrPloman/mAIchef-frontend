@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -6,24 +7,16 @@ import { selectRequestedRecipes } from '../../store/selectors/recipes.selector';
 
 @Component({
   selector: 'app-results',
-  imports: [RecipeCardComponent],
+  imports: [RecipeCardComponent, AsyncPipe],
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss',
 })
 export class ResultsComponent {
-  private recipes$ = this.store.select(selectRequestedRecipes);
+  public recipes$ = this.store.select(selectRequestedRecipes);
   constructor(
     private store: Store,
     private router: Router,
-  ) {
-    this.recipes$.subscribe((recipes) => {
-      if (recipes.length > 0) {
-        this.recipes = recipes;
-      } else {
-        this.router.navigate(['/']);
-      }
-    });
-  }
+  ) {}
   recipes: any[] = [
     // {
     //   _id: '1',
@@ -34,11 +27,31 @@ export class ResultsComponent {
     //   estimatedTimeInMinutes: 25,
     //   servings: 2,
     //   ingredients: [
-    //     { name: 'Spaghetti', quantity: 200, unit: 'g' },
-    //     { name: 'Guanciale', quantity: 100, unit: 'g' },
-    //     { name: 'Egg yolks', quantity: 4, unit: '' },
-    //     { name: 'Pecorino Romano', quantity: 60, unit: 'g' },
-    //     { name: 'Black pepper', quantity: 1, unit: 'tsp' },
+    //     {
+    //       name: new IngredientName('Spaghetti'),
+    //       quantity: new Quantity(200),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Guanciale'),
+    //       quantity: new Quantity(100),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Egg yolks'),
+    //       quantity: new Quantity(4),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Pecorino Romano'),
+    //       quantity: new Quantity(60),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Black pepper'),
+    //       quantity: new Quantity(1),
+    //       unit: new Unit('TSP'),
+    //     },
     //   ],
     //   createdAt: new Date('2024-03-15'),
     // },
@@ -51,10 +64,26 @@ export class ResultsComponent {
     //   estimatedTimeInMinutes: 45,
     //   servings: 4,
     //   ingredients: [
-    //     { name: 'Roma tomatoes', quantity: 900, unit: 'g' },
-    //     { name: 'Heavy cream', quantity: 120, unit: 'ml' },
-    //     { name: 'Garlic cloves', quantity: 5, unit: '' },
-    //     { name: 'Fresh basil', quantity: 15, unit: 'g' },
+    //     {
+    //       name: new IngredientName('Roma tomatoes'),
+    //       quantity: new Quantity(900),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Heavy cream'),
+    //       quantity: new Quantity(120),
+    //       unit: new Unit('ML'),
+    //     },
+    //     {
+    //       name: new IngredientName('Garlic cloves'),
+    //       quantity: new Quantity(5),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Fresh basil'),
+    //       quantity: new Quantity(15),
+    //       unit: new Unit('G'),
+    //     },
     //   ],
     //   createdAt: new Date('2024-04-02'),
     // },
@@ -67,12 +96,36 @@ export class ResultsComponent {
     //   estimatedTimeInMinutes: 90,
     //   servings: 2,
     //   ingredients: [
-    //     { name: 'Dry-aged ribeye', quantity: 600, unit: 'g' },
-    //     { name: 'Unsalted butter', quantity: 60, unit: 'g' },
-    //     { name: 'Rosemary sprigs', quantity: 3, unit: '' },
-    //     { name: 'Garlic cloves', quantity: 4, unit: '' },
-    //     { name: 'Flaky sea salt', quantity: 2, unit: 'tsp' },
-    //     { name: 'Cracked pepper', quantity: 1, unit: 'tbsp' },
+    //     {
+    //       name: new IngredientName('Dry-aged ribeye'),
+    //       quantity: new Quantity(600),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Unsalted butter'),
+    //       quantity: new Quantity(60),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Rosemary sprigs'),
+    //       quantity: new Quantity(3),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Garlic cloves'),
+    //       quantity: new Quantity(4),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Flaky sea salt'),
+    //       quantity: new Quantity(2),
+    //       unit: new Unit('TSP'),
+    //     },
+    //     {
+    //       name: new IngredientName('Cracked pepper'),
+    //       quantity: new Quantity(1),
+    //       unit: new Unit('TSP'),
+    //     },
     //   ],
     //   createdAt: new Date('2024-05-10'),
     // },
@@ -85,11 +138,31 @@ export class ResultsComponent {
     //   estimatedTimeInMinutes: 25,
     //   servings: 2,
     //   ingredients: [
-    //     { name: 'Spaghetti', quantity: 200, unit: 'g' },
-    //     { name: 'Guanciale', quantity: 100, unit: 'g' },
-    //     { name: 'Egg yolks', quantity: 4, unit: '' },
-    //     { name: 'Pecorino Romano', quantity: 60, unit: 'g' },
-    //     { name: 'Black pepper', quantity: 1, unit: 'tsp' },
+    //     {
+    //       name: new IngredientName('Spaghetti'),
+    //       quantity: new Quantity(200),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Guanciale'),
+    //       quantity: new Quantity(100),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Egg yolks'),
+    //       quantity: new Quantity(4),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Pecorino Romano'),
+    //       quantity: new Quantity(60),
+    //       unit: new Unit('G'),
+    //     },
+    //     {
+    //       name: new IngredientName('Black pepper'),
+    //       quantity: new Quantity(1),
+    //       unit: new Unit('TSP'),
+    //     },
     //   ],
     //   createdAt: new Date('2024-03-15'),
     // },

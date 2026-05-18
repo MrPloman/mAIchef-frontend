@@ -6,6 +6,22 @@
       'appear-now': !(loading$ | async),
     }"
   >
+    <button class="fab fab--back" (click)="goBack()" aria-label="Go back">
+      <svg
+        class="fab__icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M19 12H5M5 12l7 7M5 12l7-7"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
     <div class="container">
       <!-- ── Hero card ─────────────────────────────────────────────────────── -->
       <div class="hero-card">

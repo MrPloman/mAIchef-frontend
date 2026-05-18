@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RecipeStep } from '../../core/domain/models/recipe/recipe-step.model';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
 import { Difficulty } from '../../core/domain/value-objects/difficulty.vo';
@@ -29,6 +30,7 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private loadingFacade: LoaderFacade,
     private authFacade: AuthFacade,
+    private router: Router,
   ) {}
   recipe: Recipe = MOCK_RECIPE;
   public isAuthenticated$ = this.authFacade.isAuthenticated$;
@@ -81,6 +83,9 @@ export class RecipeDetailComponent implements OnInit {
 
   trackByOrder(_: number, step: RecipeStep): number {
     return step.order.getValue();
+  }
+  goBack() {
+    this.router.navigate(['/results']);
   }
 }
 

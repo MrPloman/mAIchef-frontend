@@ -1,5 +1,4 @@
 <article class="recipe-card group">
-  <!-- Difficulty ribbon -->
   <div
     class="difficulty-ribbon"
     [ngClass]="
@@ -14,11 +13,31 @@
 
   <!-- Card header -->
   <header class="recipe-card__header">
-    <div class="recipe-card__title-wrap">
-      <p class="recipe-card__eyebrow">Recipe</p>
-      <h2 class="recipe-card__title">{{ recipe.title }}</h2>
+    <div class="recipe-card__header-information">
+      <div class="recipe-card__title-wrap">
+        <p class="recipe-card__eyebrow">Recipe</p>
+        <h2 class="recipe-card__title">{{ recipe.title }}</h2>
+      </div>
+      <p class="recipe-card__description">{{ recipe.description }}</p>
     </div>
-    <p class="recipe-card__description">{{ recipe.description }}</p>
+    @if (isAuthenticated$ | async) {
+      <div class="fab-group">
+        <button class="fab fab--like">
+          <svg
+            class="fab__icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+          </svg>
+        </button>
+      </div>
+    }
   </header>
 
   <!-- Divider -->
@@ -84,7 +103,7 @@
       {{ recipe.createdAt | date: "dd MMM yyyy" }}
     </time>
 
-    <button class="recipe-card__cta" type="button">
+    <button class="recipe-card__cta" type="button" (click)="viewRecipe()">
       View Recipe
       <span class="recipe-card__cta-arrow" aria-hidden="true">→</span>
     </button>
