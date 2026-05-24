@@ -39,6 +39,6 @@ export class RecipeCardComponent {
   public viewRecipe() {
     this.recipesFacade.setRecipeSelected(this.recipe._id);
 
-    this.router.navigate(['/recipe', this.recipe._id]);
+    this.router.navigate(['/recipe']);
   }
 }

@@ -31,7 +31,7 @@ export const routes: Routes = [
       import('./features/auth/auth.component').then((m) => m.AuthComponent),
   },
   {
-    path: 'recipe/:id',
+    path: 'recipe',
     loadComponent: () =>
       import('./features/recipe-detail/recipe-detail.component').then(
         (m) => m.RecipeDetailComponent,

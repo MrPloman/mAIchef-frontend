@@ -18,7 +18,6 @@ import { RecipesFacade } from '../../store/facades/recipes.facade';
   imports: [
     ReplanActions,
     ReplanTextareaComponent,
-    ReplanTextareaComponent,
     RecipeDetailLoaderComponent,
     CommonModule,
   ],
@@ -29,25 +28,22 @@ export class RecipeDetailComponent implements OnInit {
     private loadingFacade: LoaderFacade,
     private authFacade: AuthFacade,
     private router: Router,
-  ) {
-    this.recipesFacade.selectedRecipe.subscribe((r) => (this.recipe = r));
-  }
+  ) {}
   public recipe$: Observable<Recipe | null> = this.recipesFacade.selectedRecipe;
-  public recipe: Recipe | null = null;
   public isAuthenticated$ = this.authFacade.isAuthenticated$;
   public loading$ = this.loadingFacade.isLoading$;
   public showLoader$ = this.loadingFacade.showLoader$;
-  get difficultyClass(): string {
-    return this.recipe?.difficulty?.getValue().toLowerCase() || '';
-  }
+  // get difficultyClass(): string {
+  //   return this.recipe?.difficulty?.getValue().toLowerCase() || '';
+  // }
 
-  get ingredientCount(): number {
-    return this.recipe?.ingredients.length || 0;
-  }
+  // get ingredientCount(): number {
+  //   return this.recipe$?.ingredients.length || 0;
+  // }
 
-  get stepCount(): number {
-    return this.recipe?.steps.length || 0;
-  }
+  // get stepCount(): number {
+  //   return this.recipe?.steps.length || 0;
+  // }
 
   ngOnInit(): void {
     // Replace with service call:

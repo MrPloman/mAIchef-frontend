@@ -3,22 +3,26 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { Recipe } from '../../core/domain/models/recipe/recipe.model';
 import { RecipesFacade } from '../../store/facades/recipes.facade';
-import { RecipesHelper } from '../helpers/recipes.helper';
 
 export const recipeDetailGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const recipeFacade = inject(RecipesFacade);
-  const recipeHelper = inject(RecipesHelper);
+  let recipe: Recipe | null = null;
 
-  const _id = route.params['id'];
-  let recipes: Recipe[] = [];
-  recipeFacade.returnRecipesRequested.subscribe((recipeList) => {
-    recipes = recipeList;
-  });
+  const recipeId = recipeFacade.selectedRecipe
+    .subscribe((r) => (recipe = r))
+    .unsubscribe();
+  if (!recipe) return router.navigate(['/home']);
+  else return true;
 
-  return recipeHelper.getRecipeById(_id, recipes)
-    ? true
-    : router.navigate(['/home']);
+  // let recipes: Recipe[] = [];
+  // recipeFacade.returnRecipesRequested.subscribe((recipeList) => {
+  //   recipes = recipeList;
+  // });
+
+  // return recipeHelper.getRecipeById(_id, recipes)
+  //   ? true
+  //   : router.navigate(['/home']);
 };
 
 export const recipesRequestedGuard: CanActivateFn = (route, state) => {

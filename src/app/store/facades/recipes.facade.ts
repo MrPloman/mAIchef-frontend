@@ -42,6 +42,10 @@ export class RecipesFacade {
     );
   }
 
+  get recipesLength$(): Observable<number> {
+    return this.requestedRecipes$.pipe(map((recipes) => recipes.length));
+  }
+
   setRecipeSelected(recipeId: string): void {
     this.store.dispatch(setRecipeSelected({ recipeId }));
   }
