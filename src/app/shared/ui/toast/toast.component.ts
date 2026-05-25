@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Toast } from '../../models/toast.model';
 import { ToastService } from '../../services/toast.service';
 
@@ -11,12 +12,11 @@ import { ToastService } from '../../services/toast.service';
   styleUrl: './toast.component.scss',
 })
 export class ToastComponent {
+  public trustedHtml: SafeHtml = '';
+
+  private sanitizer = inject(DomSanitizer);
+
   toastService = inject(ToastService);
-
-  trackById(_: number, toast: Toast) {
-    return toast.id;
-  }
-
   icons: Record<string, string> = {
     success: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -31,4 +31,12 @@ export class ToastComponent {
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z" />
     </svg>`,
   };
+  trackById(_: number, toast: Toast) {
+    return toast.id;
+  }
+
+  public setContent(rawHtml: string) {
+    // Explicitly bypass security for this specific string
+    this.trustedHtml = this.sanitizer.bypassSecurityTrustHtml(rawHtml);
+  }
 }

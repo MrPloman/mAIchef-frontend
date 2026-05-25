@@ -104,10 +104,6 @@
       class="filter-bubble multi-select"
       id="multiSelectCuisinesToggle"
       (click)="toggleCuisinesDropdown()"
-      [class.error-border]="
-        recipeForm.get('cuisineTypes')?.value.length === 0 &&
-        recipeForm.get('cuisineTypes')?.touched
-      "
     >
       <span id="cuisinesLabel" class="cuisines-label">Cuisines</span>
       <svg

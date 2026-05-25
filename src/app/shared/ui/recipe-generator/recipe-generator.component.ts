@@ -64,7 +64,7 @@ export class RecipeGeneratorComponent {
         [Validators.min(1), Validators.max(640), Validators.required],
       ],
       mealTypes: [this.fb.array([]), Validators.required],
-      cuisineTypes: [this.fb.array([]), Validators.required],
+      cuisineTypes: [this.fb.array([])],
       restrictions: [this.fb.array([])], // FormArray para los checkboxes
     });
   }
@@ -107,9 +107,12 @@ export class RecipeGeneratorComponent {
             (c: string) => c !== value,
           );
         }
+        console.log(this.selectedCuisines);
+
         this.recipeForm.controls['cuisineTypes'].setValue(
           this.selectedCuisines,
         );
+
         break;
       case 'mealTypes':
         if (event.target.checked) {
