@@ -1,0 +1,646 @@
+// ─────────────────────────────────────────────
+//  RecetApp – Auth Shared Layout
+//  Import in global styles.scss:
+//    @use 'auth/shared/auth-layout' as *;
+// ─────────────────────────────────────────────
+@use "../../../variables" as *;
+
+@use "sass:color";
+
+// ── Page shell ──────────────────────────────
+.auth-page {
+  display: flex;
+  min-height: 100vh;
+  background: $background-main;
+  font-family: $font-text;
+}
+
+// ── Decorative left panel ───────────────────
+.deco-panel {
+  position: relative;
+  width: 45%;
+  max-width: 520px;
+  background: $background-modal;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 52px 48px 48px;
+
+  @media (max-width: 860px) {
+    display: none;
+  }
+
+  // Warm grain overlay
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(
+        ellipse 80% 60% at 20% 10%,
+        rgba($terracotta, 0.35) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 80% 90%,
+        rgba($amber, 0.18) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 40% at 60% 40%,
+        rgba($color-primary, 0.12) 0%,
+        transparent 60%
+      );
+    pointer-events: none;
+  }
+
+  // Floating deco shapes
+  &::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    border: 1px solid rgba(white, 0.07);
+    top: -60px;
+    right: -80px;
+    pointer-events: none;
+  }
+}
+
+.deco-brand {
+  position: relative;
+  z-index: 2;
+
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(white, 0.08);
+    border: 1px solid rgba(white, 0.14);
+    padding: 8px 16px;
+    border-radius: 100px;
+    backdrop-filter: blur(6px);
+  }
+
+  .brand-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .brand-name {
+    font-family: $font-title;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $cream;
+    letter-spacing: 0.04em;
+  }
+}
+
+.deco-content {
+  position: relative;
+  z-index: 2;
+
+  .deco-headline {
+    font-family: $font-title;
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: $cream;
+    margin: 0 0 20px;
+
+    em {
+      font-style: italic;
+      color: $color-secondary;
+    }
+  }
+
+  .deco-sub {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba($cream, 0.62);
+    max-width: 280px;
+  }
+}
+
+.deco-recipe-card {
+  position: relative;
+  z-index: 2;
+  background: rgba($cream, 0.07);
+  border: 1px solid rgba($cream, 0.12);
+  border-radius: 16px;
+  padding: 20px 22px;
+  backdrop-filter: blur(10px);
+
+  .recipe-card-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $color-secondary;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .recipe-card-title {
+    font-family: $font-title;
+    font-size: 1.1rem;
+    color: $cream;
+    margin-bottom: 12px;
+  }
+
+  .recipe-card-meta {
+    display: flex;
+    gap: 16px;
+
+    span {
+      font-size: 0.78rem;
+      color: rgba($cream, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+}
+
+// Floating decorative blobs
+.deco-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+
+  &--1 {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(
+      circle,
+      rgba($terracotta, 0.3),
+      transparent 70%
+    );
+    top: 30%;
+    right: -60px;
+  }
+
+  &--2 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba($amber, 0.25), transparent 70%);
+    bottom: 28%;
+    left: -30px;
+  }
+
+  &--3 {
+    width: 60px;
+    height: 60px;
+    border: 1px dashed rgba($color-secondary, 0.3);
+    top: 52%;
+    right: 60px;
+    animation: spin-slow 18s linear infinite;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Right form panel ────────────────────────
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  overflow-y: auto;
+}
+
+.auth-form-wrap {
+  width: 100%;
+  max-width: 420px;
+  animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Mobile brand (shown when deco panel hidden)
+.auth-mobile-brand {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+
+  @media (max-width: 860px) {
+    display: flex;
+  }
+
+  .brand-icon {
+    font-size: 22px;
+  }
+  .brand-name {
+    font-family: $font-title;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $background-modal;
+  }
+}
+
+// ── Form heading block ───────────────────────
+.auth-heading {
+  margin-bottom: 32px;
+
+  .auth-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $color-secondary;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: $font-title;
+    font-size: clamp(1.7rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: $ink;
+    line-height: 1.15;
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: $warm-gray;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+// ── Form controls ───────────────────────────
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: $ink;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+}
+
+.input-wrapper {
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $warm-gray;
+    font-size: 16px;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $warm-gray;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    transition: color $transition;
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: 13px 14px 13px 42px;
+  border: 1.5px solid $border;
+  border-radius: $input-radius;
+  background: white;
+  font-family: $font-text;
+  font-size: 0.92rem;
+  color: $text-primary;
+  transition:
+    border-color $transition,
+    box-shadow $transition,
+    background $transition;
+  box-sizing: border-box;
+  outline: none;
+
+  &::placeholder {
+    color: rgba($warm-gray, 0.55);
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+    background: white;
+  }
+
+  &.is-invalid {
+    border-color: $color-primary;
+    background: rgba($color-primary, 0.03);
+  }
+
+  &.no-icon {
+    padding-left: 14px;
+  }
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: $color-primary;
+  margin-top: 6px;
+  animation: errFade 0.2s ease;
+}
+
+@keyframes errFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Submit button ───────────────────────────
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: $color-primary;
+  color: white;
+  border: none;
+  border-radius: $btn-radius;
+  font-family: $font-text;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    background $transition,
+    transform $transition,
+    box-shadow $transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(white, 0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  &:hover:not(:disabled) {
+    background: color.adjust(#e63946, $lightness: -7%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(#e63946, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 13px;
+  background: transparent;
+  color: $ink;
+  border: 1.5px solid $border;
+  border-radius: $btn-radius;
+  font-family: $font-text;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color $transition,
+    background $transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    border-color: $ink;
+    background: rgba($ink, 0.04);
+  }
+}
+
+// Spinner
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(white, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Extras ──────────────────────────────────
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 12px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: $color-primary;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  label {
+    font-size: 0.83rem;
+    color: $warm-gray;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+.link-primary {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: $color-primary;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color $transition;
+
+  &:hover {
+    color: color.adjust(#e63946, $lightness: -12%);
+    text-decoration: underline;
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  color: rgba($warm-gray, 0.6);
+  font-size: 0.78rem;
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: $border;
+  }
+}
+
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: $warm-gray;
+
+  a {
+    color: $color-primary;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Password strength bar
+.password-strength {
+  margin-top: 10px;
+
+  .strength-bars {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+
+    span {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: $border;
+      transition: background 0.3s ease;
+
+      &.active-weak {
+        background: $color-primary;
+      }
+      &.active-fair {
+        background: $color-secondary;
+      }
+      &.active-good {
+        background: $amber;
+      }
+      &.active-strong {
+        background: $color-accent;
+      }
+    }
+  }
+
+  .strength-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: $warm-gray;
+
+    &.weak {
+      color: $color-primary;
+    }
+    &.fair {
+      color: $color-secondary;
+    }
+    &.good {
+      color: $amber;
+    }
+    &.strong {
+      color: $color-accent;
+    }
+  }
+}
+
+// Success state
+.success-box {
+  text-align: center;
+  padding: 40px 24px;
+  animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+
+  .success-icon {
+    width: 72px;
+    height: 72px;
+    background: rgba($color-accent, 0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-family: $font-title;
+    font-size: 1.6rem;
+    color: $ink;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $warm-gray;
+    line-height: 1.65;
+    max-width: 300px;
+    margin: 0 auto 24px;
+  }
+}

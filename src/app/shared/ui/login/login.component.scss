@@ -1,0 +1,10 @@
+// login.component.scss
+// NOTE: Add src/styles to angular.json > stylePreprocessorOptions > includePaths
+// so this @use path resolves. Adjust relative path if needed.
+@use "../../../../variables" as *;
+@use "../../../features/auth/auth.component.scss" as authStyles;
+
+// Component-specific overrides (if any) go here
+:host {
+  display: block;
+}

@@ -54,7 +54,7 @@ export class RecipeGeneratorComponent {
 
   ngOnInit(): void {
     this.recipeForm = this.fb.group({
-      recipePrompt: ['', Validators.required],
+      recipePrompt: ['', [Validators.minLength(10), Validators.required]],
       servings: [
         null,
         [Validators.min(1), Validators.max(12), Validators.required],

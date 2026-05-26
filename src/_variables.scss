@@ -2,6 +2,7 @@
 @import "@fontsource/inter/600.css";
 @import "@fontsource/playfair-display/400.css";
 @import "@fontsource/playfair-display/700.css";
+
 // Colores principales
 $color-primary: #e63946; // rojo tomate (botones principales)
 $color-secondary: #f4a261; // naranja cálido (destacados)
@@ -30,3 +31,9 @@ $text-on-dark: white;
 
 $font-title: "Playfair Display", serif;
 $font-text: "Inter", sans-serif;
+
+// Shared Auth layout tokens
+$panel-width-desktop: 420px;
+$input-radius: 10px;
+$btn-radius: 10px;
+$transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);

@@ -6,10 +6,6 @@ export class Duration {
       throw new Error('Duration must be positive');
     }
 
-    if (value > 600) {
-      throw new Error('Duration too large');
-    }
-
     return new Duration(value);
   }
 
