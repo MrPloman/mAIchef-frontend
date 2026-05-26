@@ -1,0 +1,19 @@
+@use "../../../../variables" as *;
+@use "./../../../features//auth/auth.component.scss";
+
+:host {
+  display: block;
+}
+
+// Card override for benefits list inside deco panel
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  p {
+    font-size: 0.82rem;
+    color: rgba($cream, 0.7);
+    margin: 0;
+  }
+}
