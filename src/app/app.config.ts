@@ -1,6 +1,10 @@
 import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withPreloading,
+} from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
@@ -18,7 +22,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideStore(appReducers),
-
+    provideRouter(routes, withPreloading(PreloadAllModules)),
     provideEffects([LoaderEffects, RecipesEffects]),
     provideStoreDevtools(),
     provideHttpClient(),

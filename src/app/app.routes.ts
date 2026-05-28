@@ -27,8 +27,8 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    loadComponent: () =>
-      import('./features/auth/auth.component').then((m) => m.AuthComponent),
+    loadChildren: () =>
+      import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
   },
   {
     path: 'recipe',

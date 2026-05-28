@@ -2,7 +2,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { DecoAsideComponent } from '../deco-aside/deco-aside.component';
+import { DecoAsideComponent } from '../../../shared/ui/deco-aside/deco-aside.component';
 
 @Component({
   selector: 'app-login',
