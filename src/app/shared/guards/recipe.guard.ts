@@ -14,15 +14,6 @@ export const recipeDetailGuard: CanActivateFn = (route, state) => {
     .unsubscribe();
   if (!recipe) return router.navigate(['/home']);
   else return true;
-
-  // let recipes: Recipe[] = [];
-  // recipeFacade.returnRecipesRequested.subscribe((recipeList) => {
-  //   recipes = recipeList;
-  // });
-
-  // return recipeHelper.getRecipeById(_id, recipes)
-  //   ? true
-  //   : router.navigate(['/home']);
 };
 
 export const recipesRequestedGuard: CanActivateFn = (route, state) => {

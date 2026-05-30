@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../../shared/guards/auth.guard';
 import { AuthComponent } from './auth.component';
 
 export const AUTH_ROUTES: Routes = [
@@ -22,11 +23,13 @@ export const AUTH_ROUTES: Routes = [
           import('./register/register.component').then(
             (m) => m.RegisterComponent,
           ),
+        canActivate: [],
       },
       {
         path: 'reset',
         loadComponent: () =>
           import('./reset/reset.component').then((m) => m.ResetComponent),
+        canActivate: [],
       },
       {
         path: 'recovery',
@@ -34,6 +37,12 @@ export const AUTH_ROUTES: Routes = [
           import('./recovery/recovery.component').then(
             (m) => m.RecoveryComponent,
           ),
+      },
+      {
+        path: 'profile',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./auth.component').then((m) => m.AuthComponent),
       },
     ],
   },
